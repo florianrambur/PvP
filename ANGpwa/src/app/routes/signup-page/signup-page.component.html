@@ -1,0 +1,10 @@
+<h2>Sign up</h2>
+
+<form [formGroup]="form" (submit)="signup()">
+  <input type="text" name="first_name" formControlName="first_name">
+  <input type="text" name="last_name" formControlName="last_name">
+  <input type="email" name="email" formControlName="email">
+  <input type="password" name="password" formControlName="password">
+
+  <button type="submit" [disabled]="!form.valid">Sign Up</button>
+</form>

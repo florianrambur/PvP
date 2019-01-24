@@ -1,0 +1,7 @@
+<h2>Login</h2>
+<form [formGroup]="form" (submit)="login()">
+  <input type="email" name="email" formControlName="email">
+  <input type="password" name="password" formControlName="password">
+  
+  <button type="submit" [disabled]="!form.valid">Login</button>
+</form>
