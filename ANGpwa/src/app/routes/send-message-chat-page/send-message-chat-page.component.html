@@ -1,7 +1,0 @@
-<h2>New Message</h2>
-
-<form [formGroup]="form" (submit)="newMessage()">
-  <input type="text" name="content" formControlName="content">
-
-  <button type="submit" [disabled]="!form.valid">Créer un message</button>
-</form>
