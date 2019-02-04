@@ -1,0 +1,8 @@
+{
+  "name": "frontPvP",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "908febf6"
+}

@@ -18,7 +18,7 @@ Methods
                 rules: body.rules,
                 isValidate: false,
                 author: userId,
-                date: new Date() 
+                date: new Date()
             }
 
             // create new game

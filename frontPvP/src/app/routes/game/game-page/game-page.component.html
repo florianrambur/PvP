@@ -1,0 +1,20 @@
+<div *ngIf="gameInformation">
+  <h1>{{ gameInformation.game.name }}</h1>
+  <h5>
+    <span *ngFor="let platform of gameInformation.game.platforms">
+      {{ platform.name }} 
+    </span>
+  </h5>
+  
+  <h3>Modes de jeux</h3>
+  <div *ngFor="let mode of gameInformation.game.modes">
+    <ion-item>{{ mode.name }} - {{ mode.description }} </ion-item>
+  </div>
+
+  <h3>Règles du jeu</h3>
+  <div *ngFor="let rule of gameInformation.game.rules">
+    <ion-item>{{ rule.name }} - {{ rule.description }}</ion-item>
+  </div>
+</div>
+
+<ion-icon name="trash" size="large" (click)="deleteGame(gameInformation.game._id)"></ion-icon>

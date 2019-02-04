@@ -22,7 +22,14 @@ const register = (body, res) => {
                     body.password = hashedPassword;
 
                     // Register new user
-                    UserModel.create(body)
+                    const newUser = {
+                        pseudo: body.pseudo,
+                        email: body.email,
+                        password: body.password,
+                        countConnection: 0,
+                        parameters: body.parameters
+                    }
+                    UserModel.create(newUser)
                     .then( mongoResponse => resolve(mongoResponse) )
                     .catch( mongoResponse => reject(mongoResponse) )
                 })
@@ -45,7 +52,7 @@ const login = (body, req, res) => {
                 else {
                     // Set cookie
                     res.cookie("OTPBDtoken", user.generateJwt(), { httpOnly: true });
-
+                    updateCountConnection(body);
                     // Resolve user data
                     resolve(user)
                 }
@@ -54,9 +61,26 @@ const login = (body, req, res) => {
     })
 }
 
+const updateCountConnection = (body) => {
+    return new Promise( (resolve, reject) => {
+        UserModel.findOne( { email: body.email }, (error, user) => {
+            if(error) reject(error)
+            else {
+                UserModel.updateOne({ email: body.email }, {
+                    $set: {
+                        countConnection: user.countConnection + 1
+                    }
+                })
+                .then( mongoResponse => resolve(mongoResponse) )
+                .catch( mongoResponse => reject(mongoResponse) )
+            }
+        });
+    });
+}
+
 const read = body => {
     return new Promise( (resolve, reject) => {
-        console.log('test',body)
+        console.log('test', body)
         UserModel.findOne( { email: body.email }, (error, user) => {
             if(error) reject(error) // Mongo Error
             else {

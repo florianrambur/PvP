@@ -30,7 +30,7 @@ Server configuration
                 res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
                 res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
                 next();
-              });
+            });
 
             //=> Body-parser
             server.use(bodyParser.json({limit: '10mb'}));

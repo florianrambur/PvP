@@ -28,7 +28,7 @@ Routes definition
                 // Error: no body present
                 if (typeof req.body === 'undefined' || req.body === null) { sendBodyError(res, 'No body data provided') }
                 // Check fields in the body
-                const { miss, extra, ok } = checkFields(['email', 'password', 'first_name', 'last_name'], req.body);
+                const { miss, extra, ok } = checkFields(['email', 'password', 'pseudo', 'parameters'], req.body);
                 //=> Error: bad fields provided
                 if (!ok) { sendFieldsError(res, 'Bad fields provided', miss, extra) }
                 //=> Request is valid: use controller
@@ -61,9 +61,20 @@ Routes definition
                 req.cookies['OTPBDtoken']
 
                 read(req.body)
-                .then( apiResponse => sendApiSuccessResponse(res, 'User is logged', apiResponse) )
+                .then( apiResponse => sendApiSuccessResponse(req.body, 'Get the user data', apiResponse) )
+                .catch( apiResponse => sendApiErrorResponse(res, 'Error during user login', apiResponse))
+            });
+
+            /*
+            authRouter.get( '/me', this.passport.authenticate('jwt', { session: false}), (req, res) => {
+
+                req.cookies['OTPBDtoken'];
+
+                read(req.user)
+                .then( apiResponse => sendApiSuccessResponse(res, 'Get the user data', apiResponse) )
                 .catch( apiResponse => sendApiErrorResponse(res, 'Error during user login', apiResponse))
             })
+            */
         }
 
         init(){

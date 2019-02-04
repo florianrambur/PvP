@@ -9,11 +9,17 @@ Import
 /*
 Definition
 */
+    const parameterSchema = new Schema({
+        twitch: String,
+        discord: String
+    });
+
     const userSchema = new Schema({
-        first_name: String,
-        last_name: String,
+        pseudo: String,
         email: String,
-        password: String
+        password: String,
+        countConnection: Number,
+        parameters: parameterSchema
     });
 //
 

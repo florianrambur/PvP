@@ -1,0 +1,20 @@
+.tutorialSlide {
+    height: 100vh;
+}
+
+.tutorialSlide {
+    background: linear-gradient(to bottom right, #DA2337, rgba(0,0,0,1) 150%);
+}
+
+.swiper-pagination {
+    bottom: 10px;
+    width: 100px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+}
+
+.slides-ios {
+    --bullet-background-active: #FFC100;
+    --bullet-background: #1A2B63;
+    opacity: 1;
+}

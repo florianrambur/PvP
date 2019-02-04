@@ -1,0 +1,65 @@
+/* Message */
+
+.errorMessage {
+    background-color: #FFBABA;
+    border: 1px solid #D8000C;
+}
+
+.successMessage {
+    background-color: #D4EDDA;
+    border: 1px solid #C3E6CB;
+}
+
+.warningMessage {
+    background-color: #FFF3CD;
+    border: 1px solid #FFEEBA;
+}
+
+/* Color */
+
+.whiteColor {
+    color: #FFFFFF;
+}
+
+.yellowColor {
+    color: #FFC100;
+}
+
+/* Size */
+
+.maxWidth160 {
+    max-width: 160px;
+    margin: 0 auto;
+}
+
+/* Position */
+
+.divCenter {
+    display: block;
+    margin: 0 auto;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.absoluteBottomLeft {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 20;
+}
+
+.absoluteBottomRight {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 20;
+}

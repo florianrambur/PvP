@@ -1,0 +1,29 @@
+<ion-slides class="tutorialSlide" pager="true" [options]="slideOpts">
+	<ion-slide class="whiteColor">
+		<span class="absoluteBottomLeft" routerLink="/tabs/home">SKIP</span>
+		<div class="absoluteCenter" style="width: 80%"> 
+			<ion-img class="maxWidth160" src="../../../assets/images/tutorial_plan.png" alt="Plan your tournament"></ion-img>
+			<h6><b>Plan your own tournament</b></h6>
+			<p>Create, organize, and play with everybody!</p>
+		</div>
+		<span class="absoluteBottomRight yellowColor" type="submit" (click)="slideNext()">Next ></span>
+	</ion-slide>
+	<ion-slide class="whiteColor">
+		<span class="absoluteBottomLeft yellowColor" type="submit" (click)="slidePrev()">< Prev</span>
+		<div class="absoluteCenter" style="width: 80%">
+			<ion-img class="maxWidth160" src="../../../assets/images/tutorial_plan.png" alt="Plan your tournament"></ion-img>
+			<h6><b>Ad your favorite games </b></h6>
+			<p>A particular game not existing in out app ? Add it!</p>
+		</div>
+		<span class="absoluteBottomRight yellowColor" type="submit" (click)="slideNext()">Next ></span>
+	</ion-slide>
+	<ion-slide class="whiteColor">
+		<span class="absoluteBottomLeft yellowColor" type="submit" (click)="slidePrev()">< Prev</span>
+		<div class="absoluteCenter" style="width: 80%">
+			<ion-img class="maxWidth160" src="../../../assets/images/tutorial_plan.png" alt="Plan your tournament"></ion-img>
+			<h6><b>LAN & Online</b></h6>
+			<p>Create, organize, and play with everybody!</p>
+		</div>
+		<span class="absoluteBottomRight" routerLink="/tabs/home">I GOT IT!</span>
+	</ion-slide>
+</ion-slides>

@@ -1,0 +1,8 @@
+<section *ngIf="gamesCollection">
+  <article *ngFor="let game of gamesCollection">
+
+    <ion-item [routerLink]="'/game/fiche/' + game.game._id" routerDirection="forward">{{ game.game.name }} créé par {{ game.user.email }}</ion-item>
+
+  </article>
+
+</section>
