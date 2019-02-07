@@ -1,5 +1,5 @@
 <ion-content>
-  <section *ngIf="gamesCollection">
+  <section *ngIf="gamesCollection; else elseNoGame">
     <article *ngFor="let game of gamesCollection">
 
       <!--<ion-item [routerLink]="'/game/fiche/' + game.game._id" routerDirection="forward">{{ game.game.name }} créé par {{ game.user.email }}</ion-item>-->
@@ -14,6 +14,8 @@
           </ion-card-content>
         </ion-card>
     </article>
-
   </section>
+  <ng-template #elseNoGame>
+    There is no game for the moment.
+  </ng-template>
 </ion-content>

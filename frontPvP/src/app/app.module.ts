@@ -17,6 +17,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { GamePageComponent } from './routes/game/game-page/game-page.component';
 import { LoginPageComponent } from './routes/login-page/login-page.component';
 import { SignupPageComponent } from './routes/signup-page/signup-page.component';
+import { CreateGamePageComponent } from './routes/game/create-game-page/create-game-page.component';
+import { CreateTournamentPageComponent } from './routes/tournament/create-tournament-page/create-tournament-page.component';
 
 // Utils
 import { UtilsService } from './services/utils/utils.service';
@@ -28,7 +30,10 @@ import { UtilsService } from './services/utils/utils.service';
     HeaderComponent,
     LoginPageComponent,
     SignupPageComponent, 
-    GamePageComponent, TutorialPageComponent
+    GamePageComponent,
+    TutorialPageComponent, 
+    CreateTournamentPageComponent, 
+    CreateGamePageComponent
   ],
   entryComponents: [],
   imports: [

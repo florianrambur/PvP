@@ -61,6 +61,19 @@ Methods
         });
     }
 
+    const readOneItemByName = (itemName) => {
+        return new Promise( (resolve, reject) => {
+            GameModel.findOne( { name: itemName.toString() }, (error, game) => {
+                if(error) reject(error)
+                else if(!game) return reject('Jeu non trouvé')
+                else {
+                    const user = getGameUser(game.author);
+                    return resolve({ user: user, game: game });
+                }
+            });
+        });
+    }
+
     const deleteItem = (itemId, userId) => {
         return new Promise( (resolve, reject) => {
             GameModel.findById(itemId, (error, game) => {
@@ -123,6 +136,7 @@ module.exports = {
     createItem,
     readItems,
     readOneItem,
+    readOneItemByName,
     deleteItem,
     updateItem
 }

@@ -8,6 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   selector: 'app-root',
   template: `
       <ion-content>
+        <div class="divCenter textCenter" id="flashMessage">
+          <span id="flashMessageContent"></span>
+        </div>
         <router-outlet></router-outlet>
       </ion-content>
     `

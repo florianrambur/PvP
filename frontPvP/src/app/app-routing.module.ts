@@ -8,15 +8,17 @@ import { LoginPageComponent } from "./routes/login-page/login-page.component";
 import { CreateGamePageComponent } from './routes/game/create-game-page/create-game-page.component';
 import { GamePageComponent } from './routes/game/game-page/game-page.component';
 import { TutorialPageComponent } from './routes/tutorial-page/tutorial-page.component';
+import { CreateTournamentPageComponent } from './routes/tournament/create-tournament-page/create-tournament-page.component';
 
 const routes: Routes = [
   { path: '', loadChildren: './routes/tabs/tabs.module#TabsPageModule' },
+  { path: 'tutorial', component: TutorialPageComponent},
   //{ path: '', component: HomePageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'game/fiche/:id', component: GamePageComponent },
-  { path: 'tutorial', component: TutorialPageComponent}
-  //{ path: 'game/new', component: CreateGamePageComponent }
+  { path: 'tournament/new', component: CreateTournamentPageComponent },
+  { path: 'game/new', component: CreateGamePageComponent }
 ];
 
 @NgModule({

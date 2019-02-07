@@ -19,7 +19,7 @@ export class GamePageComponent implements OnInit {
     ) { }
 
   private parameter: String;
-  public gameInformation: any[];
+  public gameInformation;
 
   private getGameInformation = () => {
     this.parameter = this.route.snapshot.paramMap.get('id');

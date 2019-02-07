@@ -5,11 +5,12 @@ Import
     // Node
     const express = require('express');
     const gameRouter = express.Router();
+    const mongoose = require('mongoose');
 
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { createItem, readItems, readOneItem, deleteItem, updateItem } = require('./game.controller');
+    const { createItem, readItems, readOneItem, readOneItemByName, deleteItem, updateItem } = require('./game.controller');
 //
 
 /*
@@ -38,10 +39,17 @@ Routes definition
             gameRouter.get('/:id', (req, res) => {
                 // Error : no param present
                 if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
-
-                readOneItem(req.params.id)
-                .then( apiRes => sendApiSuccessResponse(res, 'Game received', apiRes))
-                .catch( apiErr => sendApiErrorResponse(res, 'Error during get the item', apiErr));
+                if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+                    readOneItem(req.params.id)
+                    .then( apiRes => sendApiSuccessResponse(res, 'Game received', apiRes))
+                    .catch( apiErr => sendApiErrorResponse(res, 'Error during get the item', apiErr));
+                } else {
+                    const name = req.params.id;
+                    readOneItemByName(name)
+                    .then( apiRes => sendApiSuccessResponse(res, 'Game received', apiRes))
+                    .catch( apiErr => sendApiErrorResponse(res, 'Error during get the item', apiErr));
+                }
+                
             });
 
             // Create: ajout de passport dans le middleware

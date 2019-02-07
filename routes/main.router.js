@@ -4,6 +4,7 @@ Imports
     const { Router } = require('express');
     const AuthRouterClass = require('./auth/auth.routes');
     const GameRouterClass = require('./game/game.routes');
+    const TournamentRouterClass = require('./tournament/tournament.routes');
 //
 
 /* 
@@ -25,6 +26,7 @@ Define routers
     // Child
     const authRouter = new AuthRouterClass();
     const gameRouter = new GameRouterClass( { passport } );
+    const tournamentRouter = new TournamentRouterClass( { passport } );
 //
 
 /*
@@ -33,6 +35,7 @@ Configure routes
     mainRouter.use('/api', apiRouter);
     apiRouter.use('/auth', authRouter.init());
     apiRouter.use('/game', gameRouter.init());
+    apiRouter.use('/tournament', tournamentRouter.init());
 //
 
 /*

@@ -17,11 +17,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'game/new',
+        path: 'games',
         children: [
           {
             path: '',
-            loadChildren: '../game/create-game-page/tab2.module#CreateGamePageModule'
+            loadChildren: '../game/games-page/tab2.module#GamesPageModule'
           }
         ]
       },
