@@ -8,6 +8,7 @@ Imports and config
   import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   import { Router } from '@angular/router';
   // Import the service you need to use
+  import { UtilsService } from "../../services/utils/utils.service";
   import { AuthService } from "../../services/auth/auth.service";
 
 
@@ -16,7 +17,7 @@ Imports and config
   @Component({
     selector: 'app-signup-page',
     templateUrl: './signup-page.component.html',
-    providers: [ AuthService ] // All used service must be declared in the "providers" array
+    providers: [ UtilsService, AuthService ] // All used service must be declared in the "providers" array
   })
 //
 
@@ -33,6 +34,7 @@ Export
     // Injectr value in the class
     constructor(
       private FormBuilder: FormBuilder, // Inject "FormBuilder" in the class
+      private UtilsService: UtilsService,
       private AuthService: AuthService, // Inject the service you need to use in the class
       private Router: Router
     ) { }
@@ -61,6 +63,7 @@ Export
       .then( apiResponse => {
         console.log(apiResponse);
         this.Router.navigate(['/login']);
+        this.UtilsService.flashMessage('success', 'Votre compte a été créé avec succès!');
       })
       .catch( apiResponse => console.error(apiResponse) )
     }

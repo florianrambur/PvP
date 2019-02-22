@@ -80,7 +80,7 @@ export class CreateGamePageComponent implements OnInit {
     this.GameService.newGame( this.form.value.name, this.form.value.platforms, this.form.value.modes, this.form.value.rules )
     .then( apiResponse => {
       console.log(apiResponse);
-      this.Router.navigate([ '/' ]);
+      this.Router.navigate([ '/game/fiche/', apiResponse.data._id ]);
       this.UtilsService.flashMessage('success', 'Le jeu a été ajouté avec succès! Un modérateur va vérifier la fiche du jeu.');
     })
     .catch( apiResponse => console.error(apiResponse) )
