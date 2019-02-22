@@ -52,6 +52,7 @@ export class CreateTournamentPageComponent implements OnInit {
       mode: [undefined, Validators.required],
       rule: [undefined, Validators.required],
       online: [undefined, Validators.required],
+      isPrivate: [undefined, Validators.required],
       nbPlayers: [undefined, [Validators.required, Validators.min(4), Validators.max(32)]],
       startDate: [undefined, Validators.required],
       place: [undefined]
@@ -59,8 +60,11 @@ export class CreateTournamentPageComponent implements OnInit {
   }
 
   public createTournament = () => {
-    this.TournamentService.newTournament( this.form.value.game, this.form.value.name, this.form.value.description, 
-      this.form.value.mode, this.form.value.rule, this.form.value.online, this.form.value.nbPlayers, this.form.value.startDate, this.form.value.place )
+    this.TournamentService.newTournament( 
+      this.form.value.game, this.form.value.name, this.form.value.description, 
+      this.form.value.mode, this.form.value.rule, this.form.value.online, 
+      this.form.value.isPrivate, this.form.value.nbPlayers, 
+      this.form.value.startDate, this.form.value.place)
     .then( apiResponse => {
       this.Router.navigate([ '/' ]);
       this.UtilsService.flashMessage('success', 'Le tournoi a été créé avec succès!');

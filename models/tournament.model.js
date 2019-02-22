@@ -18,6 +18,7 @@ Definition
         mode: ObjectId,
         rule: ObjectId,
         online: Boolean,
+        isPrivate: Boolean,
         nbPlayers: Number,
         startDate: Date,
         place: String,

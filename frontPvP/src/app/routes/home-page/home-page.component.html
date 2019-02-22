@@ -1,4 +1,15 @@
 <ion-content>
+  <header>
+    <h1>Pocket Versus Planner</h1>
+    <nav>
+      <a [routerLink]="'/'">Home</a>
+      <a [routerLink]="'/signup'">Signup</a>
+      <a [routerLink]="'/login'">Login</a>
+      <a [routerLink]="'/game/new'">Nouveau jeu</a>
+      <a [routerLink]="'/tournament/new'">Nouveau tournoi</a>
+    </nav>
+  </header>
+
   <section *ngIf="gamesCollection">
     <article *ngFor="let game of gamesCollection">
 

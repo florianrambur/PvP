@@ -28,6 +28,21 @@
     </ion-item>
   </ion-radio-group>
 
+  <ion-radio-group name="isPrivate" formControlName="isPrivate">
+    <ion-list-header>
+      Ce tournoi sera t-il privé ou ouvert à tout le monde ?
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Oui</ion-label>
+      <ion-radio slot="end" value="true"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Non</ion-label>
+      <ion-radio slot="end" value="false"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
   <div *ngIf="gameSelected">
     <ion-radio-group name="mode" formControlName="mode">
       <ion-list-header>

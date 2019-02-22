@@ -18,6 +18,7 @@ Methods
                 mode: body.mode,
                 rule: body.rule,
                 online: body.online,
+                isPrivate: body.isPrivate,
                 nbPlayers: body.nbPlayers,
                 startDate: body.startDate,
                 place: body.place,

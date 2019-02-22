@@ -34,21 +34,21 @@ export class CreateGamePageComponent implements OnInit {
 
   createPlatform = () => {
     return this.FormBuilder.group({
-      name: [ 'Nom de la plateforme', Validators.required ]
+      name: [ undefined, Validators.required ]
     })
   }
 
   createMode = () => {
     return this.FormBuilder.group({
-      name: [ 'Nom du mode', Validators.required ],
-      description: [ 'Description', Validators.required ]
+      name: [ undefined, Validators.required ],
+      description: [ undefined, Validators.required ]
     });
   }
 
   createRule = () => {
     return this.FormBuilder.group({
-      name: [ 'Nom de la règle', Validators.required ],
-      description: [ 'Description', Validators.required ]
+      name: [ undefined, Validators.required ],
+      description: [ undefined, Validators.required ]
     });
   }
 
