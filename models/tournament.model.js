@@ -11,6 +11,12 @@ Definition
 */
     const ObjectId = mongoose.Schema.Types.ObjectId;
 
+    const progressSchema = new Schema({
+        roundName: String,
+        nbPlayers: Number,
+        remainingPlayerList: [ObjectId]
+    });
+
     const tournamentSchema = new Schema({
         game: ObjectId,
         name: String,
@@ -23,6 +29,8 @@ Definition
         startDate: Date,
         place: String,
         dateCreation: Date,
+        registerList: [ObjectId],
+        progression: [progressSchema],
         author: String     
     });
 //
