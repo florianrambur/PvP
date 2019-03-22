@@ -8,7 +8,7 @@ Imports
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require ('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { createItem, readItems, readOneItem } = require('./tournament.controller');
+    const { createItem, readItems, readOneItem, playerRegister } = require('./tournament.controller');
 //
 
 /*
@@ -59,6 +59,14 @@ Routes definition
                     .then( apiResponse => sendApiSuccessResponse(res, 'A new tournament is created', apiResponse) )
                     .catch( apiResponse => sendApiErrorResponse(res, 'Error during the tournament creation', apiResponse) );
                 }
+            });
+
+            // Add a player to the tournament
+            tournamentRouter.put('/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+                playerRegister(req.user._id, req.params.id)
+                .then( apiRes => sendApiSuccessResponse(res, 'Player has been added to the tournament', apiRes) )
+                .catch( apiErr => sendApiErrorResponse(res, 'Error during adding', apiErr) )
             });
         }
 

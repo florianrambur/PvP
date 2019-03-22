@@ -23,6 +23,8 @@ Methods
                 startDate: body.startDate,
                 place: body.place,
                 dateCreation: new Date(),
+                registerList: [],
+                progression: [],
                 author: userId
             }
 
@@ -64,12 +66,41 @@ Methods
                 if (error) return reject(error)
                 else if (!tournament) return reject('Tournoi non trouvé');
                 else {
-                    const author = {};
+                    let author = {};
 
                     getTournamentAuthor(tournament.author)
                     .then(user => author = user);
                     
                     return resolve({ user: author, tournament: tournament });
+                }
+            });
+        });
+    }
+
+    const playerRegister = (userId, itemId) => {
+        return new Promise( (resolve, reject) => {
+            TournamentModel.findById(itemId, (error, tournament) => {
+                if (error) return reject(error)
+                else if (!tournament) return reject('Tournoi non trouvé');
+                else {
+                    let allPlayers = tournament.registerList;
+                    var isInArray = allPlayers.some(function (player) {
+                        return player.equals(userId);
+                    });
+
+                    if (isInArray) {
+                        return reject('Player is already register in the tournament');
+                    } else {
+                        allPlayers.push(userId);
+                    }
+
+                    const updatedData = {
+                        registerList: allPlayers
+                    }
+
+                    TournamentModel.update(updatedData)
+                    .then( mongoResponse => resolve(mongoResponse) )
+                    .catch( mongoResponse => reject(mongoResponse) )
                 }
             });
         });
@@ -93,6 +124,7 @@ Exports
     module.exports = {
         createItem,
         readItems,
-        readOneItem
+        readOneItem,
+        playerRegister
     }
 //
