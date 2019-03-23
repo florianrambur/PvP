@@ -8,7 +8,7 @@ Imports
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require ('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheTournament } = require('./tournament.controller');
+    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheTournament, randomDrawing } = require('./tournament.controller');
 //
 
 /*
@@ -64,9 +64,19 @@ Routes definition
             // Add a player to the tournament
             tournamentRouter.put('/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
                 if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+                
                 registerOrUnsubscribeToTheTournament(req.user._id, req.params.id)
-                .then( apiRes => sendApiSuccessResponse(res, 'Player has been added or removed to the tournament', apiRes) )
+                .then( apiRes => sendApiSuccessResponse(res, 'Player has been added to the tournament', apiRes) )
                 .catch( apiErr => sendApiErrorResponse(res, 'Error during adding', apiErr) )
+            });
+            
+            // Drawing first round of the tournament
+            tournamentRouter.put('/drawing/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+
+                randomDrawing(req.params.id)
+                .then( apiRes => sendApiSuccessResponse(res, 'First round has been drawing', apiRes) )
+                .catch( apiErr => sendApiErrorResponse(res, 'Error during drawing', apiErr) )
             });
         }
 
