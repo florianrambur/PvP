@@ -3,6 +3,7 @@ Imports
 */
     const TournamentModel = require('../../models/tournament.model');
     const UserModel = require('../../models/user.model');
+    const { arrayRemove } = require('../../services/helpers');
 //
 
 /*
@@ -77,7 +78,7 @@ Methods
         });
     }
 
-    const playerRegister = (userId, itemId) => {
+    const registerOrUnsubscribeToTheTournament = (userId, itemId) => {
         return new Promise( (resolve, reject) => {
             TournamentModel.findById(itemId, (error, tournament) => {
                 if (error) return reject(error)
@@ -89,7 +90,7 @@ Methods
                     });
 
                     if (isInArray) {
-                        return reject('Player is already register in the tournament');
+                        allPlayers = arrayRemove(allPlayers, userId.toString());
                     } else {
                         allPlayers.push(userId);
                     }
@@ -116,6 +117,7 @@ Methods
             });
         })
     }
+
 //
 
 /*
@@ -125,6 +127,6 @@ Exports
         createItem,
         readItems,
         readOneItem,
-        playerRegister
+        registerOrUnsubscribeToTheTournament
     }
 //
