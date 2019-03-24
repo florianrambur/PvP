@@ -155,6 +155,46 @@ const randomDrawing = (itemId) => {
     });
 }
 
+const updateScore = (itemId, userId, body) => {
+    return new Promise( (resolve, reject) => {
+        TournamentModel.findById(itemId, (error, tournament) => {
+            if (error) return reject(error)
+            else if (!tournament) return reject('Tournament not found :(');
+            else {
+                if (tournament.author == userId) {
+                    const scorePlayer1 = body.scorePlayer1;
+                    const scorePlayer2 = body.scorePlayer2;
+                    const progression = tournament.progression;
+
+                    for (let i = 0; i < progression.length; i++) {
+                        if (body.roundId == progression[i]._id) {
+                            const remainingPlayerList = progression[i].remainingPlayerList;
+                            
+                            Object.entries(remainingPlayerList).forEach(entry => {
+                                let value = entry[1];
+                                
+                                if (scorePlayer1.playerId == value.playerId) {
+                                    value.score = scorePlayer1.score;
+                                } else if (scorePlayer2.playerId == value.playerId) {
+                                    value.score = scorePlayer2.score;
+                                }
+                            });
+                        }
+                    }
+
+                    TournamentModel.updateOne({ "_id": itemId }, {
+                        "progression": progression
+                    })
+                    .then( mongoResponse => resolve(mongoResponse) )
+                    .catch( mongoResponse => reject(mongoResponse) )
+                } else {
+                    return reject('Not allowed');
+                }
+            }
+        });
+    });
+}
+
 const getTournamentAuthor = id => {
     return new Promise( (resolve, reject) => {
         UserModel.findById( id, { email:1, _id: 0 }, (error, user) => {
@@ -176,6 +216,7 @@ module.exports = {
     readItems,
     readOneItem,
     registerOrUnsubscribeToTheTournament,
-    randomDrawing
+    randomDrawing,
+    updateScore
 }
 //

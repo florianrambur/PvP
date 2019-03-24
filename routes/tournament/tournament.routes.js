@@ -8,7 +8,7 @@ Imports
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require ('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheTournament, randomDrawing } = require('./tournament.controller');
+    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheTournament, randomDrawing, updateScore } = require('./tournament.controller');
 //
 
 /*
@@ -77,6 +77,21 @@ Routes definition
                 randomDrawing(req.params.id)
                 .then( apiRes => sendApiSuccessResponse(res, 'First round has been drawing', apiRes) )
                 .catch( apiErr => sendApiErrorResponse(res, 'Error during drawing', apiErr) )
+            });
+
+            // Update score for a game
+            tournamentRouter.put('/updateScore/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+
+                const { miss, extra, ok } = checkFields(['scorePlayer1', 'scorePlayer2', "roundId"], req.body);
+
+                if (!ok) {
+                    sendFieldsError(res, 'Bad fields provided', miss, extra);
+                } else {
+                    updateScore(req.params.id, req.user._id, req.body)
+                    .then( apiRes => sendApiSuccessResponse(res, 'Score has been updated', apiRes) )
+                    .catch( apiErr => sendApiErrorResponse(res, 'Error during updating', apiErr) )
+                }
             });
         }
 
