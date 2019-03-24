@@ -11,10 +11,15 @@ Definition
 */
     const ObjectId = mongoose.Schema.Types.ObjectId;
 
+    const resultSchema = new Schema({
+        playerId: ObjectId,
+        score: Number
+    });
+
     const progressSchema = new Schema({
         roundName: String,
         nbPlayers: Number,
-        remainingPlayerList: [ObjectId]
+        remainingPlayerList: [resultSchema]
     });
 
     const tournamentSchema = new Schema({

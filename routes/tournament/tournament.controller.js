@@ -121,11 +121,22 @@ const randomDrawing = (itemId) => {
                 if (tournament.progression.length == 0) {
                     const allPlayers = shuffleArray(tournament.registerList);
 
+                    const remainingPlayerList = [];
+                    
+                    for (let i = 0; i < allPlayers.length; i++) {
+                        let onePlayer = {
+                            playerId: allPlayers[i],
+                            score: null
+                        }
+
+                        remainingPlayerList.push(onePlayer);
+                    }
+
                     const firstRound = {
                         roundName: "Premier tour",
                         nbPlayers: tournament.nbPlayers,
-                        remainingPlayerList: allPlayers
-                    }
+                        remainingPlayerList: remainingPlayerList
+                    }                    
 
                     const progression = tournament.progression;
                     progression.push(firstRound);
