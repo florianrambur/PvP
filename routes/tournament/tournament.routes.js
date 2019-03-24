@@ -8,7 +8,7 @@ Imports
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require ('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheTournament, randomDrawing, updateScore } = require('./tournament.controller');
+    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheTournament, randomDrawing, updateScore, nextRound } = require('./tournament.controller');
 //
 
 /*
@@ -92,6 +92,15 @@ Routes definition
                     .then( apiRes => sendApiSuccessResponse(res, 'Score has been updated', apiRes) )
                     .catch( apiErr => sendApiErrorResponse(res, 'Error during updating', apiErr) )
                 }
+            });
+
+            // Testing next round
+            tournamentRouter.put('/nextRound/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+
+                nextRound(req.params.id)
+                .then( apiRes => sendApiSuccessResponse(res, 'First round has been drawing', apiRes) )
+                .catch( apiErr => sendApiErrorResponse(res, 'Error during drawing', apiErr) )
             });
         }
 

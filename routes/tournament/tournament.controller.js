@@ -104,7 +104,7 @@ const registerOrUnsubscribeToTheTournament = (userId, itemId) => {
                     registerList: allPlayers
                 }
 
-                TournamentModel.update(updatedData)
+                TournamentModel.updateOne(updatedData)
                 .then( mongoResponse => resolve(mongoResponse) )
                 .catch( mongoResponse => reject(mongoResponse) )
             }
@@ -195,6 +195,54 @@ const updateScore = (itemId, userId, body) => {
     });
 }
 
+const nextRound = (itemId) => {
+    return new Promise( (resolve, reject) => {
+        TournamentModel.findById(itemId, (error, tournament) => {
+            if (error) return reject(error);
+            else if (!tournament) return reject('Tournament not found :(')
+            else {
+                const lastRound = tournament.progression[tournament.progression.length - 1];
+                let remainingPlayersForNextRound = [];
+
+                if (lastRound.remainingPlayerList.length >= 2) {
+                    for (let key in lastRound.remainingPlayerList) {
+                        if (lastRound.remainingPlayerList.hasOwnProperty(key)) {
+                            if (key % 2) {
+                                if (lastRound.remainingPlayerList[key-1].score == null || lastRound.remainingPlayerList[key].score == null) {
+                                    return reject('Some results are missing');
+                                } else {
+                                    if (lastRound.remainingPlayerList[key-1].score > lastRound.remainingPlayerList[key].score) {
+                                        remainingPlayersForNextRound.push(lastRound.remainingPlayerList[key-1]);
+                                    } else {
+                                        remainingPlayersForNextRound.push(lastRound.remainingPlayerList[key]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+    
+                    const nextRound = {
+                        roundName: "Tour suivant",
+                        nbPlayers: lastRound.nbPlayers / 2,
+                        remainingPlayerList: remainingPlayersForNextRound
+                    }
+    
+                    const progression = tournament.progression;
+                    progression.push(nextRound);
+    
+                    TournamentModel.updateOne({ "_id": itemId }, {
+                        "progression": progression
+                    })
+                    .then( mongoResponse => resolve(mongoResponse) )
+                    .catch( mongoResponse => reject(mongoResponse) )
+                } else {
+                    return reject('Remains only one player, he has already win !');
+                }
+            }
+        });
+    });
+}
+
 const getTournamentAuthor = id => {
     return new Promise( (resolve, reject) => {
         UserModel.findById( id, { email:1, _id: 0 }, (error, user) => {
@@ -217,6 +265,7 @@ module.exports = {
     readOneItem,
     registerOrUnsubscribeToTheTournament,
     randomDrawing,
-    updateScore
+    updateScore,
+    nextRound
 }
 //
