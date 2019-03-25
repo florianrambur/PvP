@@ -99,7 +99,7 @@ Routes definition
                 if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
 
                 nextRound(req.params.id)
-                .then( apiRes => sendApiSuccessResponse(res, 'First round has been drawing', apiRes) )
+                .then( apiRes => sendApiSuccessResponse(res, 'Next round has been drawing', apiRes) )
                 .catch( apiErr => sendApiErrorResponse(res, 'Error during drawing', apiErr) )
             });
         }

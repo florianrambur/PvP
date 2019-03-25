@@ -38,13 +38,8 @@ const createItem = (body, userId) => {
 
 const readItems = (body, userId) => {
     return new Promise( (resolve, reject) => {
-        TournamentModel.find().populate({			
-            populate: { 
-                path:  'modes',
-                model: 'game' 
-            }
-        }).exec((error, tournament) => {
-            if(error) reject(error)
+        TournamentModel.find((error, tournament) => {
+            if(error) reject(error) // Mongo Error
             else {
                 // resolve tournament
                 let tournamentArray = [];
