@@ -22,6 +22,8 @@ import { CreateTournamentPageComponent } from './routes/tournament/create-tourna
 
 // Utils
 import { UtilsService } from './services/utils/utils.service';
+import { TournamentsPageComponent } from './routes/tournament/tournaments-page/tournaments-page.component';
+import { TournamentPageComponent } from './routes/tournament/tournament-page/tournament-page.component';
 
 
 @NgModule({
@@ -33,7 +35,7 @@ import { UtilsService } from './services/utils/utils.service';
     GamePageComponent,
     TutorialPageComponent, 
     CreateTournamentPageComponent, 
-    CreateGamePageComponent
+    CreateGamePageComponent, TournamentsPageComponent, TournamentPageComponent
   ],
   entryComponents: [],
   imports: [

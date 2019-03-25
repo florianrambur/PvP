@@ -1,0 +1,21 @@
+<ion-content>
+  <section *ngIf="tournamentsCollection; else elseNoTournament">
+    <article *ngFor="let tournament of tournamentsCollection">
+
+      <!--<ion-item [routerLink]="'/tournament/fiche/' + tournament.tournament._id" routerDirection="forward">{{ tournament.tournament.name }} créé par {{ tournament.user.email }}</ion-item>-->
+      <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ tournament.tournament.name }}</ion-card-title>
+            <ion-card-subtitle>Added by {{ tournament.user.email }}</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            Do you want to see <a [routerLink]="[ '/tournament/fiche/', tournament.tournament._id ]">{{ tournament.tournament.name }}</a> ?
+          </ion-card-content>
+        </ion-card>
+    </article>
+  </section>
+  <ng-template #elseNotournament>
+    There is no tournament for the moment.
+  </ng-template>
+</ion-content>

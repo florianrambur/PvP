@@ -36,5 +36,19 @@ export class TournamentService {
       .toPromise()
       .then( apiResponse => Promise.resolve(apiResponse) )
       .catch( apiResponse => Promise.reject(apiResponse) );
-    }
+  }
+
+  getAllTournaments = (): Promise<any> => {
+    return this.HttpClient.get( this.apiUrl )
+    .toPromise()
+    .then( apiResponse => Promise.resolve(apiResponse) )
+    .catch( apiResponse => Promise.reject(apiResponse) );
+  }
+
+  getOneTournament = (id: String): Promise<any> => {
+    return this.HttpClient.get( this.apiUrl + '/' + id )
+    .toPromise()
+    .then( apiResponse => Promise.resolve(apiResponse) )
+    .catch( apiResponse => Promise.reject(apiResponse) );
+  }
 }
