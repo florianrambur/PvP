@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { TournamentService } from '../../../services/tournament/tournament.service';
 import { UtilsService } from '../../../services/utils/utils.service';
@@ -15,20 +15,32 @@ export class TournamentPageComponent implements OnInit {
   constructor(
     private TournamentService: TournamentService,
     private UtilsService: UtilsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private Router: Router
   ) { }
 
-  private parameter: String;
+  private tournamentId: String;
   public tournamentInformation;
 
   private getTournamentInformation = () => {
-    this.parameter = this.route.snapshot.paramMap.get('id');
-    return this.TournamentService.getOneTournament(this.parameter)
+    this.tournamentId = this.route.snapshot.paramMap.get('id');
+    return this.TournamentService.getOneTournament(this.tournamentId)
     .then( apiResponse => { 
       this.tournamentInformation = apiResponse.data; 
       console.log(this.tournamentInformation);
     })
     .catch( apiResponse => console.error(apiResponse) );
+  }
+
+  addOrRemovePlayer = (pTournamentId) => {
+    // this.tournamentId = this.route.snapshot.paramMap.get('id');
+    return this.TournamentService.registerOrUnsubscribeToTheTournament(pTournamentId)
+    .then( apiResponse => {
+      console.log(apiResponse);
+      this.Router.navigate([ '/' ]);
+      this.UtilsService.flashMessage('success', 'Vous vous êtes inscrits avec succès !');
+    })
+    .catch( apiResponse => console.error(apiResponse) )
   }
 
   ngOnInit() {

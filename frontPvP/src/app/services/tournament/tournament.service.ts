@@ -51,4 +51,14 @@ export class TournamentService {
     .then( apiResponse => Promise.resolve(apiResponse) )
     .catch( apiResponse => Promise.reject(apiResponse) );
   }
+
+  registerOrUnsubscribeToTheTournament = (itemId: String): Promise<any> => {
+    let myHeader = new HttpHeaders();
+    myHeader.append('Content-Type', 'application/json');
+
+    return this.HttpClient.put( this.apiUrl + '/subscribe/' + itemId, { headers: myHeader } )
+    .toPromise()
+    .then( apiResponse => Promise.resolve(apiResponse) )
+    .catch( apiResponse => Promise.reject(apiResponse) );
+  } 
 }

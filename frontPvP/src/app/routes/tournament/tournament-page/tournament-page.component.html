@@ -1,3 +1,5 @@
 <div *ngIf="tournamentInformation">
   <h1>{{ tournamentInformation.tournament.name }}</h1>
 </div>
+
+<button type="button" (click)="addOrRemovePlayer(tournamentInformation.tournament._id)">S'inscrire</button>

@@ -62,7 +62,7 @@ Routes definition
             });
 
             // Add a player to the tournament
-            tournamentRouter.put('/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+            tournamentRouter.put('/subscribe/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
                 if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
                 
                 registerOrUnsubscribeToTheTournament(req.user._id, req.params.id)
