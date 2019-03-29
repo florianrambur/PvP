@@ -23,11 +23,12 @@ export class GameService {
     rules: [{
         name: String,
         description: String
-    }]): Promise<any> => {
+    }],
+    image: String): Promise<any> => {
     let myHeader = new HttpHeaders();
     myHeader.append('Content-Type', 'application/json');
 
-    return this.HttpClient.post( this.apiUrl, { name, platforms, modes, rules }, { headers: myHeader } )
+    return this.HttpClient.post( this.apiUrl, { name, platforms, modes, rules, image }, { headers: myHeader } )
     .toPromise()
     .then( apiResponse => Promise.resolve(apiResponse) )
     .catch( apiResponse => Promise.reject(apiResponse) );

@@ -36,7 +36,7 @@ const createItem = (body, userId) => {
     });
 }
 
-const readItems = (body, userId) => {
+const readItems = () => {
     return new Promise( (resolve, reject) => {
         TournamentModel.find((error, tournament) => {
             if(error) reject(error) // Mongo Error

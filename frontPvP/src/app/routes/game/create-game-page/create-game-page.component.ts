@@ -15,6 +15,7 @@ import { UtilsService } from '../../../services/utils/utils.service';
 export class CreateGamePageComponent implements OnInit {
 
   public form: FormGroup;
+  private imageBase64: string;
 
   constructor(
     private FormBuilder: FormBuilder,
@@ -28,8 +29,27 @@ export class CreateGamePageComponent implements OnInit {
       name: [ undefined, Validators.required ],
       platforms: this.FormBuilder.array([this.createPlatform()]),
       modes: this.FormBuilder.array([this.createMode()]),
-      rules: this.FormBuilder.array([this.createRule()])
+      rules: this.FormBuilder.array([this.createRule()]),
+      image: this.imageBase64
     });
+  }
+
+  handleInputChange(e) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+
+  _handleReaderLoaded(e) {
+    let reader = e.target;
+    this.imageBase64 = reader.result;
+    console.log(this.imageBase64);
   }
 
   createPlatform = () => {
@@ -77,7 +97,7 @@ export class CreateGamePageComponent implements OnInit {
   }
 
   public createGame = () => {
-    this.GameService.newGame( this.form.value.name, this.form.value.platforms, this.form.value.modes, this.form.value.rules )
+    this.GameService.newGame( this.form.value.name, this.form.value.platforms, this.form.value.modes, this.form.value.rules, this.form.value.image )
     .then( apiResponse => {
       console.log(apiResponse);
       this.Router.navigate([ '/game/fiche/', apiResponse.data._id ]);

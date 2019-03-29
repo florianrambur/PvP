@@ -30,7 +30,8 @@ Definition
         rules: [rulesSchema],
         isValidate: Boolean,
         author: String,
-        date: Date
+        date: Date,
+        image: String
     });
 //
 

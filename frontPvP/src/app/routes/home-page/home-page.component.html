@@ -18,6 +18,9 @@
       <ion-card>
           <ion-card-header>
             <ion-card-title>{{ game.game.name }}</ion-card-title>
+            <ion-card-content>
+              <ion-img [src]="game.game.image"></ion-img>
+            </ion-card-content>
             <ion-card-subtitle>Added by {{ game.user.email }}</ion-card-subtitle>
           </ion-card-header>
         
