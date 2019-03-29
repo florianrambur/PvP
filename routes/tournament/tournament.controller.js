@@ -73,6 +73,7 @@ const readOneItem = (itemId) => {
     });
 }
 
+// TODO : Cette action ne fonctionne que pour le premier tournoi de la base de données...
 const registerOrUnsubscribeToTheTournament = (userId, itemId) => {
     return new Promise( (resolve, reject) => {
         TournamentModel.findById(itemId, (error, tournament) => {
@@ -80,6 +81,7 @@ const registerOrUnsubscribeToTheTournament = (userId, itemId) => {
             else if (!tournament) return reject('Tournoi non trouvé');
             else {
                 let allPlayers = tournament.registerList;
+
                 let isInArray = allPlayers.some(function (player) {
                     return player.equals(userId);
                 });
@@ -113,6 +115,10 @@ const randomDrawing = (itemId) => {
             if (error) return reject(error)
             else if (!tournament) return reject('Tournament not found')
             else {
+                if (tournament.registerList.length < tournament.nbPlayers) {
+                    return reject('The tournament is not full, please wait');
+                }
+
                 if (tournament.progression.length == 0) {
                     const allPlayers = shuffleArray(tournament.registerList);
 
