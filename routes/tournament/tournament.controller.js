@@ -36,7 +36,7 @@ const createItem = (body, userId) => {
     });
 }
 
-const readItems = (body, userId) => {
+const readItems = () => {
     return new Promise( (resolve, reject) => {
         TournamentModel.find((error, tournament) => {
             if(error) reject(error) // Mongo Error
@@ -101,7 +101,7 @@ const registerOrUnsubscribeToTheTournament = (userId, itemId) => {
                     registerList: allPlayers
                 }
 
-                TournamentModel.updateOne(updatedData)
+                TournamentModel.updateOne({ "_id": itemId }, updatedData)
                 .then( mongoResponse => resolve(mongoResponse) )
                 .catch( mongoResponse => reject(mongoResponse) )
             }

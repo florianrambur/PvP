@@ -18,7 +18,7 @@ export class CreateTournamentPageComponent implements OnInit {
   public form: FormGroup;
   public gamesCollection: any[];
   public gameSelected: Object;
-  public showPlace: Boolean;
+  public showPlace: string;
 
   constructor(
     private FormBuilder: FormBuilder,
@@ -40,7 +40,7 @@ export class CreateTournamentPageComponent implements OnInit {
     .catch( apiResponse => console.error(apiResponse) );
   }
 
-  showPlaceOrNot = (selectedValue: Boolean) => {
+  showPlaceOrNot = (selectedValue: string) => {
     this.showPlace = selectedValue;
   }
 

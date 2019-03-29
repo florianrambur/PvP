@@ -17,6 +17,7 @@ Methods
                 modes: body.modes,
                 rules: body.rules,
                 isValidate: false,
+                image: body.image,
                 author: userId,
                 date: new Date()
             }
@@ -102,7 +103,8 @@ Methods
                             name: body.name,
                             platforms: body.platforms,
                             modes: body.modes,
-                            rules: body.rules
+                            rules: body.rules,
+                            image: body.image
                         }
 
                         GameModel.update(updateGame)
