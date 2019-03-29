@@ -99,7 +99,7 @@ const registerOrUnsubscribeToTheTournament = (userId, itemId) => {
                     registerList: allPlayers
                 }
 
-                TournamentModel.updateOne(updatedData)
+                TournamentModel.updateOne({ "_id": itemId }, updatedData)
                 .then( mongoResponse => resolve(mongoResponse) )
                 .catch( mongoResponse => reject(mongoResponse) )
             }
