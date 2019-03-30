@@ -1,3 +1,5 @@
+<ion-icon ios="ios-arrow-back" md="md-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
+
 <form [formGroup]="form" (submit)="createTournament()">
   <ion-input type="text" name="name" formControlName="name" placeholder="Mon tournoi"></ion-input>
   <ion-textarea name="description" formControlName="description" placeholder="Ma description"></ion-textarea>
@@ -56,9 +58,23 @@
       </div>
     </ion-radio-group>
   </div>
+
+  <div *ngIf="gameSelected">
+      <ion-radio-group name="platforms" formControlName="platforms">
+        <ion-list-header>
+          Sélectionnez la plateforme
+        </ion-list-header>
+        <div *ngFor="let platform of gameSelected.game.platforms">
+          <ion-item>
+            <ion-label>{{ platform.name }}</ion-label>
+            <ion-radio slot="end" [value]="platform._id"></ion-radio>
+          </ion-item>
+        </div>
+      </ion-radio-group>
+    </div>
   
   <div *ngIf="gameSelected">
-    <ion-radio-group name="rule" formControlName="rule">
+    <ion-radio-group name="rules" formControlName="rules">
       <ion-list-header>
         Sélectionnez une règle
       </ion-list-header>

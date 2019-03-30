@@ -17,7 +17,8 @@ const createItem = (body, userId) => {
             name: body.name,
             description: body.description,
             mode: body.mode,
-            rule: body.rule,
+            rules: body.rules,
+            platforms: body.platforms,
             online: body.online,
             isPrivate: body.isPrivate,
             nbPlayers: body.nbPlayers,
@@ -222,14 +223,18 @@ const nextRound = (itemId) => {
                         }
                     }
     
-                    const nextRound = {
+                    const nextRoundInfos = {
                         roundName: "Tour suivant",
                         nbPlayers: lastRound.nbPlayers / 2,
                         remainingPlayerList: remainingPlayersForNextRound
                     }
+
+                    if (nextRoundInfos.nbPlayers == 1) {
+                        winTournament(nextRoundInfos.remainingPlayerList[0].playerId);
+                    }
     
                     const progression = tournament.progression;
-                    progression.push(nextRound);
+                    progression.push(nextRoundInfos);
     
                     TournamentModel.updateOne({ "_id": itemId }, {
                         "progression": progression
@@ -244,9 +249,27 @@ const nextRound = (itemId) => {
     });
 }
 
-const getTournamentAuthor = id => {
+const winTournament = (userId) => {
     return new Promise( (resolve, reject) => {
-        UserModel.findById( id, { email:1, _id: 0 }, (error, user) => {
+        UserModel.findById( userId, (error, user) => {
+            if (error) return reject(error)
+            else if (!user) return reject('User not found')
+            else {
+                let countWin = user.countWin;
+
+                UserModel.updateOne({ "_id": userId}, {
+                    "countWin": countWin + 1
+                })
+                .then( mongoResponse => resolve(mongoResponse) )
+                .catch( mongoResponse => reject(mongoResponse) )
+            }
+        });
+    });
+}
+
+const getTournamentAuthor = (userId) => {
+    return new Promise( (resolve, reject) => {
+        UserModel.findById( userId, { email:1, _id: 0 }, (error, user) => {
             if(error) return reject(error) // Mongo Error
             else {
                 return resolve(user);

@@ -20,9 +20,12 @@ export class TournamentService {
       name: String,
       description: String
     },
-    rule: {
+    rules: {
       name: String,
       description: String
+    },
+    platforms: {
+      name: String
     },
     online: Boolean,
     isPrivate: Boolean,
@@ -32,7 +35,7 @@ export class TournamentService {
       let myHeader = new HttpHeaders();
       myHeader.append('Content-Type', 'application/json');
 
-      return this.HttpClient.post( this.apiUrl, { game, name, description, mode, rule, online, isPrivate, nbPlayers, startDate, place}, { headers: myHeader } )
+      return this.HttpClient.post( this.apiUrl, { game, name, description, mode, rules, platforms, online, isPrivate, nbPlayers, startDate, place}, { headers: myHeader } )
       .toPromise()
       .then( apiResponse => Promise.resolve(apiResponse) )
       .catch( apiResponse => Promise.reject(apiResponse) );

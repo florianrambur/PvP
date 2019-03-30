@@ -50,7 +50,7 @@ Routes definition
                     sendBodyError(res, 'No body data provided'); 
                 }
 
-                const { miss, extra, ok } = checkFields(['game', 'name', 'description', 'mode', 'rule', 'online', 'isPrivate', 'nbPlayers', 'startDate', 'place'], req.body);
+                const { miss, extra, ok } = checkFields(['game', 'name', 'description', 'mode', 'rules', 'platforms', 'online', 'isPrivate', 'nbPlayers', 'startDate', 'place'], req.body);
 
                 if (!ok) {
                     sendFieldsError(res, 'Bad fields provided', miss, extra);
