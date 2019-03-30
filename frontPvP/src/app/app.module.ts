@@ -19,11 +19,11 @@ import { LoginPageComponent } from './routes/login-page/login-page.component';
 import { SignupPageComponent } from './routes/signup-page/signup-page.component';
 import { CreateGamePageComponent } from './routes/game/create-game-page/create-game-page.component';
 import { CreateTournamentPageComponent } from './routes/tournament/create-tournament-page/create-tournament-page.component';
+import { TournamentsPageComponent } from './routes/tournament/tournaments-page/tournaments-page.component';
+import { TournamentPageComponent } from './routes/tournament/tournament-page/tournament-page.component';
 
 // Utils
 import { UtilsService } from './services/utils/utils.service';
-import { TournamentsPageComponent } from './routes/tournament/tournaments-page/tournaments-page.component';
-import { TournamentPageComponent } from './routes/tournament/tournament-page/tournament-page.component';
 
 
 @NgModule({
@@ -32,10 +32,9 @@ import { TournamentPageComponent } from './routes/tournament/tournament-page/tou
     HeaderComponent,
     LoginPageComponent,
     SignupPageComponent, 
-    GamePageComponent,
+    GamePageComponent, CreateGamePageComponent,
     TutorialPageComponent, 
-    CreateTournamentPageComponent, 
-    CreateGamePageComponent, TournamentsPageComponent, TournamentPageComponent
+    CreateTournamentPageComponent, TournamentsPageComponent, TournamentPageComponent
   ],
   entryComponents: [],
   imports: [
