@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from "@angular/router";
+import { Location } from '@angular/common';
 
 import { TournamentService } from '../../../services/tournament/tournament.service';
 import { GameService } from '../../../services/game/game.service';
@@ -25,8 +26,13 @@ export class CreateTournamentPageComponent implements OnInit {
     private TournamentService: TournamentService,
     private GameService: GameService,
     private UtilsService: UtilsService,
-    private Router: Router
+    private Router: Router,
+    private _location: Location
   ) { }
+
+  backClicked() {
+    this._location.back();
+  }
 
   public getGames = () => {
     this.GameService.getAllGames()
@@ -50,7 +56,8 @@ export class CreateTournamentPageComponent implements OnInit {
       description: [undefined, Validators.required],
       game: [undefined, Validators.required],
       mode: [undefined, Validators.required],
-      rule: [undefined, Validators.required],
+      rules: [undefined, Validators.required],
+      platforms: [undefined, Validators.required],
       online: [undefined, Validators.required],
       isPrivate: [undefined, Validators.required],
       nbPlayers: [undefined, [Validators.required, Validators.min(4), Validators.max(32)]],
@@ -62,7 +69,7 @@ export class CreateTournamentPageComponent implements OnInit {
   public createTournament = () => {
     this.TournamentService.newTournament( 
       this.form.value.game, this.form.value.name, this.form.value.description, 
-      this.form.value.mode, this.form.value.rule, this.form.value.online, 
+      this.form.value.mode, this.form.value.rules, this.form.value.platforms, this.form.value.online, 
       this.form.value.isPrivate, this.form.value.nbPlayers, 
       this.form.value.startDate, this.form.value.place)
     .then( apiResponse => {
