@@ -27,6 +27,7 @@ const register = (body, res) => {
                         email: body.email,
                         password: body.password,
                         countConnection: 0,
+                        countWin: 0,
                         parameters: body.parameters
                     }
                     UserModel.create(newUser)

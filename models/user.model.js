@@ -19,6 +19,7 @@ Definition
         email: String,
         password: String,
         countConnection: Number,
+        countWin: Number, 
         parameters: parameterSchema
     });
 //
