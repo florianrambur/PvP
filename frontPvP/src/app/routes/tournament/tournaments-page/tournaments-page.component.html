@@ -1,23 +1,54 @@
-<ion-content>
-  <article *ngFor="let tournament of tournamentsCollection">
 
-    <!--<ion-item [routerLink]="'/tournament/fiche/' + tournament.tournament._id" routerDirection="forward">{{ tournament.tournament.name }} créé par {{ tournament.user.email }}</ion-item>-->
-    <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{ tournament.tournament.name }}</ion-card-title>
-          <ion-card-subtitle>Added by {{ tournament.user.email }}</ion-card-subtitle>
-        </ion-card-header>
-      
-        <ion-card-content>
-          Do you want to see <a [routerLink]="[ '/tournament/fiche/', tournament.tournament._id ]">{{ tournament.tournament.name }}</a> ?
-        </ion-card-content>
-      </ion-card>
-  </article>
 
-  <!-- fab placed to the top end -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add" [routerLink]="'/tournament/new'"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+<ion-content class="content">
+  <ion-toolbar mode="md" style="margin-bottom: 30px;">
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="tournament">
+        <ion-label class="whiteColor">Tournois</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="championship">
+        <ion-label class="whiteColor">Championnat</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div *ngIf="selectedValue == 'tournament'">
+    <ion-card class="card" *ngFor="let tournament of tournamentsCollection">
+      <ion-card-header style="padding: 10px;" [routerLink]="[ '/tournament/fiche/', tournament.tournament._id ]">
+        <ion-row justify-content-between>
+          <ion-col size="3">
+            <img src="https://i.gyazo.com/e9d4ba7f06d0b47ff7fb6ef36fd5bf7d.png" item-left/>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row class="whiteColor">
+                <ion-text class="cardTitle">{{ tournament.tournament.name }}</ion-text>
+            </ion-row>
+            <ion-row text-wrap class="whiteColor">
+              <ion-text class="smallCardText">Apex Legends</ion-text>
+            </ion-row>
+            <div class="lineBreak"></div>
+            <ion-row class="whiteColor" style="font-size: 3.8vw">
+              {{ tournament.tournament.startDate | date:'EEEE dd LLLL yyyy' }}
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-fab [routerLink]="'/tournament/new'" vertical="bottom" horizontal="end" style="position: fixed !important;">
+      <ion-fab-button>
+        <ion-icon color="red" name="add" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <div *ngIf="selectedValue == 'championship'">
+      <ion-row >
+        <ion-col class="whiteColor" style="margin: 0 15px;">
+          La foncionnalité des championnats n'a pas encore été développée pour le moment.
+        </ion-col>
+      </ion-row>
+  </div>
 </ion-content>
+
+
