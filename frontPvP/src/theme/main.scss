@@ -7,3 +7,20 @@
     right: 0;
     padding: 10px 0;
 }
+
+ion-content {
+    --ion-background-color:#161616;
+}
+
+.cardTitle {
+    font-size: 4.8vw;
+}
+
+.smallCardText {
+    font-size: 2.8vw;
+    font-family: 'Lato';
+}
+
+.sc-ion-segment-ios-h {
+    padding-top: 30px;
+}

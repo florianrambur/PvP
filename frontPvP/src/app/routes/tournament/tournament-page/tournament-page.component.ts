@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { TournamentService } from '../../../services/tournament/tournament.service';
 import { UtilsService } from '../../../services/utils/utils.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-tournament-page',
@@ -16,11 +17,16 @@ export class TournamentPageComponent implements OnInit {
     private TournamentService: TournamentService,
     private UtilsService: UtilsService,
     private route: ActivatedRoute,
-    private Router: Router
+    private Router: Router,
+    private _location: Location
   ) { }
 
   private tournamentId: String;
   public tournamentInformation;
+
+  backClicked() {
+    this._location.back();
+  }
 
   private getTournamentInformation = () => {
     this.tournamentId = this.route.snapshot.paramMap.get('id');

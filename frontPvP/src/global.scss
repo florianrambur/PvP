@@ -12,3 +12,17 @@
 
 @import '../src/theme/helpers.scss';
 @import '../src/theme/main.scss';
+
+@font-face {
+    font-family: 'Lato';
+    src: url('./assets/fonts/Lato/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'LatoBold';
+    src: url('./assets/fonts/Lato/Lato-Bold.ttf');
+}
+
+* {
+    font-family: 'LatoBold';
+}

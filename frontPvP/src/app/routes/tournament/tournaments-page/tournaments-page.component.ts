@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TournamentService } from '../../../services/tournament/tournament.service';
+import { IonSegment } from '@ionic/angular';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tournaments-page',
@@ -9,9 +11,16 @@ import { TournamentService } from '../../../services/tournament/tournament.servi
 })
 export class TournamentsPageComponent implements OnInit {
 
+  @ViewChild(IonSegment) segment: IonSegment;
+
+  tournamentsCollection: Observable<any>;
+  championshipsCollection: Observable<any>;
+
+  public selectedValue: string;
+
   constructor(private TournamentService: TournamentService) { }
 
-  public tournamentsCollection: any[];
+  // public tournamentsCollection: any[];
 
   public displayTournaments = () => {
     this.TournamentService.getAllTournaments()
@@ -19,8 +28,14 @@ export class TournamentsPageComponent implements OnInit {
     .catch( apiResponse => console.error(apiResponse) )
   }
 
+  segmentChanged(ev: any) {
+    this.selectedValue = ev.detail.value;
+  }
+
   ngOnInit() {
     this.displayTournaments();
+    this.selectedValue = 'tournament'
+    this.segment.value = 'tournament';
   }
 
 }
