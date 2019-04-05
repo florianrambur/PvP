@@ -1,10 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="../"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-icon ios="ios-arrow-back" md="md-arrow-back" (click)="UtilsService.backClicked()" nav-direction="swap"></ion-icon>
 
 <div *ngIf="gameInformation">
   <h1>{{ gameInformation.game.name }}</h1>

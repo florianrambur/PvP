@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor() { }
+  constructor(private _location: Location) { }
+
+  public backClicked = () => {
+    this._location.back();
+  }
 
   public flashMessage = (type: String, message: string) => {
     let div = document.getElementById('flashMessage');
