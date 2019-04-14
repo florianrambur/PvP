@@ -74,7 +74,6 @@ const readOneItem = (itemId) => {
     });
 }
 
-// TODO : Cette action ne fonctionne que pour le premier tournoi de la base de données...
 const registerOrUnsubscribeToTheTournament = (userId, itemId) => {
     return new Promise( (resolve, reject) => {
         TournamentModel.findById(itemId, (error, tournament) => {
