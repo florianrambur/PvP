@@ -8,7 +8,7 @@ Imports
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require ('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheChampionship } = require('../../routes/championship/championship.controller');
+    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheChampionship, addScore } = require('../../routes/championship/championship.controller');
 //
 
 /*
@@ -68,6 +68,21 @@ Routes definition
                 registerOrUnsubscribeToTheChampionship(req.user._id, req.params.id)
                 .then( apiRes => sendApiSuccessResponse(res, 'Player has been added to the championship', apiRes) )
                 .catch( apiErr => sendApiErrorResponse(res, 'Error during adding', apiErr) )
+            });
+
+            // Add score
+            championshipRouter.put('/addScore/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+
+                const { miss, extra, ok } = checkFields(['playerA', 'scorePlayerA', 'playerB', 'scorePlayerB'], req.body);
+
+                if (!ok) {
+                    sendFieldsError(res, 'Bad fields provided', miss, extra);
+                } else {
+                    addScore(req.params.id, req.body)
+                    .then( apiRes => sendApiSuccessResponse(res, 'Score has been added', apiRes) )
+                    .catch( apiErr => sendApiErrorResponse(res, 'Error during adding', apiErr) )
+                }
             });
 
         }
