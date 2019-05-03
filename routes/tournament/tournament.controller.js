@@ -3,6 +3,7 @@ Imports
 */
 const TournamentModel = require('../../models/tournament.model');
 const UserModel = require('../../models/user.model');
+const GameModel = require('../../models/game.model');
 const { arrayRemove, shuffleArray } = require('../../services/helpers');
 //
 
@@ -46,8 +47,8 @@ const readItems = () => {
                 let tournamentArray = [];
                 ((async function loop() {
                     for (let i = 0; i < tournament.length; i++) {
-                        const user = await getTournamentAuthor(tournament[i].author);
-                        tournamentArray.push({user: user, tournament: tournament[i]})
+                        const infos = await getTournamentInfos(tournament[i].author, tournament[i].game, tournament[i].platforms, tournament[i].rules, tournament[i].mode);
+                        tournamentArray.push({ infos: infos, tournament: tournament[i]})
                     }
 
                     return resolve(tournamentArray);
@@ -63,12 +64,13 @@ const readOneItem = (itemId) => {
             if (error) return reject(error)
             else if (!tournament) return reject('Tournoi non trouvé');
             else {
-                let author = {};
-
-                getTournamentAuthor(tournament.author)
-                .then(user => author = user);
+                // getTournamentAuthor(tournament.author)
+                // .then(author => resolve({ author: author, tournament: tournament }));
                 
-                return resolve({ user: author, tournament: tournament });
+                getTournamentInfos(tournament.author, tournament.game, tournament.platforms, tournament.rules, tournament.mode, tournament.registerList)
+                .then(infos => resolve({ infos: infos, tournament: tournament }))
+
+                return;
             }
         });
     });
@@ -266,15 +268,39 @@ const winTournament = (userId) => {
     });
 }
 
-const getTournamentAuthor = (userId) => {
+const getTournamentInfos = (userId, gameId, platformId, ruleId, modeId, registerList) => {
     return new Promise( (resolve, reject) => {
-        UserModel.findById( userId, { email:1, _id: 0 }, (error, user) => {
-            if(error) return reject(error) // Mongo Error
+
+        UserModel.findById( userId, { pseudo: 1, email: 1, _id: 0 }, (error, user) => {
+            if (error) return reject(error)
             else {
-                return resolve(user);
+
+                GameModel.findById( gameId, { name: 1, platforms: 1, modes: 1, rules: 1, _id: 0 }, (error, game) => {
+                    if (error) return reject(error)
+                    else {
+                        let result = {};
+                        // let registerArray = [];
+
+                        // for (register in registerList) {
+                        //     registerArray.push(UserModel.findById(register));
+                        // }
+
+                        UserModel.find( { _id: { $in: registerList }} , (error, registers) => {
+                            result.game = game.name;
+                            result.platform = game.platforms.id(platformId).name;
+                            result.mode = game.modes.id(modeId);
+                            result.rule = game.rules.id(ruleId);
+                            result.registerList = registers;
+                            result.author = user;
+                            
+                            resolve(result);
+                        });
+                        
+                    }
+                });
             }
         });
-    })
+    });
 }
 
 //

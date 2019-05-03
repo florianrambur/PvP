@@ -55,8 +55,11 @@ Methods
                 if(error) reject(error)
                 else if(!game) return reject('Jeu non trouvé')
                 else {
-                    const user = getGameUser(game.author);
-                    return resolve({ user: user, game: game });
+                    
+                    getGameUser(game.author)
+                    .then(author => resolve({ author: author, game: game }));
+                    
+                    return;
                 }
             });
         });
@@ -121,7 +124,7 @@ Methods
     const getGameUser = id => {
         console.log(id)
         return new Promise( (resolve, reject) => {
-            UserModel.findById( id, { email:1, _id: 0 }, (error, user) => {
+            UserModel.findById( id, { pseudo: 2, email: 1, _id: 0 }, (error, user) => {
                 if(error) return reject(error) // Mongo Error
                 else {
                     console.log(user)

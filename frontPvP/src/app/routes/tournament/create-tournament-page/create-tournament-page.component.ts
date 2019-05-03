@@ -24,7 +24,7 @@ export class CreateTournamentPageComponent implements OnInit {
     private FormBuilder: FormBuilder,
     private TournamentService: TournamentService,
     private GameService: GameService,
-    private UtilsService: UtilsService,
+    public UtilsService: UtilsService,
     private Router: Router
   ) { }
 

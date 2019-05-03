@@ -13,7 +13,7 @@ export class GamePageComponent implements OnInit {
 
   constructor(
     private GameService: GameService,
-    private UtilsService: UtilsService, 
+    public UtilsService: UtilsService, 
     private route: ActivatedRoute, 
     private Router: Router
     ) { }

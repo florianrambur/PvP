@@ -20,7 +20,7 @@ export class CreateGamePageComponent implements OnInit {
   constructor(
     private FormBuilder: FormBuilder,
     private GameService: GameService,
-    private UtilsService: UtilsService,
+    public UtilsService: UtilsService,
     private Router: Router
   ) { }
 

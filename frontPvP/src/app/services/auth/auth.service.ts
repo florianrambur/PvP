@@ -57,11 +57,8 @@ Export
     }
 
     public login = ( email: String, password: String ): Promise<any> => {
-      // Optional: set header request
-      let myHeader = new HttpHeaders();
-      myHeader.append('Content-Type', 'application/json');
       
-      return this.HttpClient.post( `${this.apiUrl}/login`, { email, password }, { headers: myHeader } )
+      return this.HttpClient.post( `${this.apiUrl}/login`, { email, password } )
       .toPromise() // Use Promise in an Angular Service
       .then( apiResponse => Promise.resolve(apiResponse) ) // Resolve Promise success
       .catch( apiResponse => Promise.reject(apiResponse) ) // Reject Promise error
