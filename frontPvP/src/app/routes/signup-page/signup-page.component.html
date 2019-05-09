@@ -1,13 +1,19 @@
-<h2>Sign up</h2>
-
-<form [formGroup]="form" (submit)="signup()">
-  <input placeholder="Mon pseudo" type="text" formControlName="pseudo" name="pseudo">
-  <input placeholder="Mon email" type="email" name="email" formControlName="email">
-  <input placeholder="Mot de passe" type="password" name="password" formControlName="password">
-  <div formGroupName="parameters">
-      <input placeholder="Twitch" type="text" formControlName="twitch" name="twitch">
-      <input placeholder="Discord" type="text" formControlName="discord" name="discord">
+<ion-content>
+  <div class="signUpContainer">
+    <header>
+      <ion-icon class="blackButton" size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
+    </header>
+    <div class="textCenter">
+      <img src="../../../assets/images/logo_pvp.png" />
+    </div>
+    <div class="signUpForm">
+      <form [formGroup]="form" (submit)="signup()">
+        <input placeholder="Mon pseudo" type="text" formControlName="pseudo" name="pseudo">
+        <input placeholder="Mon email" type="email" name="email" formControlName="email">
+        <input placeholder="Mot de passe" type="password" name="password" formControlName="password">
+      
+        <button type="submit" [disabled]="!form.valid">Sign Up</button>
+      </form>
+    </div>
   </div>
-
-  <button type="submit" [disabled]="!form.valid">Sign Up</button>
-</form>
+</ion-content>

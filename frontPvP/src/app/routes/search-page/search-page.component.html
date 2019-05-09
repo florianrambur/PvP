@@ -1,0 +1,50 @@
+<ion-content>
+  <form [formGroup]="form" (submit)="searchCompetition()">
+    <ion-radio-group name="competition" formControlName="competition">
+      <ion-item>
+        <ion-label>Tournoi</ion-label>
+        <ion-radio slot="end" value="tournament"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Championnat</ion-label>
+        <ion-radio slot="end" value="championship"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Jeu</ion-label>
+        <ion-select placeholder="Sélectionnez un jeu" formControlName="game" (ionChange)="selectedGame($event.target.value)" okText="Choisir" cancelText="Annuler">
+          <ion-select-option *ngFor="let item of gamesCollection" [value]="item.game._id">{{item.game.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-radio-group name="online" formControlName="online">
+      <ion-item>
+        <ion-label>En ligne</ion-label>
+        <ion-radio slot="end" value="true"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Local</ion-label>
+        <ion-radio slot="end" value="false"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+
+    <ion-input type="number" name="nbPlayers" formControlName="nbPlayers" placeholder="Nombre de joueurs"></ion-input>
+    <ion-datetime placeholder="Date de la compétition" name="startDate" formControlName="startDate"></ion-datetime>
+    <ion-input type="text" name="place" formControlName="place" placeholder="Adresse"></ion-input>
+
+    <ion-button type="submit" [disabled]="!form.valid">Chercher une compétition</ion-button>
+
+    <section *ngIf="resultsCollection">
+        <p *ngIf="resultsCollection.length == 0">Aucun résultat</p>
+      <article *ngFor="let result of resultsCollection">
+        <a *ngIf="searchFields.searchFields.competition == 'championship'" [routerLink]="[ '/championship/fiche/', result._id ]">{{ result.name }}</a>
+        <a *ngIf="searchFields.searchFields.competition == 'tournament'" [routerLink]="[ '/tournament/fiche/', result._id ]">{{ result.name }}</a>
+      </article>
+    </section>
+  </form>
+</ion-content>

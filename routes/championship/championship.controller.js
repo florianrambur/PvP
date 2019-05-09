@@ -196,17 +196,6 @@ Methods
         });
     }
 
-    const getChampionshipAuthor = (userId) => {
-        return new Promise( (resolve, reject) => {
-            UserModel.findById( userId, { email:1, _id: 0 }, (error, user) => {
-                if(error) return reject(error) // Mongo Error
-                else {
-                    return resolve(user);
-                }
-            });
-        })
-    }
-
     const getChampionshipInfos = (userId, gameId, platformId, ruleId, modeId, registerList) => {
         return new Promise( (resolve, reject) => {
     

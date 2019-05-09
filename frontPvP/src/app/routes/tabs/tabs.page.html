@@ -1,14 +1,35 @@
-<ion-tabs>
+<ion-tabs color="primary">
+
+  <div id="sideMenu" style="display: none;">
+    <ul>
+      <li><a [routerLink]="'/signup'">S'inscrire</a></li>
+      <li><a [routerLink]="'/login'">Se connecter</a></li>
+      <li><a [routerLink]="'/game/new'">Ajouter un jeu</a></li>
+      <li><a [routerLink]="'/games'">Voir les jeux</a></li>
+      <li><a [routerLink]="'/login'">Mon profil</a></li>
+    </ul>
+    <div id="arrowBottom"></div>
+  </div>
 
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="home">
-      <ion-icon name="flash"></ion-icon>
-      <ion-label>Tab One</ion-label>
+      <ion-icon name="home"></ion-icon>
+      <ion-label>HOME</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="search">
+      <ion-icon name="search"></ion-icon>
+      <ion-label>SEARCH</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="competitions">
-      <ion-icon name="apps"></ion-icon>
-      <ion-label>Tab Two</ion-label>
+      <ion-icon name="trophy"></ion-icon>
+      <ion-label>COMPETITION</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="toggleMenu()">
+      <ion-icon name="menu"></ion-icon>
+      <ion-label>MENU</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

@@ -54,7 +54,7 @@ Export
       .toPromise() // Use Promise in an Angular Service
       .then( apiResponse => Promise.resolve(apiResponse) ) // Resolve Promise success
       .catch( apiResponse => Promise.reject(apiResponse) ) // Reject Promise error
-    }
+    } 
 
     public login = ( email: String, password: String ): Promise<any> => {
       

@@ -1,0 +1,68 @@
+.bannerTop {
+    position: relative;
+    height: 180px;
+    max-height: 50%;
+    background-color: #CD2235;
+}
+
+.bannerTop img {
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    max-width: 50%;
+    height: auto;
+}
+
+.loginForm {
+    position: relative;
+    max-height: 50%;
+    top: 100px;
+    padding: 0 50px;
+    text-align: center;
+}
+
+.loginForm h1 {
+    color: #FFFFFF;
+    font-size: 24px;
+}
+
+.loginForm input {
+    display: inline-block;
+    width: 90%;
+    height: 50px;
+    padding-left: 20px;
+    margin: 15px 0;
+    border: none;
+    background-color: inherit;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+}
+
+.loginForm button {
+    background-color: #CD2235;
+    color: #FFFFFF;
+    font-size: 18px;
+    width: 80%;
+    height: 50px;
+    margin-top: 34px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+
+.loginForm p {
+    color: #FFFFFF;
+}
+
+.loginForm a {
+    color: #CD2235;
+    text-decoration: none;
+}
+
+.blackButton {
+    position: relative;
+    top: 10px;
+}

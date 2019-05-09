@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from "./routes/home-page/home-page.component";
 import { SignupPageComponent } from "./routes/signup-page/signup-page.component";
 import { LoginPageComponent } from "./routes/login-page/login-page.component";
+import { GamesPageComponent } from './routes/game/games-page/games-page.component';
 import { CreateGamePageComponent } from './routes/game/create-game-page/create-game-page.component';
 import { GamePageComponent } from './routes/game/game-page/game-page.component';
 import { TutorialPageComponent } from './routes/tutorial-page/tutorial-page.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   //{ path: '', component: HomePageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'games', component: GamesPageComponent},
   { path: 'game/new', component: CreateGamePageComponent },
   { path: 'game/fiche/:id', component: GamePageComponent },
   { path: 'tournament/new', component: CreateTournamentPageComponent },

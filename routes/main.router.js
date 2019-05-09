@@ -6,6 +6,7 @@ Imports
     const GameRouterClass = require('./game/game.routes');
     const TournamentRouterClass = require('./tournament/tournament.routes');
     const ChampionshipRouterClass = require('./championship/championship.routes');
+    const SearchRouterClass = require('./search/search.routes');
 //
 
 /* 
@@ -29,6 +30,7 @@ Define routers
     const gameRouter = new GameRouterClass( { passport } );
     const tournamentRouter = new TournamentRouterClass( { passport } );
     const championshipRouter = new ChampionshipRouterClass( { passport } );
+    const searchRouter = new SearchRouterClass();
 //
 
 /*
@@ -39,6 +41,7 @@ Configure routes
     apiRouter.use('/game', gameRouter.init());
     apiRouter.use('/tournament', tournamentRouter.init());
     apiRouter.use('/championship', championshipRouter.init());
+    apiRouter.use('/search', searchRouter.init());
 //
 
 /*

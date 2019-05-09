@@ -10,6 +10,7 @@ Imports and config
   // Import the service you need to use
   import { UtilsService } from "../../services/utils/utils.service";
   import { AuthService } from "../../services/auth/auth.service";
+  import { Location } from '@angular/common';
 
 
 
@@ -17,7 +18,8 @@ Imports and config
   @Component({
     selector: 'app-signup-page',
     templateUrl: './signup-page.component.html',
-    providers: [ UtilsService, AuthService ] // All used service must be declared in the "providers" array
+    providers: [ UtilsService, AuthService ], // All used service must be declared in the "providers" array,
+    styleUrls: ['./signup-page.component.scss']
   })
 //
 
@@ -36,8 +38,13 @@ Export
       private FormBuilder: FormBuilder, // Inject "FormBuilder" in the class
       private UtilsService: UtilsService,
       private AuthService: AuthService, // Inject the service you need to use in the class
-      private Router: Router
+      private Router: Router,
+      private _location: Location
     ) { }
+
+    backClicked() {
+      this._location.back();
+    }
 
     // Create a function to set from
     private initForm = () => {
@@ -47,8 +54,8 @@ Export
         email: [ undefined, [Validators.required] ],
         password: [ undefined, Validators.required ],
         parameters: this.FormBuilder.group({
-          twitch: [ undefined, Validators.required ],
-          discord: [ undefined, Validators.required ]
+          twitch: [ ""  ],
+          discord: [ "" ]
         })
       })
     }

@@ -60,18 +60,18 @@
   </div>
 
   <div *ngIf="gameSelected">
-      <ion-radio-group name="platforms" formControlName="platforms">
-        <ion-list-header>
-          Sélectionnez la plateforme
-        </ion-list-header>
-        <div *ngFor="let platform of gameSelected.game.platforms">
-          <ion-item>
-            <ion-label>{{ platform.name }}</ion-label>
-            <ion-radio slot="end" [value]="platform._id"></ion-radio>
-          </ion-item>
-        </div>
-      </ion-radio-group>
-    </div>
+    <ion-radio-group name="platforms" formControlName="platforms">
+      <ion-list-header>
+        Sélectionnez la plateforme
+      </ion-list-header>
+      <div *ngFor="let platform of gameSelected.game.platforms">
+        <ion-item>
+          <ion-label>{{ platform.name }}</ion-label>
+          <ion-radio slot="end" [value]="platform._id"></ion-radio>
+        </ion-item>
+      </div>
+    </ion-radio-group>
+  </div>
   
   <div *ngIf="gameSelected">
     <ion-radio-group name="rules" formControlName="rules">

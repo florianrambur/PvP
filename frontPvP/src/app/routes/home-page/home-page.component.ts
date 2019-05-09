@@ -5,7 +5,8 @@ import { GameService } from '../../services/game/game.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  providers: [ GameService ]
+  providers: [ GameService ],
+  styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
 

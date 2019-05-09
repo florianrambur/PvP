@@ -8,6 +8,7 @@ Imports and config
   // Import interface to use Angular form technic
   import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   import {Router} from "@angular/router";
+  import { Location } from '@angular/common';
 
   // Import the service you need to use
   import { AuthService } from "../../services/auth/auth.service";
@@ -17,7 +18,8 @@ Imports and config
   @Component({
     selector: 'app-login-page',
     templateUrl: './login-page.component.html',
-    providers: [ AuthService ]
+    providers: [ AuthService ],
+    styleUrls: ['./login-page.component.scss'],
   }) 
 //
 export class LoginPageComponent implements OnInit {
@@ -28,8 +30,13 @@ export class LoginPageComponent implements OnInit {
     private AuthService: AuthService,
     private FormBuilder: FormBuilder,
     private UtilsService: UtilsService,
-    private Router: Router
+    private Router: Router,
+    private _location: Location
   ) { }
+
+  backClicked() {
+    this._location.back();
+  }
 
   private resetForm = () => {
     this.form = this.FormBuilder.group({

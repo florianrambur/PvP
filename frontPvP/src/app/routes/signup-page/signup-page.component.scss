@@ -1,0 +1,51 @@
+.signUpContainer {
+    height: 100vh;
+    background: linear-gradient(to bottom right, #DA2337, rgba(0,0,0,1) 150%);
+}
+
+.signUpContainer img {
+    width: 300px;
+    max-width: 50%;
+    height: auto;
+}
+
+.blackButton {
+    position: relative;
+    top: 10px;
+}
+
+.signUpForm {
+    max-height: 50%;
+    padding: 0 50px;
+    text-align: center;
+}
+
+.signUpForm h1 {
+    color: #FFFFFF;
+    font-size: 24px;
+}
+
+.signUpForm input {
+    display: inline-block;
+    width: 90%;
+    height: 50px;
+    padding-left: 20px;
+    margin: 15px 0;
+    border: none;
+    background-color: inherit;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+}
+
+.signUpForm button {
+    background-color: #CD2235;
+    color: #FFFFFF;
+    font-size: 18px;
+    width: 80%;
+    height: 50px;
+    margin-top: 34px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}

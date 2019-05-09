@@ -22,6 +22,7 @@ export class ChampionshipPageComponent implements OnInit {
   ) { }
 
   private championshipId: String;
+  public pourcentageRegister;
   public championshipInformation;
 
   backClicked() {
@@ -32,7 +33,8 @@ export class ChampionshipPageComponent implements OnInit {
     this.championshipId = this.route.snapshot.paramMap.get('id');
     return this.ChampionshipService.getOneChampionship(this.championshipId)
     .then( apiResponse => { 
-      this.championshipInformation = apiResponse.data; 
+      this.championshipInformation = apiResponse.data;
+      this.pourcentageRegister = apiResponse.data.championship.registerList.length / apiResponse.data.championship.nbPlayers * 100;
       console.log(this.championshipInformation);
     })
     .catch( apiResponse => console.error(apiResponse) );

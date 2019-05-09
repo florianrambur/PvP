@@ -26,6 +26,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'search',
+        children: [
+          {
+            path: '',
+            loadChildren: '../search-page/tab3.module#SearchPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

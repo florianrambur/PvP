@@ -1,19 +1,77 @@
-<ion-icon size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
-
-<div style="color: white;" *ngIf="championshipInformation">
-  <h1>{{ championshipInformation.championship.name }}</h1>
-  <h2>{{ championshipInformation.infos.game }} </h2>
-
-  <p>{{ championshipInformation.championship.description }}</p>
-
-  <p>Créé par {{ championshipInformation.infos.author.pseudo }}</p>
-  
-  <h3>Joueurs inscrits :</h3>
-  <ul>
-    <li *ngFor="let register of championshipInformation.infos.registerList">
-      {{ register.pseudo }} (Nombre de victoires : {{ register.countWin }})
-    </li>
-  </ul>
+<div class="banner">
+  <ion-icon class="blackButton" size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
 </div>
 
-<button type="button" (click)="addOrRemovePlayer(championshipInformation.championship._id)">S'inscrire</button>
+<div style="color: white;" *ngIf="championshipInformation">
+
+  <div class="infos">
+    <div class="content">
+      <div class="textCenter">
+        <div class="imgContainer">
+          <img src="{{ championshipInformation.infos.image }}" />
+        </div>
+        <h1>{{ championshipInformation.championship.name }}</h1>
+        <h2>{{ championshipInformation.infos.game }} </h2>
+        <h2>Créé le {{ championshipInformation.championship.dateCreation | date: 'dd/MM/yyyy' }} par {{ championshipInformation.infos.author.pseudo }}</h2>
+      </div>
+
+      <div class="flexBox spaceBetween ft-14 marginTB10">
+        <span><ion-icon size="large" name="time"></ion-icon> {{ championshipInformation.championship.startDate | date: 'dd/MM/yyyy' }}</span>
+        <span *ngIf="championshipInformation.championship.online == false"><ion-icon size="large" name="locate"></ion-icon> {{ championshipInformation.championship.place }}</span>
+      </div>
+
+      <div class="flexBox spaceBetween ft-14 marginTB10">
+        <span *ngIf="championshipInformation.championship.online == true"><ion-icon size="large" name="wifi"></ion-icon> En ligne</span>
+        <span *ngIf="championshipInformation.championship.online == false"><ion-icon size="large" name="wifi"></ion-icon> Local</span>
+        <span *ngIf="championshipInformation.championship.isPrivate == true"><ion-icon size="large" name="eye"></ion-icon> Privé</span>
+        <span *ngIf="championshipInformation.championship.isPrivate == false"><ion-icon size="large" name="eye"></ion-icon> Public</span>
+        <span><ion-icon size="large" name="desktop"></ion-icon> {{ championshipInformation.infos.platform }}</span>
+      </div>
+
+      <div class="ft-14 marginTB10" style="margin-top: 20px;">
+        <p>{{ championshipInformation.championship.description }}</p>
+      </div>
+
+      <div>
+        <div class="flexBox spaceBetween ft-14 marginTB10">
+          <span>TOTAL PARTICIPANTS</span>
+          <span>{{ championshipInformation.championship.registerList.length }}/{{ championshipInformation.championship.nbPlayers }} </span>
+        </div>
+        <div>
+          <div class="progressBar">
+            <div [ngStyle]="{'width': pourcentageRegister + '%'}" class="progressBarContent"></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" (click)="addOrRemovePlayer(championshipInformation.championship._id)">Je m'inscris</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rulesAndModes">
+    <div class="content">
+      <div class="title textCenter">
+        Règles & Modes de jeu
+      </div>
+
+      <div class="textCenter">
+        <span><ion-icon size="large" name="logo-game-controller-b"></ion-icon> {{ championshipInformation.infos.mode.name }}</span>
+      </div>
+
+      <div class="ft-14 marginTB10" style="margin-top: 20px;">
+        <p>{{ championshipInformation.infos.mode.description }}</p>
+      </div>
+
+      <div class="textCenter titleRule">
+        <span>Règle #1</span>
+      </div>
+
+      <div class="ft-14 marginTB10">
+        <p>{{ championshipInformation.infos.rule.description }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,7 +1,17 @@
-<h2>Login</h2>
-<form [formGroup]="form" (submit)="login()">
-  <input type="email" name="email" formControlName="email">
-  <input type="password" name="password" formControlName="password">
-  
-  <button type="submit" [disabled]="!form.valid">Login</button>
-</form>
+<ion-content>
+  <div class="bannerTop">
+    <ion-icon class="blackButton" size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
+    <img src="../../../assets/images/logo_pvp.png" />
+  </div>
+  <div class="loginForm">
+    <h1>Pocket Versus Planner</h1>
+    <form [formGroup]="form" (submit)="login()">
+      <input type="email" placeholder="email@exemple.fr" name="email" formControlName="email">
+      <input type="password" placeholder="password" name="password" formControlName="password">
+      
+      <button type="submit" [disabled]="!form.valid">GO !</button>
+    </form>
+
+    <p>Don't have an account ? <a [routerLink]="'/signup'">SIGN UP</a></p>
+  </div>
+</ion-content>
