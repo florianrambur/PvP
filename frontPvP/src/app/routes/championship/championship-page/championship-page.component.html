@@ -1,0 +1,19 @@
+<ion-icon size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
+
+<div style="color: white;" *ngIf="championshipInformation">
+  <h1>{{ championshipInformation.championship.name }}</h1>
+  <h2>{{ championshipInformation.infos.game }} </h2>
+
+  <p>{{ championshipInformation.championship.description }}</p>
+
+  <p>Créé par {{ championshipInformation.infos.author.pseudo }}</p>
+  
+  <h3>Joueurs inscrits :</h3>
+  <ul>
+    <li *ngFor="let register of championshipInformation.infos.registerList">
+      {{ register.pseudo }} (Nombre de victoires : {{ register.countWin }})
+    </li>
+  </ul>
+</div>
+
+<button type="button" (click)="addOrRemovePlayer(championshipInformation.championship._id)">S'inscrire</button>

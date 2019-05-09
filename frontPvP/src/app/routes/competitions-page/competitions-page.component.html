@@ -1,0 +1,74 @@
+<ion-content class="content">
+  <ion-toolbar mode="md" style="margin-bottom: 30px;">
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="tournament">
+        <ion-label class="whiteColor">TOURNOI</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="championship">
+        <ion-label class="whiteColor">CHAMPIONNAT</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div *ngIf="selectedValue == 'tournament'">
+    <ion-card class="card" *ngFor="let tournament of tournamentsCollection">
+      <ion-card-header style="padding: 10px;" [routerLink]="[ '/tournament/fiche/', tournament.tournament._id ]">
+        <ion-row justify-content-between>
+          <ion-col size="3">
+            <img src="{{ tournament.infos.image }}" item-left/>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row class="whiteColor">
+                <ion-text class="cardTitle">{{ tournament.tournament.name }}</ion-text>
+            </ion-row>
+            <ion-row text-wrap class="whiteColor">
+              <ion-text class="smallCardText">{{ tournament.infos.game }}</ion-text>
+            </ion-row>
+            <div class="lineBreak"></div>
+            <ion-row class="whiteColor" style="font-size: 3.8vw">
+              {{ tournament.tournament.startDate | date:'EEEE dd LLLL yyyy' }}
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-fab [routerLink]="'/tournament/new'" vertical="bottom" horizontal="end" style="position: fixed !important;">
+      <ion-fab-button>
+        <ion-icon color="red" name="add" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <div *ngIf="selectedValue == 'championship'">
+    <ion-card class="card" *ngFor="let championship of championshipsCollection">
+      <ion-card-header style="padding: 10px;" [routerLink]="[ '/championship/fiche/', championship.championship._id ]">
+        <ion-row justify-content-between>
+          <ion-col size="3">
+            <img src="{{ championship.infos.image }}" item-left/>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row class="whiteColor">
+                <ion-text class="cardTitle">{{ championship.championship.name }}</ion-text>
+            </ion-row>
+            <ion-row text-wrap class="whiteColor">
+              <ion-text class="smallCardText">{{ championship.infos.game }}</ion-text>
+            </ion-row>
+            <div class="lineBreak"></div>
+            <ion-row class="whiteColor" style="font-size: 3.8vw">
+              {{ championship.championship.startDate | date:'EEEE dd LLLL yyyy' }}
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-fab [routerLink]="'/championship/new'" vertical="bottom" horizontal="end" style="position: fixed !important;">
+      <ion-fab-button>
+        <ion-icon color="red" name="add" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>
+
+

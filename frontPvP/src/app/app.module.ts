@@ -21,6 +21,9 @@ import { CreateGamePageComponent } from './routes/game/create-game-page/create-g
 import { CreateTournamentPageComponent } from './routes/tournament/create-tournament-page/create-tournament-page.component';
 import { TournamentsPageComponent } from './routes/tournament/tournaments-page/tournaments-page.component';
 import { TournamentPageComponent } from './routes/tournament/tournament-page/tournament-page.component';
+import { CreateChampionshipPageComponent } from './routes/championship/create-championship-page/create-championship-page.component';
+import { ChampionshipsPageComponent } from './routes/championship/championships-page/championships-page.component';
+import { ChampionshipPageComponent } from './routes/championship/championship-page/championship-page.component';
 
 // Utils
 import { UtilsService } from './services/utils/utils.service';
@@ -34,7 +37,8 @@ import { UtilsService } from './services/utils/utils.service';
     SignupPageComponent, 
     GamePageComponent, CreateGamePageComponent,
     TutorialPageComponent, 
-    CreateTournamentPageComponent, TournamentsPageComponent, TournamentPageComponent
+    CreateTournamentPageComponent, TournamentsPageComponent, TournamentPageComponent,
+    CreateChampionshipPageComponent, ChampionshipsPageComponent, ChampionshipPageComponent
   ],
   entryComponents: [],
   imports: [

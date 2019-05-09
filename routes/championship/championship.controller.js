@@ -3,6 +3,7 @@ Imports
 */
     const ChampionshipModel = require('../../models/championship.model');
     const UserModel = require('../../models/user.model');
+    const GameModel = require('../../models/game.model');
     const { arrayRemove, shuffleArray } = require('../../services/helpers');
 //
 
@@ -48,8 +49,8 @@ Methods
                     let championshipArray = [];
                     ((async function loop() {
                         for (let i = 0; i < championship.length; i++) {
-                            const user = await getChampionshipAuthor(championship[i].author);
-                            championshipArray.push({user: user, championship: championship[i]})
+                            const infos = await getChampionshipInfos(championship[i].author, championship[i].game, championship[i].platforms, championship[i].rules, championship[i].mode);
+                            championshipArray.push({ infos: infos, championship: championship[i]})
                         }
     
                         return resolve(championshipArray);
@@ -65,12 +66,12 @@ Methods
                 if (error) return reject(error)
                 else if (!championship) return reject('Tournoi non trouvé');
                 else {
-                    let author = {};
-    
-                    getChampionshipAuthor(championship.author)
-                    .then(user => author = user);
-                    
-                    return resolve({ user: author, championship: championship });
+                    let author = {};  
+                    console.log(championship.game);
+                    getChampionshipInfos(championship.author, championship.game, championship.platforms, championship.rules, championship.mode, championship.registerList)
+                    .then(infos => resolve({ infos: infos, championship: championship }));
+
+                    return;
                 }
             });
         });
@@ -205,6 +206,42 @@ Methods
             });
         })
     }
+
+    const getChampionshipInfos = (userId, gameId, platformId, ruleId, modeId, registerList) => {
+        return new Promise( (resolve, reject) => {
+    
+            UserModel.findById( userId, { pseudo: 1, email: 1, _id: 0 }, (error, user) => {
+                if (error) return reject(error)
+                else {
+    
+                    GameModel.findById( gameId, { name: 1, platforms: 1, modes: 1, rules: 1, image: 1, _id: 0 }, (error, game) => {
+                        if (error) return reject(error)
+                        else {
+                            let result = {};
+                            // let registerArray = [];
+    
+                            // for (register in registerList) {
+                            //     registerArray.push(UserModel.findById(register));
+                            // }
+    
+                            UserModel.find( { _id: { $in: registerList }} , (error, registers) => {
+                                result.game = game.name;
+                                result.image = game.image;
+                                result.platform = game.platforms.id(platformId).name;
+                                result.mode = game.modes.id(modeId);
+                                result.rule = game.rules.id(ruleId);
+                                result.registerList = registers;
+                                result.author = user;
+                                
+                                resolve(result);
+                            });
+                            
+                        }
+                    });
+                }
+            });
+        });
+    } 
 //
 
 /*

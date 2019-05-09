@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GamesPageComponent } from './games-page.component';
+import { CompetitionsPageComponent } from './competitions-page.component';
 
 @NgModule({
   imports: [
@@ -11,8 +11,8 @@ import { GamesPageComponent } from './games-page.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild([{ path: '', component: GamesPageComponent }])
+    RouterModule.forChild([{ path: '', component: CompetitionsPageComponent }])
   ],
-  declarations: [GamesPageComponent]
+  declarations: [CompetitionsPageComponent]
 })
-export class GamesPageModule {}
+export class CompetitionsPageModule {}

@@ -11,6 +11,9 @@ import { TutorialPageComponent } from './routes/tutorial-page/tutorial-page.comp
 import { CreateTournamentPageComponent } from './routes/tournament/create-tournament-page/create-tournament-page.component';
 import { TournamentsPageComponent } from './routes/tournament/tournaments-page/tournaments-page.component';
 import { TournamentPageComponent } from './routes/tournament/tournament-page/tournament-page.component';
+import { CreateChampionshipPageComponent } from './routes/championship/create-championship-page/create-championship-page.component';
+import { ChampionshipsPageComponent } from './routes/championship/championships-page/championships-page.component';
+import { ChampionshipPageComponent } from './routes/championship/championship-page/championship-page.component';
 
 const routes: Routes = [
   { path: '', loadChildren: './routes/tabs/tabs.module#TabsPageModule' },
@@ -21,8 +24,11 @@ const routes: Routes = [
   { path: 'game/new', component: CreateGamePageComponent },
   { path: 'game/fiche/:id', component: GamePageComponent },
   { path: 'tournament/new', component: CreateTournamentPageComponent },
+  { path: 'championship/new', component: CreateChampionshipPageComponent },
   { path: 'tournaments', component: TournamentsPageComponent },
-  { path: 'tournament/fiche/:id', component: TournamentPageComponent }
+  { path: 'championships', component: ChampionshipsPageComponent },
+  { path: 'tournament/fiche/:id', component: TournamentPageComponent },
+  { path: 'championship/fiche/:id', component: ChampionshipPageComponent }
 ];
 
 @NgModule({

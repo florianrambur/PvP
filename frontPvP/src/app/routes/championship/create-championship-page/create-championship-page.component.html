@@ -1,0 +1,97 @@
+<ion-icon ios="ios-arrow-back" md="md-arrow-back" (click)="UtilsService.backClicked()" nav-direction="swap"></ion-icon>
+
+<form [formGroup]="form" (submit)="createChampionship()">
+  <ion-input type="text" name="name" formControlName="name" placeholder="Mon championnat"></ion-input>
+  <ion-textarea name="description" formControlName="description" placeholder="Ma description"></ion-textarea>
+
+
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jeu</ion-label>
+      <ion-select placeholder="Sélectionnez un jeu" formControlName="game" (ionChange)="selectedGame($event.target.value)" okText="Choisir" cancelText="Annuler">
+        <ion-select-option *ngFor="let item of gamesCollection" [value]="item.game._id">{{item.game.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-radio-group name="online" formControlName="online" (ionSelect)="showPlaceOrNot($event.target.value)">
+    <ion-list-header>
+      Ce tournoi sera t-il en ligne ?
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Oui</ion-label>
+      <ion-radio slot="end" value="true"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Non</ion-label>
+      <ion-radio slot="end" value="false"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-radio-group name="isPrivate" formControlName="isPrivate">
+    <ion-list-header>
+      Ce championnat sera t-il privé ou ouvert à tout le monde ?
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Oui</ion-label>
+      <ion-radio slot="end" value="true"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Non</ion-label>
+      <ion-radio slot="end" value="false"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <div *ngIf="gameSelected">
+    <ion-radio-group name="mode" formControlName="mode">
+      <ion-list-header>
+        Sélectionnez un mode de jeu
+      </ion-list-header>
+      <div *ngFor="let mode of gameSelected.game.modes">
+        <ion-item>
+          <ion-label>{{ mode.name }} - {{ mode.description }}</ion-label>
+          <ion-radio slot="end" [value]="mode._id"></ion-radio>
+        </ion-item>
+      </div>
+    </ion-radio-group>
+  </div>
+
+  <div *ngIf="gameSelected">
+      <ion-radio-group name="platforms" formControlName="platforms">
+        <ion-list-header>
+          Sélectionnez la plateforme
+        </ion-list-header>
+        <div *ngFor="let platform of gameSelected.game.platforms">
+          <ion-item>
+            <ion-label>{{ platform.name }}</ion-label>
+            <ion-radio slot="end" [value]="platform._id"></ion-radio>
+          </ion-item>
+        </div>
+      </ion-radio-group>
+    </div>
+  
+  <div *ngIf="gameSelected">
+    <ion-radio-group name="rules" formControlName="rules">
+      <ion-list-header>
+        Sélectionnez une règle
+      </ion-list-header>
+      <div *ngFor="let rule of gameSelected.game.rules">
+        <ion-item>
+          <ion-label>{{ rule.name }} - {{ rule.description }}</ion-label>
+          <ion-radio slot="end" [value]="rule._id"></ion-radio>
+        </ion-item>
+      </div>
+    </ion-radio-group>
+  </div>
+  
+  <ion-input type="number" name="nbPlayers" formControlName="nbPlayers" placeholder="Nombre de joueurs"></ion-input>
+  <ion-datetime placeholder="test" name="startDate" formControlName="startDate"></ion-datetime>
+  <div *ngIf="showPlace == 'false'">
+    <ion-input type="text" name="place" formControlName="place" placeholder="Adresse"></ion-input>
+  </div>
+
+  <ion-button type="submit" [disabled]="!form.valid">Créer le championnat</ion-button>
+</form>

@@ -1,0 +1,33 @@
+<ion-content class="content">
+  <div>
+    <ion-card class="card" *ngFor="let championship of championshipsCollection">
+      <ion-card-header style="padding: 10px;" [routerLink]="[ '/championship/fiche/', championship.championship._id ]">
+        <ion-row justify-content-between>
+          <ion-col size="3">
+            <img src="https://i.gyazo.com/e9d4ba7f06d0b47ff7fb6ef36fd5bf7d.png" item-left/>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row class="whiteColor">
+                <ion-text class="cardTitle">{{ championship.championship.name }}</ion-text>
+            </ion-row>
+            <ion-row text-wrap class="whiteColor">
+              <ion-text class="smallCardText">Apex Legends</ion-text>
+            </ion-row>
+            <div class="lineBreak"></div>
+            <ion-row class="whiteColor" style="font-size: 3.8vw">
+              {{ championship.championship.startDate | date:'EEEE dd LLLL yyyy' }}
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-fab [routerLink]="'/championship/new'" vertical="bottom" horizontal="end" style="position: fixed !important;">
+      <ion-fab-button>
+        <ion-icon color="red" name="add" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>
+
+

@@ -47,7 +47,7 @@ const readItems = () => {
                 let tournamentArray = [];
                 ((async function loop() {
                     for (let i = 0; i < tournament.length; i++) {
-                        const infos = await getTournamentInfos(tournament[i].author, tournament[i].game, tournament[i].platforms, tournament[i].rules, tournament[i].mode);
+                        const infos = await getTournamentInfos(tournament[i].author, tournament[i].game, tournament[i].platforms, tournament[i].rules, tournament[i].mode, tournament[i].registerList);
                         tournamentArray.push({ infos: infos, tournament: tournament[i]})
                     }
 
@@ -275,7 +275,7 @@ const getTournamentInfos = (userId, gameId, platformId, ruleId, modeId, register
             if (error) return reject(error)
             else {
 
-                GameModel.findById( gameId, { name: 1, platforms: 1, modes: 1, rules: 1, _id: 0 }, (error, game) => {
+                GameModel.findById( gameId, { name: 1, platforms: 1, modes: 1, rules: 1, image: 1, _id: 0 }, (error, game) => {
                     if (error) return reject(error)
                     else {
                         let result = {};
@@ -287,6 +287,7 @@ const getTournamentInfos = (userId, gameId, platformId, ruleId, modeId, register
 
                         UserModel.find( { _id: { $in: registerList }} , (error, registers) => {
                             result.game = game.name;
+                            result.image = game.image;
                             result.platform = game.platforms.id(platformId).name;
                             result.mode = game.modes.id(modeId);
                             result.rule = game.rules.id(ruleId);
