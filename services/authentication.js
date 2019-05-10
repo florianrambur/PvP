@@ -26,6 +26,7 @@ const authJwt = (passport) => {
     
     // #JWT strategy
     passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
+        console.log(jwtPayload);
         UserModel.findOne({ _id: jwtPayload._id }, (err, user) => {
             if (err) { return done(err, false)}
             if (user) { 

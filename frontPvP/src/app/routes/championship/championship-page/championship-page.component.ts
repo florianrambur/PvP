@@ -56,7 +56,10 @@ export class ChampionshipPageComponent implements OnInit {
       this.Router.navigate([ '/' ]);
       this.UtilsService.flashMessage('success', 'Vous vous êtes inscrits avec succès !');
     })
-    .catch( apiResponse => console.error(apiResponse) )
+    .catch( apiResponse => {
+      console.error(apiResponse);
+      this.UtilsService.flashMessage('error', 'Une erreur s\'est produite durant l\'inscription');
+    })
   }
 
   ngOnInit() {

@@ -9,10 +9,12 @@ Imports and config
   import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   import {Router} from "@angular/router";
   import { Location } from '@angular/common';
+  import { Storage } from '@ionic/storage';
 
   // Import the service you need to use
   import { AuthService } from "../../services/auth/auth.service";
   import { UtilsService } from "../../services/utils/utils.service";
+import { resolve } from 'path';
 
   // Config
   @Component({
@@ -31,6 +33,7 @@ export class LoginPageComponent implements OnInit {
     private FormBuilder: FormBuilder,
     private UtilsService: UtilsService,
     private Router: Router,
+    private Storage: Storage,
     private _location: Location
   ) { }
 
@@ -54,6 +57,8 @@ export class LoginPageComponent implements OnInit {
         } else {
           this.Router.navigate(['/']);
         }
+        console.log(apiResponse.data.token);
+        this.Storage.set('access_token', apiResponse.data.token);
         this.UtilsService.flashMessage('success', 'Vous vous êtes connecté avec succès !');
       })
     .catch( apiResponse => {

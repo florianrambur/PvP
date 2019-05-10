@@ -52,10 +52,17 @@ const login = (body, req, res) => {
                 if( !validPassword ) reject('Password not valid')
                 else {
                     // Set cookie
-                    res.cookie("OTPBDtoken", user.generateJwt(), { httpOnly: true });
+                    // res.cookie("OTPBDtoken", user.generateJwt(), { httpOnly: true });
                     updateCountConnection(body);
                     // Resolve user data
-                    resolve(user)
+                    resolve({
+                        _id: user._id,
+                        pseudo: user.pseudo,
+                        email: user.email,
+                        parameters: user.parameters,
+                        countConnection: user.countConnection,
+                        token: user.generateJwt()
+                    })
                 }
             }
         } )

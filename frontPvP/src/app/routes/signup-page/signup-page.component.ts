@@ -72,7 +72,10 @@ Export
         this.Router.navigate(['/login']);
         this.UtilsService.flashMessage('success', 'Votre compte a été créé avec succès!');
       })
-      .catch( apiResponse => console.error(apiResponse) )
+      .catch( apiResponse => {
+        console.error(apiResponse);
+        this.UtilsService.flashMessage('error', 'Une erreur s\'est produite durant l\'inscription');
+      } )
     }
 
     // Hoook ngOnInit: eq. DOMContentLoaded for a component

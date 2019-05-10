@@ -22,6 +22,7 @@ export class TournamentPageComponent implements OnInit {
   ) { }
 
   private tournamentId: String;
+  public pourcentageRegister;
   public tournamentInformation;
 
   backClicked() {
@@ -33,6 +34,7 @@ export class TournamentPageComponent implements OnInit {
     return this.TournamentService.getOneTournament(this.tournamentId)
     .then( apiResponse => { 
       this.tournamentInformation = apiResponse.data; 
+      this.pourcentageRegister = apiResponse.data.tournament.registerList.length / apiResponse.data.tournament.nbPlayers * 100;
       console.log(this.tournamentInformation);
     })
     .catch( apiResponse => console.error(apiResponse) );
@@ -46,7 +48,10 @@ export class TournamentPageComponent implements OnInit {
       this.Router.navigate([ '/' ]);
       this.UtilsService.flashMessage('success', 'Vous vous êtes inscrits avec succès !');
     })
-    .catch( apiResponse => console.error(apiResponse) )
+    .catch( apiResponse => {
+      console.error(apiResponse);
+      this.UtilsService.flashMessage('error', 'Une erreur s\'est produite durant l\'inscription');
+    } )
   }
 
   ngOnInit() {

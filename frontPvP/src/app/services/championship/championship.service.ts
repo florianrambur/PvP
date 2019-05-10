@@ -1,6 +1,7 @@
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ChampionshipService {
 
   private apiUrl = `${environment.apiUrl}/championship`;
+  private token: String;
 
   constructor(
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private Storage: Storage
   ) { }
 
   public newChampionship = (
@@ -46,14 +49,22 @@ export class ChampionshipService {
     .catch( apiResponse => Promise.reject(apiResponse) );
   }
 
-  registerOrUnsubscribeToTheChampionship = (itemId: String): Promise<any> => {
-    let myHeader = new HttpHeaders();
-    myHeader.append('Content-Type', 'application/json');
+  public registerOrUnsubscribeToTheChampionship = (itemId: String): Promise<any> => {
+    let store = this.Storage.get('access_token');
 
-    return this.HttpClient.put( this.apiUrl + '/subscribe/' + itemId, { headers: myHeader } )
-    .toPromise()
-    .then( apiResponse => Promise.resolve(apiResponse) )
-    .catch( apiResponse => Promise.reject(apiResponse) );
+    return store.then(data => {
+      this.token = data;
+      let myHeader = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
+      })
+        
+
+      return this.HttpClient.put( this.apiUrl + '/subscribe/' + itemId, null, { headers: myHeader } )
+      .toPromise()
+      .then( apiResponse => Promise.resolve(apiResponse) )
+      .catch( apiResponse => Promise.reject(apiResponse) );
+    });
   } 
 
 }

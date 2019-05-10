@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage';
 
 // Personnal component
 import { TutorialPageComponent } from './routes/tutorial-page/tutorial-page.component';
@@ -47,6 +48,7 @@ import { UtilsService } from './services/utils/utils.service';
     HttpClientModule,
     IonicModule.forRoot(),
     FormsModule,
+    IonicStorageModule.forRoot(),
     ReactiveFormsModule,
     AppRoutingModule
   ],

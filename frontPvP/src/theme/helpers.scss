@@ -2,19 +2,19 @@
 
 .errorMessage {
     background-color: #FFBABA;
-    border: 1px solid #D8000C;
+    border-top: 1px solid #D8000C;
     z-index: 1000;
 }
 
 .successMessage {
     background-color: #D4EDDA;
-    border: 1px solid #C3E6CB;
+    border-top: 1px solid #C3E6CB;
     z-index: 1000;
 }
 
 .warningMessage {
     background-color: #FFF3CD;
-    border: 1px solid #FFEEBA;
+    border-top: 1px solid #FFEEBA;
     z-index: 1000;
 }
 
