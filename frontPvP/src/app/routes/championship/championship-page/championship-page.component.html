@@ -82,7 +82,7 @@
 
       <div *ngIf="championshipInformation.championship.ranking.length > 0">
         <div *ngFor="let player of championshipInformation.championship.ranking">
-          {{ player.playerId }} - {{ player.nbMatches }} - {{ player.points }} - {{ player.average }}
+          {{ player.pseudo }} - {{ player.nbMatches }} - {{ player.points }} - {{ player.average }}
         </div>
       </div>
     </div>

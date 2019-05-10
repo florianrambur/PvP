@@ -37,6 +37,13 @@ export class ChampionshipPageComponent implements OnInit {
     .then( apiResponse => { 
       this.championshipInformation = apiResponse.data;
       this.pourcentageRegister = apiResponse.data.championship.registerList.length / apiResponse.data.championship.nbPlayers * 100;
+
+      this.championshipInformation.championship.ranking.forEach(playerRanking => {
+        this.AuthService.getUserById(playerRanking.playerId)
+        .then( apiResponse => playerRanking.pseudo = apiResponse.data.pseudo )
+        .catch( apiResponse => console.error(apiResponse) );
+      });
+
       console.log(this.championshipInformation);
     })
     .catch( apiResponse => console.error(apiResponse) );
