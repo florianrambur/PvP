@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ChampionshipService } from '../../../services/championship/championship.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-championship-page',
   templateUrl: './championship-page.component.html',
-  providers: [ ChampionshipService, UtilsService ],
+  providers: [ ChampionshipService, UtilsService, AuthService ],
   styleUrls: ['./championship-page.component.scss'],
 })
 export class ChampionshipPageComponent implements OnInit {
@@ -16,6 +17,7 @@ export class ChampionshipPageComponent implements OnInit {
   constructor(
     private ChampionshipService: ChampionshipService,
     private UtilsService: UtilsService,
+    private AuthService: AuthService,
     private route: ActivatedRoute,
     private Router: Router,
     private _location: Location
@@ -41,7 +43,6 @@ export class ChampionshipPageComponent implements OnInit {
   }
 
   addOrRemovePlayer = (pChampionshipId) => {
-    // this.championshipId = this.route.snapshot.paramMap.get('id');
     return this.ChampionshipService.registerOrUnsubscribeToTheChampionship(pChampionshipId)
     .then( apiResponse => {
       console.log(apiResponse);

@@ -64,6 +64,13 @@ Export
       .catch( apiResponse => Promise.reject(apiResponse) ) // Reject Promise error
     }
 
+    public getUserById = ( id: String ): Promise<any> => {
+      return this.HttpClient.get( `${this.apiUrl}/` + id )
+      .toPromise() // Use Promise in an Angular Service
+      .then( apiResponse => Promise.resolve(apiResponse) ) // Resolve Promise success
+      .catch( apiResponse => Promise.reject(apiResponse) ) // Reject Promise error
+    }
+
     public getCurrentUser = () => {
       return this.HttpClient.get( `${this.apiUrl}/me`)
       .toPromise() // Use Promise in an Angular Service

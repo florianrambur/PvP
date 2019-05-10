@@ -8,6 +8,12 @@ Functions
         });
     }
 
+    const arrayRemoveForRanking = (array, value) => {
+        return array.filter(function(element){
+            return element.playerId != value;
+        });
+    }
+
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -19,5 +25,5 @@ Functions
 /*
 Export
 */
-    module.exports = { arrayRemove, shuffleArray };
+    module.exports = { arrayRemove, arrayRemoveForRanking, shuffleArray };
 //

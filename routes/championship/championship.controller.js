@@ -4,7 +4,7 @@ Imports
     const ChampionshipModel = require('../../models/championship.model');
     const UserModel = require('../../models/user.model');
     const GameModel = require('../../models/game.model');
-    const { arrayRemove, shuffleArray } = require('../../services/helpers');
+    const { arrayRemove, arrayRemoveForRanking, shuffleArray } = require('../../services/helpers');
 //
 
 /*
@@ -49,7 +49,7 @@ Methods
                     let championshipArray = [];
                     ((async function loop() {
                         for (let i = 0; i < championship.length; i++) {
-                            const infos = await getChampionshipInfos(championship[i].author, championship[i].game, championship[i].platforms, championship[i].rules, championship[i].mode);
+                            const infos = await getChampionshipInfos(championship[i].author, championship[i].game, championship[i].platforms, championship[i].rules, championship[i].mode, championship[i].registerList);
                             championshipArray.push({ infos: infos, championship: championship[i]})
                         }
     
@@ -68,7 +68,7 @@ Methods
                 else {
                     let author = {};  
                     console.log(championship.game);
-                    getChampionshipInfos(championship.author, championship.game, championship.platforms, championship.rules, championship.mode, championship.registerList)
+                    getChampionshipInfos(championship.author, championship.game, championship.platforms, championship.rules, championship.mode, championship.registerList, championship.ranking)
                     .then(infos => resolve({ infos: infos, championship: championship }));
 
                     return;
@@ -89,11 +89,11 @@ Methods
                     let isInArray = allPlayers.some(function (player) {
                         return player.equals(userId);
                     });
-    
+                    
                     // Si le joueur est déjà inscrit, l'action permet de le désinscrire
-                    if (isInArray) {
+                    if (isInArray == true) {
                         allPlayers = arrayRemove(allPlayers, userId.toString());
-                        ranking = arrayRemove(ranking, userId.toString());
+                        ranking = arrayRemoveForRanking(ranking, userId.toString());
                     } else {
                         if (allPlayers.length < championship.nbPlayers) {
                             allPlayers.push(userId);
@@ -196,7 +196,7 @@ Methods
         });
     }
 
-    const getChampionshipInfos = (userId, gameId, platformId, ruleId, modeId, registerList) => {
+    const getChampionshipInfos = (userId, gameId, platformId, ruleId, modeId, registerList, ranking) => {
         return new Promise( (resolve, reject) => {
     
             UserModel.findById( userId, { pseudo: 1, email: 1, _id: 0 }, (error, user) => {
@@ -207,11 +207,6 @@ Methods
                         if (error) return reject(error)
                         else {
                             let result = {};
-                            // let registerArray = [];
-    
-                            // for (register in registerList) {
-                            //     registerArray.push(UserModel.findById(register));
-                            // }
     
                             UserModel.find( { _id: { $in: registerList }} , (error, registers) => {
                                 result.game = game.name;

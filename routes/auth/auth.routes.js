@@ -8,7 +8,7 @@ Imports
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { register, login, read } = require('./auth.controller');
+    const { register, login, read, readOneItem } = require('./auth.controller');
 //
 
 /*
@@ -63,6 +63,16 @@ Routes definition
                 read(req.body)
                 .then( apiResponse => sendApiSuccessResponse(req.body, 'Get the user data', apiResponse) )
                 .catch( apiResponse => sendApiErrorResponse(res, 'Error during user login', apiResponse))
+            });
+
+            authRouter.get('/:id', (req, res) => {
+                // Error : no param present
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+
+                readOneItem(req.params.id)
+                .then( apiRes => sendApiSuccessResponse(res, 'User received', apiRes))
+                .catch( apiErr => sendApiErrorResponse(res, 'Error during get the item', apiErr));
+                
             });
 
             /*

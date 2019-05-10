@@ -74,4 +74,18 @@
     </div>
   </div>
 
+  <div class="ranking">
+    <div class="content">
+      <div class="title textCenter">
+        Classement
+      </div>
+
+      <div *ngIf="championshipInformation.championship.ranking.length > 0">
+        <div *ngFor="let player of championshipInformation.championship.ranking">
+          {{ player.playerId }} - {{ player.nbMatches }} - {{ player.points }} - {{ player.average }}
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

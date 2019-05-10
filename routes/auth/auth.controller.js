@@ -79,6 +79,22 @@ const updateCountConnection = (body) => {
     });
 }
 
+const readOneItem = (itemId) => {
+    return new Promise( (resolve, reject) => {
+        UserModel.findById(itemId, (error, user) => {
+            if (error) return reject(error)
+            else if (!user) return reject('Utilisateur non trouvé');
+            else {
+                resolve({ 
+                    pseudo: user.pseudo, 
+                    email: user.email,
+                    parameters: user.parameters 
+                });
+            }
+        });
+    });
+}
+
 const read = body => {
     return new Promise( (resolve, reject) => {
         console.log('test', body)
@@ -99,6 +115,7 @@ Export
 module.exports = {
     register,
     login,
-    read
+    read,
+    readOneItem
 }
 //
