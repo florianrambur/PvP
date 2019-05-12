@@ -1,0 +1,44 @@
+<h1>Ajouter un jeu</h1>
+
+<form *ngIf="gameInformation" [formGroup]="form" (submit)="createGame()">
+  <input type="text" [value]="gameInformation.game.name" name="name" formControlName="name" placeholder="Overwatch"> 
+  
+  <div formArrayName="platforms"
+      *ngFor="let platform of form.get('platforms')['controls']; let i = index">
+      <p>Plateforme n°{{i+1}}</p>
+      <div [formGroupName]="i">
+          <input placeholder="Nom de la plateforme" formControlName='name'>
+          <button *ngIf="form.get('platforms')['length'] > 1" type="button" (click)="deleteInputPlatform(i)">Supprimer cette plateforme</button>
+      </div>
+  </div>
+
+  <ion-icon name="add-circle" size="large" (click)="addInputPlatform()"></ion-icon>
+
+  <div formArrayName="modes"
+      *ngFor="let mode of form.get('modes')['controls']; let i = index">
+      <p>Mode n°{{i+1}}</p>
+      <div [formGroupName]="i">
+          <input placeholder="Nom" formControlName='name'>
+          <input placeholder="Description" formControlName='description'>
+          <button *ngIf="form.get('modes')['length'] > 1" type="button" (click)="deleteInputMode(i)">Supprimer ce mode</button>
+      </div>
+  </div>
+
+  <ion-icon name="add-circle" size="large" (click)="addInputMode()"></ion-icon>
+
+  <div formArrayName="rules"
+      *ngFor="let rule of form.get('rules')['controls']; let i = index">
+      <p>Règle n°{{i+1}}</p>
+      <div [formGroupName]="i">
+          <input placeholder="Nom" formControlName='name'>
+          <input placeholder="Description" formControlName='description'>
+          <button *ngIf="form.get('rules')['length'] > 1" type="button" (click)="deleteInputRule(i)">Supprimer cette règle</button>
+      </div>
+  </div>
+
+  <input type="file" name="image" formControlName="image" accept="image/*"  (change)="handleInputChange($event)" /> 
+
+  <ion-icon name="add-circle" size="large" (click)="addInputRule()"></ion-icon>
+
+  <button type="submit" [disabled]="!form.valid">Ajouter un jeu</button>
+</form>
