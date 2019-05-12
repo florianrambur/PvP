@@ -1,3 +1,93 @@
 ion-label, ion-input, form {
     color: #FFFFFF !important;
 }
+
+ion-button {
+    background-color: #CD2235;
+    color: #FFFFFF;
+    font-size: 18px;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+
+#searchContainer, #searchResult {
+    background-color: var(--ion-background-card-color);
+    color: #FFFFFF;
+    --color: #FFFFFF;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#searchContainer .radioButtonGroup  {
+    font-size: 15px;
+    --min-height: 30px;
+    --border: none;
+    --inner-border-width: 0;
+}
+
+#searchContainer .subtitle {
+    color: #CD2235 !important;
+    font-weight: bold;
+}
+
+#searchContainer ion-list, #searchContainer ion-item {
+    --border: none;
+    --inner-border-width: 0;
+}
+
+#searchContainer .radioButtonGroup ion-label {
+    padding-left: 10px;
+}
+
+#searchContainer ion-item, #searchContainer ion-item-divider {
+    --background: var(--ion-background-card-color);
+}
+
+#searchContainer ion-select {
+    --color: #FFFFFF;
+    color:  #FFFFFF;
+}
+
+#searchContainer input, #searchContainer ion-datetime {
+    display: inline-block;
+    width: 90%;
+    height: 40px;
+    padding-left: 20px;
+    margin: 10px 0;
+    border: none;
+    background-color: inherit;
+    border: 2px solid #FFFFFF;
+}
+
+#searchContainer ion-datetime {
+    --padding-top: 8px;
+}
+
+#toggleForm {
+    color: #FFFFFF;
+    float: right;
+    font-style: italic;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.title {
+    background-color: #424141;
+    font-size: 18px;
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
