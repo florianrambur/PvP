@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar class="modalHeader">
+    <ion-title>Match</ion-title>
+    <ion-buttons slot="end">
+        <ion-icon size="large" name="close" (click)="closeModal()"></ion-icon>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modalContent">
+  <div class="content">
+
+    <form [formGroup]="form" (submit)="updateScore()">
+      <h1>Score</h1>
+      <div *ngIf="isFinish == false; else championshipIsFinished">
+        <div class="flexBox spaceBetween textCenter alignItemsCenter">
+          <div style="width: 33%;">{{ pseudoA }}</div>
+          <div style="width: 33%;" class="flexBox inputUpdate">
+              <input type="text" name="scorePlayerA" formControlName="scorePlayerA" placeholder="0"> 
+              <div>-</div>
+              <input type="text" name="scorePlayerB" formControlName="scorePlayerB" placeholder="0">
+          </div>
+          <div style="width: 33%;">{{ pseudoB }}</div>
+        </div>
+        <div class="flexBox horizontalCenter marginT15">
+          <button type="submit" [disabled]="!form.valid">Mettre à jour</button>
+        </div>
+      </div>
+    </form>
+    
+    <h1>Confrontation</h1>
+
+    <div *ngIf="playerAInfo && playerBInfo">
+      <div class="flexBox spaceBetween eachLine">
+        <div></div>
+        <div>{{ pseudoA }}</div>
+        <div>{{ pseudoB }}</div>
+      </div>
+      <div id="tableContainer">
+        <div class="flexBox spaceBetween alignItemsCenter eachLine">
+          <div>Nombre de participation</div>
+          <div [ngClass]="{ 'greenColor': playerAInfo.championships.length > playerBInfo.championships.length }">{{ playerAInfo.championships.length }}</div>
+          <div [ngClass]="{ 'greenColor': playerBInfo.championships.length > playerAInfo.championships.length }">{{ playerBInfo.championships.length }}</div>
+        </div>
+        <div class="flexBox spaceBetween alignItemsCenter eachLine">
+          <div>Compétitions gagnées</div>
+          <div [ngClass]="{ 'greenColor': playerAInfo.countWin > playerBInfo.countWin }">{{ playerAInfo.countWin }}</div>
+          <div [ngClass]="{ 'greenColor': playerBInfo.countWin > playerAInfo.countWin }">{{ playerBInfo.countWin }}</div>
+        </div>
+        <div class="flexBox spaceBetween alignItemsCenter eachLine">
+          <div>Taux de victoire</div>
+          <div [ngClass]="{ 'greenColor': (playerAInfo.countWin / playerAInfo.championships.length * 100) > (playerBInfo.countWin / playerBInfo.championships.length * 100) }">
+            {{ (playerAInfo.countWin / playerAInfo.championships.length * 100) | number }}%
+          </div>
+          <div [ngClass]="{ 'greenColor': (playerBInfo.countWin / playerBInfo.championships.length * 100) > (playerAInfo.countWin / playerAInfo.championships.length * 100) }">
+            {{ playerBInfo.countWin / playerBInfo.championships.length * 100 | number }}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divCenter textCenter" id="flashMessage">
+    <span id="flashMessageContent"></span>
+  </div>
+</ion-content>
+
+<ng-template #championshipIsFinished>
+  <div class="flexBox spaceBetween textCenter alignItemsCenter">
+    <div style="width: 33%;">{{ pseudoA }}</div>
+    <div style="width: 33%; font-size: 30px;">{{ scorePlayerA }} - {{ scorePlayerB }}</div>
+    <div style="width: 33%;">{{ pseudoB }}</div>
+  </div>
+</ng-template>

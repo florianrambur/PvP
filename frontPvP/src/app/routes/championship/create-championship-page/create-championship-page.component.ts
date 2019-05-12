@@ -67,7 +67,7 @@ export class CreateChampionshipPageComponent implements OnInit {
       this.form.value.isPrivate, this.form.value.nbPlayers, 
       this.form.value.startDate, this.form.value.place)
       .then( apiResponse => {
-        this.Router.navigate([ '/' ]);
+        this.Router.navigate([ '/championship/fiche/', apiResponse.data._id ]);
         this.UtilsService.flashMessage('success', 'Le championnat a été créé avec succès!');
       })
       .catch( apiResponse => {

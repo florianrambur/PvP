@@ -25,14 +25,24 @@ export class ChampionshipService {
     platforms: String,
     online: Boolean,
     isPrivate: Boolean,
-    nbPlayer: Boolean,
+    nbPlayers: Boolean,
     startDate: Date,
     place: String): Promise<any> => {
 
-      return this.HttpClient.post( this.apiUrl, { game, name, description, mode, rules, platforms, online, isPrivate, nbPlayer, startDate, place } )
+    let store = this.Storage.get('access_token');
+
+    return store.then(data => {
+      this.token = data;
+      let myHeader = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
+      })
+
+      return this.HttpClient.post( this.apiUrl, { game, name, description, mode, rules, platforms, online, isPrivate, nbPlayers, startDate, place }, { headers: myHeader } )
       .toPromise()
       .then( apiResponse => Promise.resolve(apiResponse) )
       .catch( apiResponse => Promise.reject(apiResponse) );
+    });
   }
 
   public getAllChampionships = (): Promise<any> => {
@@ -49,7 +59,7 @@ export class ChampionshipService {
     .catch( apiResponse => Promise.reject(apiResponse) );
   }
 
-  public registerOrUnsubscribeToTheChampionship = (itemId: String): Promise<any> => {
+  public registerToTheChampionship = (itemId: String): Promise<any> => {
     let store = this.Storage.get('access_token');
 
     return store.then(data => {
@@ -66,5 +76,37 @@ export class ChampionshipService {
       .catch( apiResponse => Promise.reject(apiResponse) );
     });
   } 
+
+  public unsubscribeToTheChampionship = (itemId: String): Promise<any> => {
+    let store = this.Storage.get('access_token');
+
+    return store.then(data => {
+      this.token = data;
+      let myHeader = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
+      })
+        
+
+      return this.HttpClient.put( this.apiUrl + '/unsubscribe/' + itemId, null, { headers: myHeader } )
+      .toPromise()
+      .then( apiResponse => Promise.resolve(apiResponse) )
+      .catch( apiResponse => Promise.reject(apiResponse) );
+    });
+  } 
+
+  public updateScore = (championshipId: String, idMatch: String, playerA: String, scorePlayerA: Number, playerB: String, scorePlayerB: Number): Promise<any> => {
+    return this.HttpClient.put( this.apiUrl + '/updateScore/' + championshipId, { idMatch, playerA, scorePlayerA, playerB, scorePlayerB } )
+    .toPromise()
+    .then( apiResponse => Promise.resolve(apiResponse) )
+    .catch( apiResponse => Promise.reject(apiResponse) );
+  }
+
+  public closeChampionship = (championshipId: String): Promise<any> => {
+    return this.HttpClient.put( this.apiUrl + '/close/' + championshipId, null)
+    .toPromise()
+    .then( apiResponse => Promise.resolve(apiResponse) )
+    .catch( apiResponse => Promise.reject(apiResponse) );
+  }
 
 }

@@ -40,7 +40,8 @@ Definition
         registerList: [ObjectId],
         matches: [matchesSchema],
         ranking: [rankingSchema],
-        author: String
+        author: String,
+        isFinish: Boolean
     });
 //
 

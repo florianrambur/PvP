@@ -8,7 +8,7 @@ Imports
     // Inner
     const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require ('../../services/server.response');
     const { checkFields } = require('../../services/request.checker');
-    const { createItem, readItems, readOneItem, registerOrUnsubscribeToTheChampionship, addScore } = require('../../routes/championship/championship.controller');
+    const { createItem, readItems, readOneItem, registerToTheChampionship, unsubscribeToTheChampionship, updateScore, closeChampionship } = require('../../routes/championship/championship.controller');
 //
 
 /*
@@ -65,26 +65,43 @@ Routes definition
             championshipRouter.put('/subscribe/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
                 if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
                 
-                registerOrUnsubscribeToTheChampionship(req.user._id, req.params.id)
+                registerToTheChampionship(req.user._id, req.params.id)
                 .then( apiRes => sendApiSuccessResponse(res, 'Player has been added to the championship', apiRes) )
                 .catch( apiErr => sendApiErrorResponse(res, 'Error during adding', apiErr) )
             });
 
+            // Add a player to the championship
+            championshipRouter.put('/unsubscribe/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+                
+                unsubscribeToTheChampionship(req.user._id, req.params.id)
+                .then( apiRes => sendApiSuccessResponse(res, 'Player has been removing to the championship', apiRes) )
+                .catch( apiErr => sendApiErrorResponse(res, 'Error during adding', apiErr) )
+            });
+
             // Add score
-            championshipRouter.put('/addScore/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+            championshipRouter.put('/updateScore/:id', (req, res) => {
                 if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
 
-                const { miss, extra, ok } = checkFields(['playerA', 'scorePlayerA', 'playerB', 'scorePlayerB'], req.body);
+                const { miss, extra, ok } = checkFields(['idMatch', 'playerA', 'scorePlayerA', 'playerB', 'scorePlayerB'], req.body);
 
                 if (!ok) {
                     sendFieldsError(res, 'Bad fields provided', miss, extra);
                 } else {
-                    addScore(req.params.id, req.body)
+                    updateScore(req.params.id, req.body)
                     .then( apiRes => sendApiSuccessResponse(res, 'Score has been added', apiRes) )
                     .catch( apiErr => sendApiErrorResponse(res, 'Error during adding', apiErr) )
                 }
             });
 
+            // Close the tournament
+            championshipRouter.put('/close/:id', (req, res) => {
+                if (!req.params || !req.params.id) { sendBodyError(res, 'No param provided'); }
+                
+                closeChampionship(req.params.id)
+                .then( apiRes => sendApiSuccessResponse(res, 'The championship is now finish !', apiRes) )
+                .catch ( apiErr => sendApiErrorResponse(res, 'Error during closing', apiErr) );
+            });
             
 
         }

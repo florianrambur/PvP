@@ -13,6 +13,7 @@
         <h1>{{ championshipInformation.championship.name }}</h1>
         <h2>{{ championshipInformation.infos.game }} </h2>
         <h2>Créé le {{ championshipInformation.championship.dateCreation | date: 'dd/MM/yyyy' }} par {{ championshipInformation.infos.author.pseudo }}</h2>
+        <h1 style="margin-top: 15px; color: #CD2235;" *ngIf="championshipInformation.championship.isFinish == true">{{ leader }} a remporté ce tournoi !</h1>
       </div>
 
       <div class="flexBox spaceBetween ft-14 marginTB10">
@@ -44,8 +45,13 @@
         </div>
       </div>
 
-      <div>
-        <button type="button" (click)="addOrRemovePlayer(championshipInformation.championship._id)">Je m'inscris</button>
+      <div *ngIf="isLogged == true">
+        <div *ngIf="isRegistered == true; else noRegister">
+            <button type="button" (click)="removePlayer(championshipInformation.championship._id)">Je me désinscris</button>
+        </div>
+        <ng-template #noRegister>
+            <button type="button" (click)="addPlayer(championshipInformation.championship._id)">Je m'inscris</button>
+        </ng-template>
       </div>
     </div>
   </div>
@@ -81,10 +87,51 @@
       </div>
 
       <div *ngIf="championshipInformation.championship.ranking.length > 0">
-        <div *ngFor="let player of championshipInformation.championship.ranking">
-          {{ player.pseudo }} - {{ player.nbMatches }} - {{ player.points }} - {{ player.average }}
+        <div class="table flexBox flexDirectionColumn">
+          <div class="flexBox spaceBetween rankingHeader">
+            <div class="rankingPseudo">Pseudo</div>
+            <div class="rankingMatches">M.J</div>
+            <div class="rankingAverage">D.</div>
+            <div class="rankingPoints">P.</div>
+          </div>
+          <div (click)="openUserModal(player.playerId)" class="eachPlayer flexBox spaceBetween alignItemsCenter" *ngFor="let player of championshipInformation.championship.ranking">
+            <div class="rankingPseudo">{{ player.pseudo }}</div>
+            <div class="rankingMatches">{{ player.nbMatches }}</div>
+            <div class="rankingAverage">{{ player.average }}</div>
+            <div class="rankingPoints">{{ player.points }}</div>
+          </div>
         </div>
+      </div>      
+    </div>
+  </div>
+
+  <div class="matches">
+    <div class="content">
+      <div class="title textCenter">
+        Tous les matchs
       </div>
+
+      <div *ngIf="championshipInformation.championship.ranking.length > 0">
+        <div (click)="openChampionshipMatchModal(championshipInformation.championship._id, match._id, match.pseudoA, match.scorePlayerA, match.pseudoB, match.scorePlayerB, match.playerA, match.playerB, championshipInformation.championship.isFinish)" class="flexBox spaceBetween eachMatch" *ngFor="let match of championshipInformation.championship.matches">
+          <div class="textEllipsis" style="width: 33%;">
+            {{ match.pseudoA }}
+          </div>
+          <div style="width: 33%; text-align: center;">
+            {{ match.scorePlayerA }} - {{ match.scorePlayerB }}
+          </div>
+          <div class="textEllipsis" style="width: 33%; text-align: end">
+            {{ match.pseudoB }}
+          </div>
+        </div>
+      </div> 
+      
+      <div *ngIf="canBeClosed == true && championshipInformation.championship.isFinish == false && isOwner == true">
+        <button type="button" (click)="closeChampionship(championshipInformation.championship._id)" id="lockChampionship">Clore le championnat</button>
+        <span>
+          Tous les matchs ont été disputés. Vous pouvez donc cloturer le championnat. 
+          Attention, si vous effectuez cette action, vous ne pourrez plus modifier les résultats.
+        </span>
+      </div>     
     </div>
   </div>
 

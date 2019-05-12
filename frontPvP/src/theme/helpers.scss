@@ -28,6 +28,11 @@
     color: #FFC100;
 }
 
+.greenColor {
+    color: #0ec30e;
+    font-weight: bold;
+}
+
 /* Background Color */
 
 
@@ -70,8 +75,16 @@
     z-index: 20;
 }
 
+.marginT15 {
+    margin-top: 15px;
+}
+
 .marginTB10 {
     margin: 10px 0;
+}
+
+.noMarginB {
+    margin-bottom: 0;
 }
 
 .flexBox {
@@ -82,10 +95,38 @@
     justify-content: space-between;
 }
 
+.horizontalCenter {
+    justify-content: center;
+}
+
+.horizontalEnd {
+    justify-content: flex-end;
+}
+
+.alignItemsCenter {
+    align-items: center;
+}
+
+.flexDirectionColumn {
+    flex-direction: column;
+}
+
 /** Size **/
 
 .ft-14 {
     font-size: 14px;
+}
+
+.ft-16 {
+    font-size: 16px;
+}
+
+/** Text **/
+
+.textEllipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /** Utils **/

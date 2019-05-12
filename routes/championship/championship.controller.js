@@ -4,7 +4,7 @@ Imports
     const ChampionshipModel = require('../../models/championship.model');
     const UserModel = require('../../models/user.model');
     const GameModel = require('../../models/game.model');
-    const { arrayRemove, arrayRemoveForRanking, shuffleArray } = require('../../services/helpers');
+    const { arrayRemove, arrayRemoveForRanking, shuffleArray, arrayRemoveForPlayerA, arrayRemoveForPlayerB } = require('../../services/helpers');
 //
 
 /*
@@ -27,6 +27,7 @@ Methods
                 startDate: body.startDate,
                 place: body.place,
                 dateCreation: new Date(),
+                isFinish: false,
                 registerList: [],
                 matches: [],
                 ranking: [],
@@ -66,10 +67,22 @@ Methods
                 if (error) return reject(error)
                 else if (!championship) return reject('Tournoi non trouvé');
                 else {
-                    let author = {};  
-                    console.log(championship.game);
-                    getChampionshipInfos(championship.author, championship.game, championship.platforms, championship.rules, championship.mode, championship.registerList, championship.ranking)
-                    .then(infos => resolve({ infos: infos, championship: championship }));
+                    const ranking = championship.ranking;
+                    let MVP = {
+                        _id: null,
+                        playerId: null,
+                        points: 0,
+                        average: null
+                    }
+
+                    ranking.forEach(function(player) {
+                        if (player.points > MVP.points) {
+                            MVP = player;
+                        }
+                    });
+
+                    getChampionshipInfos(championship.author, championship.game, championship.platforms, championship.rules, championship.mode, championship.registerList)
+                    .then(infos => resolve({ MVP: MVP, infos: infos, championship: championship }));
 
                     return;
                 }
@@ -77,7 +90,7 @@ Methods
         });
     }
 
-    const registerOrUnsubscribeToTheChampionship = (userId, itemId) => {
+    const registerToTheChampionship = (userId, itemId) => {
         return new Promise( (resolve, reject) => {
             ChampionshipModel.findById(itemId, (error, championship) => {
                 if (error) return reject(error)
@@ -85,16 +98,13 @@ Methods
                 else {
                     let allPlayers = championship.registerList;
                     let ranking = championship.ranking;
+                    let matches = championship.matches;
 
                     let isInArray = allPlayers.some(function (player) {
                         return player.equals(userId);
                     });
                     
-                    // Si le joueur est déjà inscrit, l'action permet de le désinscrire
-                    if (isInArray == true) {
-                        allPlayers = arrayRemove(allPlayers, userId.toString());
-                        ranking = arrayRemoveForRanking(ranking, userId.toString());
-                    } else {
+                    if (isInArray == false) {
                         if (allPlayers.length < championship.nbPlayers) {
                             allPlayers.push(userId);
                             ranking.push({
@@ -103,16 +113,32 @@ Methods
                                 points: 0,
                                 average: 0
                             });
+
+                            if (allPlayers.length > 1) {
+                                championship.registerList.forEach(function(register) {
+                                    if (register != userId) {
+                                        matches.push({
+                                            playerA: userId,
+                                            scorePlayerA: null,
+                                            playerB: register,
+                                            scorePlayerB: null
+                                        });
+                                    }
+                                });
+                            }
                         } else {
                             return reject('This is championship is already full.');
                         }
+                    } else {
+                        return reject('User is already registered');
                     }
     
                     const updatedData = {
                         registerList: allPlayers,
-                        ranking: ranking
+                        ranking: ranking,
+                        matches: matches
                     }
-    
+
                     ChampionshipModel.updateOne({ "_id": itemId }, updatedData)
                     .then( mongoResponse => resolve(mongoResponse) )
                     .catch( mongoResponse => reject(mongoResponse) )
@@ -121,7 +147,50 @@ Methods
         });
     }
 
-    const addScore = (itemId, body) => {
+    const unsubscribeToTheChampionship = (userId, itemId) => {
+        return new Promise( (resolve, reject) => {
+            ChampionshipModel.findById(itemId, (error, championship) => {
+                if (error) return reject(error)
+                else if (!championship) return reject('Championship not found');
+                else {
+                    let allPlayers = championship.registerList;
+                    let ranking = championship.ranking;
+                    let matchesUpdated = championship.matches;
+
+                    let isInArray = allPlayers.some(function (player) {
+                        return player.equals(userId);
+                    });
+                    
+                    if (isInArray == true) {
+                        allPlayers = arrayRemove(allPlayers, userId.toString());
+                        ranking = arrayRemoveForRanking(ranking, userId.toString());
+                        // for (let i = championship.matches.length - 1; i >= 0; i--) {
+                        //     if (championship.matches[i].playerA == userId.toString() || championship.matches[i].playerB == userId.toString()) {
+                        //         j++;
+                        //         matchesUpdated = championship.matches.splice(i, 1);
+                        //     }
+                        // }
+                        matchesUpdated = arrayRemoveForPlayerA(matchesUpdated, userId.toString());
+                        matchesUpdated = arrayRemoveForPlayerB(matchesUpdated, userId.toString());
+                    } else {
+                        return reject('User is not in this championship');
+                    }
+    
+                    const updatedData = {
+                        registerList: allPlayers,
+                        ranking: ranking,
+                        matches: matchesUpdated
+                    }                    
+
+                    ChampionshipModel.updateOne({ "_id": itemId }, updatedData)
+                    .then( mongoResponse => resolve(mongoResponse) )
+                    .catch( mongoResponse => reject(mongoResponse) )
+                }
+            });
+        });
+    }
+
+    const updateScore = (itemId, body) => {
         return new Promise( (resolve, reject) => {
             ChampionshipModel.findById(itemId, (error, championship) => {
                 if (error) return reject(error);
@@ -134,18 +203,58 @@ Methods
                     const matches = championship.matches;
                     const ranking = championship.ranking;
 
-                    for (let i = 0; i < matches.length; i++) {
-                        if (matches[i].playerA == playerA && matches[i].playerB == playerB) {
-                            return reject('This match has already been added');
+                    if (championship.matches.id(body.idMatch).scorePlayerB != null && championship.matches.id(body.idMatch).scorePlayerA != null) {
+                        for (let i = 0; i < ranking.length; i++) {
+                            if (ranking[i].playerId == playerA) {
+
+                                let points;
+                                let average = championship.matches.id(body.idMatch).scorePlayerA - championship.matches.id(body.idMatch).scorePlayerB;
+                                if (championship.matches.id(body.idMatch).scorePlayerA > championship.matches.id(body.idMatch).scorePlayerB) {
+                                    points = ranking[i].points - 3;
+                                } else {
+                                    points = 0;
+                                }
+
+                                ranking[i] = {
+                                    playerId: playerA,
+                                    nbMatches: ranking[i].nbMatches - 1,
+                                    points: points,
+                                    average: ranking[i].average - average
+                                }
+                            }
+
+                            if (ranking[i].playerId == playerB) {
+
+                                let points;
+                                let average = championship.matches.id(body.idMatch).scorePlayerB - championship.matches.id(body.idMatch).scorePlayerA;
+                                if (championship.matches.id(body.idMatch).scorePlayerB > championship.matches.id(body.idMatch).scorePlayerA) {
+                                    points = ranking[i].points - 3;
+                                } else {
+                                    points = 0;
+                                }
+
+                                ranking[i] = {
+                                    playerId: playerB,
+                                    nbMatches: ranking[i].nbMatches - 1,
+                                    points: points,
+                                    average: ranking[i].average - average
+                                }
+                            }
                         }
                     }
-
-                    const newMatch = {
-                        playerA: playerA,
-                        scorePlayerA: scorePlayerA,
-                        playerB: playerB,
-                        scorePlayerB: scorePlayerB
+                    
+                    if (championship.matches.id(body.idMatch).playerA == body.playerA) {
+                        championship.matches.id(body.idMatch).scorePlayerA = body.scorePlayerA;
+                    } else {
+                        championship.matches.id(body.idMatch).scorePlayerA = body.scorePlayerB;
                     }
+
+                    if (championship.matches.id(body.idMatch).playerB == body.playerB) {
+                        championship.matches.id(body.idMatch).scorePlayerB = body.scorePlayerB;
+                    } else {
+                        championship.matches.id(body.idMatch).scorePlayerB = body.scorePlayerA;
+                    }
+
 
                     for (let i = 0; i < ranking.length; i++) {
                         if (ranking[i].playerId == playerA) {
@@ -183,8 +292,6 @@ Methods
                         }
                     }
 
-                    matches.push(newMatch);
-
                     ChampionshipModel.updateOne({ "_id": itemId }, {
                         "matches": matches,
                         "ranking": ranking
@@ -196,10 +303,61 @@ Methods
         });
     }
 
-    const getChampionshipInfos = (userId, gameId, platformId, ruleId, modeId, registerList, ranking) => {
+    const closeChampionship = (championshipId) => {
+        return new Promise( (resolve, reject) => {
+            ChampionshipModel.findById( championshipId, (error, championship) => {
+                if (error) return reject(error)
+                else if (!championship) {
+                    return reject('Championship not found');
+                } else {
+                    const ranking = championship.ranking;
+                    let MVP = {
+                        _id: null,
+                        playerId: null,
+                        points: 0,
+                        average: null
+                    }
+
+                    ranking.forEach(function(player) {
+                        if (player.points > MVP.points) {
+                            MVP = player;
+                        }
+                    });
+
+                    winChampionship(MVP.playerId);
+
+                    ChampionshipModel.updateOne({ "_id": championshipId }, {
+                        "isFinish": true     
+                    })
+                    .then( mongoResponse => resolve(mongoResponse) )
+                    .catch( mongoResponse => reject(mongoResponse) );
+                }
+            });
+        });
+    }
+
+    const winChampionship = (userId) => {
+        return new Promise( (resolve, reject) => {
+            UserModel.findById( userId, (error, user) => {
+                if (error) return reject(error)
+                else if (!user) return reject('User not found')
+                else {
+                    let countWin = user.countWin;
+
+                    UserModel.updateOne({ "_id": userId}, {
+                        "countWin": countWin + 1
+                    })
+                    .then( mongoResponse => resolve(mongoResponse) )
+                    .catch( mongoResponse => reject(mongoResponse) )
+                }
+            });
+        });
+    }
+
+    const getChampionshipInfos = (userId, gameId, platformId, ruleId, modeId, registerList) => {
         return new Promise( (resolve, reject) => {
     
-            UserModel.findById( userId, { pseudo: 1, email: 1, _id: 0 }, (error, user) => {
+            UserModel.findById( userId, { _id: 0, pseudo: 1, email: 1, _id: 0 }, (error, user) => {
                 if (error) return reject(error)
                 else {
     
@@ -235,7 +393,9 @@ Exports
         createItem,
         readItems,
         readOneItem,
-        registerOrUnsubscribeToTheChampionship,
-        addScore
+        registerToTheChampionship,
+        unsubscribeToTheChampionship,
+        updateScore,
+        closeChampionship
     }
 //

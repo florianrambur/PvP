@@ -15,7 +15,7 @@
     margin-top: -6px;
 }
 
-.rulesAndModes, .ranking {
+.rulesAndModes, .ranking, .matches {
     background-color: var(--ion-background-card-color);
     margin-left: 20px;
     margin-right: 20px;
@@ -65,7 +65,7 @@
     height: 100%;
 }
 
-.infos button {
+.infos button, .matches button {
     background-color: #CD2235;
     color: #FFFFFF;
     font-size: 18px;
@@ -109,4 +109,26 @@ h2 {
 .blackButton {
     position: relative;
     top: 10px;
+}
+
+.rankingPseudo {
+    width: 200px;
+    max-width: 33%;
+}
+
+.table .eachPlayer, .table .rankingHeader {
+    padding: 3px 8px;
+}
+
+.eachMatch {
+    padding: 3px 8px;
+}
+
+.eachPlayer:nth-child(even), .eachMatch:nth-child(even) {
+    background-color: #484848;
+}
+
+.matches span {
+    font-size: 12px;
+    font-style: italic;
 }

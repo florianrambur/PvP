@@ -1,0 +1,62 @@
+.modalHeader {
+    --background: #CD2235;
+}
+
+.modalHeader ion-title, .modalHeader ion-buttons, .modalContent {
+    --color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.modalContent .content {
+    padding: 0 15px;
+}
+
+.modalContent .content h1 {
+    font-size: 20px;
+    font-style: italic;
+}
+
+.modalContent .content .eachLine div {
+    width: 33%;
+}
+
+.modalContent .content .eachLine div:not(:first-child) {
+    text-align: center;
+}
+
+.eachLine {
+    padding: 3px 8px;
+}
+
+#tableContainer {
+    font-size: 14px;
+}
+
+.eachLine:nth-child(even) {
+    background-color: #484848;
+}
+
+.inputUpdate input {
+    width: 50%;
+    text-align: center;
+    font-size: 30px;
+    border: none;
+    background: inherit;
+}
+
+.inputUpdate div {
+    position: relative;
+    top: 9px;
+}
+
+form button {
+    background-color: #CD2235;
+    color: #FFFFFF;
+    font-size: 18px;
+    width: 50%;
+    min-width: 165px;
+    height: 38px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}

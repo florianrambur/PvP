@@ -1,0 +1,29 @@
+.modalHeader {
+    --background: #CD2235;
+}
+
+.modalHeader ion-title, .modalHeader ion-buttons, .modalContent {
+    --color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.modalContent .content {
+    padding: 0 15px;
+}
+
+.modalContent .content h1 {
+    font-size: 20px;
+    font-style: italic;
+}
+
+.modalContent .content p {
+    font-size: 14px;
+}
+
+.modalContent .content ion-icon {
+    font-size: 26px;
+}
+
+.modalContent .content span {
+    margin-left: 10px;
+}
