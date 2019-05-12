@@ -1,7 +1,8 @@
 /*
 Import
 */
-const UserModel = require('../../models/user.model')
+const UserModel = require('../../models/user.model');
+const ChampionshipModel = require('../../models/championship.model');
 const bcrypt = require('bcryptjs');
 //
 
@@ -51,18 +52,14 @@ const login = (body, req, res) => {
                 const validPassword = bcrypt.compareSync(body.password, user.password);
                 if( !validPassword ) reject('Password not valid')
                 else {
+                    const token = user.generateJwt();
+
                     // Set cookie
-                    // res.cookie("OTPBDtoken", user.generateJwt(), { httpOnly: true });
+                    // res.cookie("PvPToken", user.generateJwt(), { httpOnly: false });
+
                     updateCountConnection(body);
-                    // Resolve user data
-                    resolve({
-                        _id: user._id,
-                        pseudo: user.pseudo,
-                        email: user.email,
-                        parameters: user.parameters,
-                        countConnection: user.countConnection,
-                        token: user.generateJwt()
-                    })
+
+                    resolve({ user, token })
                 }
             }
         } )
@@ -92,10 +89,19 @@ const readOneItem = (itemId) => {
             if (error) return reject(error)
             else if (!user) return reject('Utilisateur non trouvé');
             else {
-                resolve({ 
-                    pseudo: user.pseudo, 
-                    email: user.email,
-                    parameters: user.parameters 
+                ChampionshipModel.find({ registerList: itemId }, (error, championships) => {
+                    if (error) reject(error)
+                    else {
+                        console.log(championships);
+
+                        resolve({ 
+                            pseudo: user.pseudo, 
+                            email: user.email,
+                            parameters: user.parameters,
+                            countWin: user.countWin,
+                            championships: championships
+                        });
+                    }
                 });
             }
         });
