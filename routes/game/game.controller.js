@@ -2,6 +2,8 @@
 Import
 */
     const GameModel = require('../../models/game.model');
+    const ChampionshipModel = require('../../models/championship.model');
+    const TournamentModel = require('../../models/tournament.model');
     const UserModel = require('../../models/user.model');
 //
 
@@ -85,7 +87,21 @@ Methods
                 else if(!game) return reject('Jeu non trouvé')
                 else {
                     if (game.author == userId) {
-                        game.remove()
+                        ChampionshipModel.find({ "game": game._id }, (error, championships) => {
+                            if (championships) {
+                                championships.forEach(function(championship) {
+                                    championship.remove();
+                                });
+                            }
+                        });
+                        TournamentModel.find({ "game": game._id }, (error, tournaments) => {
+                            if (tournaments) {
+                                tournaments.forEach(function(tournament) {
+                                    tournament.remove();
+                                });
+                            }
+                        });
+                        game.remove();
                         return resolve('Game deleted with success');
                     } else {
                         return reject('Not allowed');
