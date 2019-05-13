@@ -45,12 +45,19 @@
         </div>
       </div>
 
-      <div *ngIf="isLogged == true">
-        <div *ngIf="isRegistered == true; else noRegister">
-            <button type="button" (click)="removePlayer(championshipInformation.championship._id)">Je me désinscris</button>
+      <div *ngIf="championshipInformation.championship.isFinish == false">
+        <div *ngIf="isLogged == true; else noLogged">
+          <div *ngIf="isRegistered == true; else noRegister">
+              <button type="button" (click)="removePlayer(championshipInformation.championship._id)">Je me désinscris</button>
+          </div>
+          <ng-template #noRegister>
+              <button type="button" (click)="addPlayer(championshipInformation.championship._id)">Je m'inscris</button>
+          </ng-template>
         </div>
-        <ng-template #noRegister>
-            <button type="button" (click)="addPlayer(championshipInformation.championship._id)">Je m'inscris</button>
+        <ng-template #noLogged>
+          <div class="textCenter marginTB10">
+            <a [routerLink]="'/login'">Connectez-vous afin de vous inscrire !</a>
+          </div>
         </ng-template>
       </div>
     </div>

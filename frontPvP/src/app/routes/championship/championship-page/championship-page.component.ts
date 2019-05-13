@@ -116,7 +116,8 @@ export class ChampionshipPageComponent implements OnInit {
         scorePlayerB: scorePlayerB,
         playerA: playerA,
         playerB: playerB,
-        isFinish: isFinish
+        isFinish: isFinish,
+        currentUserId: this.currentUserId
       }
     });
 
