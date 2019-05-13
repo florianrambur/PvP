@@ -28,8 +28,10 @@ export class ChampionshipMatchModalPage implements OnInit {
   public playerA = this.navParams.get('playerA');
     public playerAInfo;
   public playerB = this.navParams.get('playerB');
-  public playerBInfo;
+    public playerBInfo;
   public isFinish = this.navParams.get('isFinish');
+  public currentUserId = this.navParams.get('currentUserId');
+  public championship;
 
   private getPlayerAInfos = () => {
     this.AuthService.getUserById(this.playerA)
@@ -59,10 +61,17 @@ export class ChampionshipMatchModalPage implements OnInit {
     .catch( apiResponse => console.error(apiResponse) );
   }
 
+  public getChampionshipinformation = () => {
+    this.ChampionshipService.getOneChampionship(this.championshipId)
+    .then( apiResponse => this.championship = apiResponse.data )
+    .catch( apiResponse => console.error(apiResponse) )
+  }
+
   ngOnInit() { 
     this.initForm();
     this.getPlayerAInfos();
     this.getPlayerBInfos();
+    this.getChampionshipinformation()
   }
 
   closeModal() {

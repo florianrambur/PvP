@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
       <ion-content>
         <div class="divCenter textCenter" id="flashMessage">
           <span id="flashMessageContent"></span>
+          <ion-icon id="closeFlashMessage" mode="ios" name="close-circle"></ion-icon>
         </div>
         <router-outlet></router-outlet>
       </ion-content>

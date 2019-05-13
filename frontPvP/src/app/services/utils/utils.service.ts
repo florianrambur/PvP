@@ -34,9 +34,16 @@ export class UtilsService {
         break;
     }
 
-    setTimeout(() => {
+    document.getElementById('closeFlashMessage').addEventListener('click', function() {
       div.style.visibility = 'hidden';
-    }, 3000);
+      return;
+    });
+    
+    if (div.style.visibility == 'visible') {
+      setTimeout(() => {
+        div.style.visibility = 'hidden';
+      }, 3000);
+    }
   }
 
   public slideDown = (obj, speed) => {

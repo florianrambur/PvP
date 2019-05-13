@@ -12,20 +12,22 @@
 
     <form [formGroup]="form" (submit)="updateScore()">
       <h1>Score</h1>
-      <div *ngIf="isFinish == false; else championshipIsFinished">
-        <div class="flexBox spaceBetween textCenter alignItemsCenter">
-          <div style="width: 33%;">{{ pseudoA }}</div>
-          <div style="width: 33%;" class="flexBox inputUpdate">
-              <input type="text" name="scorePlayerA" formControlName="scorePlayerA" placeholder="0"> 
-              <div>-</div>
-              <input type="text" name="scorePlayerB" formControlName="scorePlayerB" placeholder="0">
+      <div *ngIf="championship">
+        <div *ngIf="isFinish == false && currentUserId == championship.championship.author; else championshipIsFinished">
+          <div class="flexBox spaceBetween textCenter alignItemsCenter">
+            <div style="width: 33%;">{{ pseudoA }}</div>
+            <div style="width: 33%;" class="flexBox inputUpdate">
+                <input type="text" name="scorePlayerA" formControlName="scorePlayerA" placeholder="0"> 
+                <div>-</div>
+                <input type="text" name="scorePlayerB" formControlName="scorePlayerB" placeholder="0">
+            </div>
+            <div style="width: 33%;">{{ pseudoB }}</div>
           </div>
-          <div style="width: 33%;">{{ pseudoB }}</div>
+          <div class="flexBox horizontalCenter marginT15">
+            <button type="submit" [disabled]="!form.valid">Mettre à jour</button>
+          </div>
         </div>
-        <div class="flexBox horizontalCenter marginT15">
-          <button type="submit" [disabled]="!form.valid">Mettre à jour</button>
-        </div>
-      </div>
+      </div>      
     </form>
     
     <h1>Confrontation</h1>
@@ -63,6 +65,7 @@
 
   <div class="divCenter textCenter" id="flashMessage">
     <span id="flashMessageContent"></span>
+    <ion-icon id="closeFlashMessage" mode="ios" name="close-circle"></ion-icon>
   </div>
 </ion-content>
 
