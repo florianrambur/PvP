@@ -1,43 +1,74 @@
-<h1>Ajouter un jeu</h1>
-
-<form [formGroup]="form" (submit)="createGame()">
-    <input type="text" name="name" formControlName="name" placeholder="Overwatch"> 
-    <div formArrayName="platforms"
-        *ngFor="let platform of form.get('platforms')['controls']; let i = index">
-        <p>Plateforme n°{{i+1}}</p>
-        <div [formGroupName]="i">
-            <input placeholder="Nom de la plateforme" formControlName='name'>
-            <button *ngIf="form.get('platforms')['length'] > 1" type="button" (click)="deleteInputPlatform(i)">Supprimer cette plateforme</button>
-        </div>
+<ion-content>
+    <div class="banner">
+        <ion-icon class="blackButton" size="large" color="black" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
     </div>
+    <!-- <ion-icon class="blackButton" size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon> -->
+    <div id="addGameContainer">
+      <div class="title textCenter">
+        Ajouter un jeu
+      </div>
 
-    <ion-icon name="add-circle" size="large" (click)="addInputPlatform()"></ion-icon>
+      <form [formGroup]="form" (submit)="createGame()">
+        <input type="text" name="name" formControlName="name" placeholder="Nom du jeu">
 
-    <div formArrayName="modes"
-        *ngFor="let mode of form.get('modes')['controls']; let i = index">
-        <p>Mode n°{{i+1}}</p>
-        <div [formGroupName]="i">
-            <input placeholder="Nom" formControlName='name'>
-            <input placeholder="Description" formControlName='description'>
-            <button *ngIf="form.get('modes')['length'] > 1" type="button" (click)="deleteInputMode(i)">Supprimer ce mode</button>
+        <div class="seperateCategory"></div>
+
+        <div formArrayName="platforms"
+            *ngFor="let platform of form.get('platforms')['controls']; let i = index">
+            <div class="flexBox alignItemsCenter">
+                <p class="subtitle">Plateforme n°{{i+1}}</p>
+                <ion-icon class="delete" mode="ios" size="large" *ngIf="form.get('platforms')['length'] > 1" (click)="deleteInputPlatform(i)" name="trash"></ion-icon>
+            </div>
+            <div [formGroupName]="i">
+                <input placeholder="Nom de la plateforme" formControlName='name'>
+            </div>
         </div>
-    </div>
+        <div class="add" (click)="addInputPlatform()">Ajouter une plateforme</div>
+    
+        <div class="seperateCategory"></div>
 
-    <ion-icon name="add-circle" size="large" (click)="addInputMode()"></ion-icon>
-
-    <div formArrayName="rules"
-        *ngFor="let rule of form.get('rules')['controls']; let i = index">
-        <p>Règle n°{{i+1}}</p>
-        <div [formGroupName]="i">
-            <input placeholder="Nom" formControlName='name'>
-            <input placeholder="Description" formControlName='description'>
-            <button *ngIf="form.get('rules')['length'] > 1" type="button" (click)="deleteInputRule(i)">Supprimer cette règle</button>
+        <div formArrayName="modes"
+            *ngFor="let mode of form.get('modes')['controls']; let i = index">
+            <div class="flexBox alignItemsCenter">
+                <p class="subtitle">Mode n°{{i+1}}</p> 
+                <ion-icon class="delete" mode="ios" size="large" *ngIf="form.get('modes')['length'] > 1" (click)="deleteInputMode(i)" name="trash"></ion-icon>
+            </div>
+            <div [formGroupName]="i">
+                <input placeholder="Nom du mode" formControlName='name'>
+                <input placeholder="Description" formControlName='description'>
+            </div>
         </div>
+        <div class="add" (click)="addInputMode()">Ajouter un mode de jeu</div>
+
+        <div class="seperateCategory"></div>
+    
+        <div formArrayName="rules"
+            *ngFor="let rule of form.get('rules')['controls']; let i = index">
+            <div class="flexBox alignItemsCenter">
+                <p class="subtitle">Règle n°{{i+1}}</p>
+                <ion-icon class="delete" mode="ios" size="large" *ngIf="form.get('rules')['length'] > 1" (click)="deleteInputRule(i)" name="trash"></ion-icon>
+            </div>
+            <div [formGroupName]="i">
+                <input placeholder="Nom de la règle" formControlName='name'>
+                <input placeholder="Description" formControlName='description'>
+            </div>
+        </div>
+        <div class="add" (click)="addInputRule()">Ajouter une règle du jeu</div>
+
+        <div class="seperateCategory"></div>
+        
+        <div>
+            <label for="file">
+                <p class="subtitle">Image du jeu</p>
+                <div class="inputImage" style="margin-top: 10px;">
+                    <span>{{ imageName }}</span>
+                </div>
+            </label>
+            <input hidden id="file" type="file" name="image" formControlName="image" accept="image/*"  (change)="handleInputChange($event)" /> 
+        </div>
+    
+      
+        <ion-button type="submit" [disabled]="!form.valid">J'ajoute !</ion-button>
+      </form>
     </div>
-
-    <input type="file" name="image" formControlName="image" accept="image/*"  (change)="handleInputChange($event)" /> 
-
-    <ion-icon name="add-circle" size="large" (click)="addInputRule()"></ion-icon>
-  
-    <button type="submit" [disabled]="!form.valid">Ajouter un jeu</button>
-  </form>
+</ion-content>

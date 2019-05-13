@@ -1,0 +1,135 @@
+ion-label, ion-input, form {
+    color: #FFFFFF !important;
+}
+
+.banner {
+    height: 120px;
+    max-height: 25%;
+    background: url('https://s17189.pcdn.co/blog/wp-content/uploads/2018/04/jeshoots-com-250229-unsplash-1060x540.jpg') no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+
+ion-button {
+    background-color: #CD2235;
+    color: #FFFFFF;
+    font-size: 18px;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+
+#addGameContainer {
+    background-color: var(--ion-background-card-color);
+    color: #FFFFFF;
+    --color: #FFFFFF;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+#addGameContainer .radioButtonGroup  {
+    font-size: 15px;
+    --min-height: 30px;
+    --border: none;
+    --inner-border-width: 0;
+}
+
+#addGameContainer .subtitle {
+    color: #CD2235 !important;
+    font-weight: bold;
+}
+
+#addGameContainer ion-list, #addGameContainer ion-item {
+    --border: none;
+    --inner-border-width: 0;
+}
+
+#addGameContainer .radioButtonGroup ion-label {
+    padding-left: 10px;
+}
+
+#addGameContainer ion-item, #addGameContainer ion-item-divider {
+    --background: var(--ion-background-card-color);
+}
+
+#addGameContainer ion-select {
+    --color: #FFFFFF;
+    color:  #FFFFFF;
+}
+
+#addGameContainer input:not([type="file"]), #addGameContainer ion-datetime, .inputImage {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    padding-left: 20px;
+    margin: 10px 0;
+    border: none;
+    background-color: inherit;
+    border: 2px solid #FFFFFF;
+}
+
+.inputImage span {
+    position: relative;
+    top: 8px;
+}
+
+#addGameContainer ion-datetime {
+    --padding-top: 8px;
+}
+
+#toggleForm {
+    color: #FFFFFF;
+    float: right;
+    font-style: italic;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.title {
+    background-color: #424141;
+    font-size: 18px;
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+ 
+p {
+    margin-bottom: 0;
+}
+
+.blackButton {
+    position: relative;
+    top: 10px;
+}
+
+.delete {
+    position: relative;
+    top: 5px;
+}
+
+.add {
+    color: #FFFFFF;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.seperateCategory {
+    width: 70%;
+    height: 1px;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: #161616;
+}

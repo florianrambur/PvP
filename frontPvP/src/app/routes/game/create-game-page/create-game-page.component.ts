@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from "@angular/router";
+import { Location } from '@angular/common';
 
 import { GameService } from '../../../services/game/game.service';
 import { UtilsService } from '../../../services/utils/utils.service';
@@ -9,7 +10,8 @@ import { UtilsService } from '../../../services/utils/utils.service';
 @Component({
   selector: 'app-create-game-page',
   templateUrl: './create-game-page.component.html',
-  providers: [ GameService ]
+  providers: [ GameService ],
+  styleUrls: [ './create-game-page.component.scss' ]
 })
 
 export class CreateGamePageComponent implements OnInit {
@@ -18,17 +20,24 @@ export class CreateGamePageComponent implements OnInit {
   // myFile: ElementRef;
 
   public form: FormGroup;
+  public imageName: string;
   private imageBase64: string;
 
   constructor(
     private FormBuilder: FormBuilder,
     private GameService: GameService,
     public UtilsService: UtilsService,
-    private Router: Router
+    private Router: Router,
+    private _location: Location
   ) { }
+
+  backClicked() {
+    this._location.back();
+  }
 
   handleInputChange(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    this.imageName = file.name;
     console.log(file);
     btoa(file);
     var pattern = /image-*/;
