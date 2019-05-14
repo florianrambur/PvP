@@ -125,7 +125,12 @@ export class CreateGamePageComponent implements OnInit {
       this.Router.navigate([ '/game/fiche/', apiResponse.data._id ]);
       this.UtilsService.flashMessage('success', 'Le jeu a été ajouté avec succès! Un modérateur va vérifier la fiche du jeu.');
     })
-    .catch( apiResponse => console.error(apiResponse) )
+    .catch( apiResponse => {
+      console.error(apiResponse);
+      if (apiResponse.status == 401) {
+        this.UtilsService.flashMessage('error', 'Vous devez vous connecter afin d\'ajouter un jeu');
+      }
+    } )
   }
 
   ngOnInit() {

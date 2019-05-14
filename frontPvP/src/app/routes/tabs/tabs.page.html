@@ -3,16 +3,16 @@
   <div id="sideMenu" style="display: none;">
     <ul>
       <div *ngIf="isLogged == true; else noConnected">
-        <li class="loggout" (click)="signOut()">Se déconnecter</li>
+        <li><a [routerLink]="'/game/new'">Ajouter un jeu</a></li>
         <li class="loggout" (click)="openUserModal(currentUserId)">Mon profil</li>
+        <li><a [routerLink]="'/games'">Voir les jeux</a></li>
+        <li class="loggout" (click)="signOut()">Se déconnecter</li>
       </div>
       <ng-template #noConnected>
         <li><a [routerLink]="'/signup'">S'inscrire</a></li>
         <li><a [routerLink]="'/login'">Se connecter</a></li>
+        <li><a [routerLink]="'/games'">Voir les jeux</a></li>
       </ng-template>
-      
-      <li><a [routerLink]="'/game/new'">Ajouter un jeu</a></li>
-      <li><a [routerLink]="'/games'">Voir les jeux</a></li>
     </ul>
     <div id="arrowBottom"></div>
   </div>
