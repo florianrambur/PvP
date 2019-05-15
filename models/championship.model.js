@@ -24,6 +24,12 @@ Definition
         average: Number
     });
 
+    /*
+        status:
+        0 = non commencé
+        1 = commencé
+        2 = fini
+    */
     const championshipSchema = new Schema({
         game: ObjectId,
         name: String,
@@ -41,7 +47,7 @@ Definition
         matches: [matchesSchema],
         ranking: [rankingSchema],
         author: String,
-        isFinish: Boolean
+        status: Number
     });
 //
 

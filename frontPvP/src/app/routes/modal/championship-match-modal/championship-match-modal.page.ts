@@ -29,7 +29,7 @@ export class ChampionshipMatchModalPage implements OnInit {
     public playerAInfo;
   public playerB = this.navParams.get('playerB');
     public playerBInfo;
-  public isFinish = this.navParams.get('isFinish');
+  public status = this.navParams.get('status');
   public currentUserId = this.navParams.get('currentUserId');
   public championship;
 

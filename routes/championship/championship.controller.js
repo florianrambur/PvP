@@ -27,7 +27,7 @@ Methods
                 startDate: body.startDate,
                 place: body.place,
                 dateCreation: new Date(),
-                isFinish: false,
+                status: 0,
                 registerList: [],
                 matches: [],
                 ranking: [],
@@ -164,12 +164,7 @@ Methods
                     if (isInArray == true) {
                         allPlayers = arrayRemove(allPlayers, userId.toString());
                         ranking = arrayRemoveForRanking(ranking, userId.toString());
-                        // for (let i = championship.matches.length - 1; i >= 0; i--) {
-                        //     if (championship.matches[i].playerA == userId.toString() || championship.matches[i].playerB == userId.toString()) {
-                        //         j++;
-                        //         matchesUpdated = championship.matches.splice(i, 1);
-                        //     }
-                        // }
+
                         matchesUpdated = arrayRemoveForPlayerA(matchesUpdated, userId.toString());
                         matchesUpdated = arrayRemoveForPlayerB(matchesUpdated, userId.toString());
                     } else {
@@ -294,7 +289,8 @@ Methods
 
                     ChampionshipModel.updateOne({ "_id": itemId }, {
                         "matches": matches,
-                        "ranking": ranking
+                        "ranking": ranking,
+                        "status": 1
                     })
                     .then( mongoResponse => resolve(mongoResponse) )
                     .catch( mongoResponse => reject(mongoResponse) )
@@ -327,7 +323,7 @@ Methods
                     winChampionship(MVP.playerId);
 
                     ChampionshipModel.updateOne({ "_id": championshipId }, {
-                        "isFinish": true     
+                        "status": 2     
                     })
                     .then( mongoResponse => resolve(mongoResponse) )
                     .catch( mongoResponse => reject(mongoResponse) );

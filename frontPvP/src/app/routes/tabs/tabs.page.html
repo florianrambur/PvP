@@ -4,8 +4,8 @@
     <ul>
       <div *ngIf="isLogged == true; else noConnected">
         <li><a [routerLink]="'/game/new'">Ajouter un jeu</a></li>
-        <li class="loggout" (click)="openUserModal(currentUserId)">Mon profil</li>
         <li><a [routerLink]="'/games'">Voir les jeux</a></li>
+        <li class="loggout" (click)="openUserModal(currentUserId)">Mon profil</li>
         <li class="loggout" (click)="signOut()">Se déconnecter</li>
       </div>
       <ng-template #noConnected>

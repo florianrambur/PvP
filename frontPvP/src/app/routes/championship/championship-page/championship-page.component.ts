@@ -104,7 +104,7 @@ export class ChampionshipPageComponent implements OnInit {
     return await modal.present();
   }
 
-  async openChampionshipMatchModal(championshipId, matchId, pseudoA, scorePlayerA, pseudoB, scorePlayerB, playerA, playerB, isFinish) {
+  async openChampionshipMatchModal(championshipId, matchId, pseudoA, scorePlayerA, pseudoB, scorePlayerB, playerA, playerB, status) {
     const modal = await this.modalCtrl.create({
       component: ChampionshipMatchModalPage,
       componentProps: {
@@ -116,7 +116,7 @@ export class ChampionshipPageComponent implements OnInit {
         scorePlayerB: scorePlayerB,
         playerA: playerA,
         playerB: playerB,
-        isFinish: isFinish,
+        status: status,
         currentUserId: this.currentUserId
       }
     });

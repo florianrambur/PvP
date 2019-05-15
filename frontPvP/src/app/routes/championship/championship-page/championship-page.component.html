@@ -13,7 +13,7 @@
         <h1>{{ championshipInformation.championship.name }}</h1>
         <h2>{{ championshipInformation.infos.game }} </h2>
         <h2>Créé le {{ championshipInformation.championship.dateCreation | date: 'dd/MM/yyyy' }} par {{ championshipInformation.infos.author.pseudo }}</h2>
-        <h1 style="margin-top: 15px; color: #CD2235;" *ngIf="championshipInformation.championship.isFinish == true">{{ leader }} a remporté ce tournoi !</h1>
+        <h1 style="margin-top: 15px; color: #CD2235;" *ngIf="championshipInformation.championship.status == 2">{{ leader }} a remporté ce tournoi !</h1>
       </div>
 
       <div class="flexBox spaceBetween ft-14 marginTB10">
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div *ngIf="championshipInformation.championship.isFinish == false">
+      <div *ngIf="championshipInformation.championship.status == 0">
         <div *ngIf="isLogged == true; else noLogged">
           <div *ngIf="isRegistered == true; else noRegister">
               <button type="button" (click)="removePlayer(championshipInformation.championship._id)">Je me désinscris</button>
@@ -119,7 +119,7 @@
       </div>
 
       <div *ngIf="championshipInformation.championship.ranking.length > 0">
-        <div (click)="openChampionshipMatchModal(championshipInformation.championship._id, match._id, match.pseudoA, match.scorePlayerA, match.pseudoB, match.scorePlayerB, match.playerA, match.playerB, championshipInformation.championship.isFinish)" class="flexBox spaceBetween eachMatch" *ngFor="let match of championshipInformation.championship.matches">
+        <div (click)="openChampionshipMatchModal(championshipInformation.championship._id, match._id, match.pseudoA, match.scorePlayerA, match.pseudoB, match.scorePlayerB, match.playerA, match.playerB, championshipInformation.championship.status)" class="flexBox spaceBetween eachMatch" *ngFor="let match of championshipInformation.championship.matches">
           <div class="textEllipsis" style="width: 33%;">
             {{ match.pseudoA }}
           </div>
@@ -132,7 +132,7 @@
         </div>
       </div> 
       
-      <div *ngIf="canBeClosed == true && championshipInformation.championship.isFinish == false && isOwner == true">
+      <div *ngIf="canBeClosed == true && championshipInformation.championship.status == 1 && isOwner == true">
         <button type="button" (click)="closeChampionship(championshipInformation.championship._id)" id="lockChampionship">Clore le championnat</button>
         <span>
           Tous les matchs ont été disputés. Vous pouvez donc cloturer le championnat. 

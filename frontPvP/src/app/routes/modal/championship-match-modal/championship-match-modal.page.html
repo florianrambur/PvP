@@ -13,7 +13,7 @@
     <form [formGroup]="form" (submit)="updateScore()">
       <h1>Score</h1>
       <div *ngIf="championship">
-        <div *ngIf="isFinish == false && currentUserId == championship.championship.author; else championshipIsFinished">
+        <div *ngIf="status != 2 && currentUserId == championship.championship.author; else championshipIsFinished">
           <div class="flexBox spaceBetween textCenter alignItemsCenter">
             <div style="width: 33%;">{{ pseudoA }}</div>
             <div style="width: 33%;" class="flexBox inputUpdate">
