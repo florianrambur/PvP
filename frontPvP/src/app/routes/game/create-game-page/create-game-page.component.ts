@@ -48,7 +48,7 @@ export class CreateGamePageComponent implements OnInit {
 
       return false;
     } else {
-      if (file.size > 10000) {
+      if (file.size > 100000) {
         this.UtilsService.flashMessage('error', 'L\'image sélectionnée est trop lourde.');
         // this.myFile.nativeElement.value = '';
 
