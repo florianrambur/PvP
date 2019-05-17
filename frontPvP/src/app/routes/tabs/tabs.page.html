@@ -8,10 +8,12 @@
         <li class="loggout" (click)="openUserModal(currentUserId)">Mon profil</li>
         <li class="loggout" (click)="signOut()">Se déconnecter</li>
       </div>
+      <input id="currentUserId" type="hidden" [value]="currentUserId" />
       <ng-template #noConnected>
         <li><a [routerLink]="'/signup'">S'inscrire</a></li>
         <li><a [routerLink]="'/login'">Se connecter</a></li>
         <li><a [routerLink]="'/games'">Voir les jeux</a></li>
+        <input id="currentUserId" type="hidden" value="" />
       </ng-template>
     </ul>
     <div id="arrowBottom"></div>

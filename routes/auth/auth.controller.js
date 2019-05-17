@@ -3,6 +3,7 @@ Import
 */
 const UserModel = require('../../models/user.model');
 const ChampionshipModel = require('../../models/championship.model');
+const GameModel = require('../../models/game.model');
 const bcrypt = require('bcryptjs');
 //
 
@@ -92,15 +93,32 @@ const readOneItem = (itemId) => {
                 ChampionshipModel.find({ registerList: itemId }, (error, championships) => {
                     if (error) reject(error)
                     else {
-                        console.log(championships);
+                        let championshipArray = [];
+                        ((async function loop() {
+                            for (let i = 0; i < championships.length; i++) {
+                                const infos = await getChampionshipInfos(championships[i].game);
+                                championshipArray.push({ infos: infos, championship: championships[i]})
+                            }
+        
+                            return resolve({ 
+                                championshipArray: championshipArray, 
+                                pseudo: user.pseudo, 
+                                email: user.email,
+                                parameters: user.parameters,
+                                countWin: user.countWin,
 
-                        resolve({ 
-                            pseudo: user.pseudo, 
-                            email: user.email,
-                            parameters: user.parameters,
-                            countWin: user.countWin,
-                            championships: championships
-                        });
+                            });
+                        })());
+                        // getChampionshipInfos(championship.author, championship.game, championship.platforms, championship.rules, championship.mode, championship.registerList)
+                        // .then(infos => resolve({ MVP: MVP, infos: infos, championship: championship }));;
+
+                        // resolve({ 
+                        //     pseudo: user.pseudo, 
+                        //     email: user.email,
+                        //     parameters: user.parameters,
+                        //     countWin: user.countWin,
+                        //     championships: championships
+                        // });
                     }
                 });
             }
@@ -120,6 +138,23 @@ const read = body => {
         
     });
 };
+
+const getChampionshipInfos = (gameId) => {
+    return new Promise( (resolve, reject) => {
+
+        GameModel.findById( gameId, { name: 1, image: 1, _id: 0 }, (error, game) => {
+            if (error) return reject(error)
+            else {
+                let result = {};
+
+                result.game = game.name;
+                result.image = game.image;
+                
+                resolve(result);
+            }
+        });
+    });
+} 
 //
 
 /*

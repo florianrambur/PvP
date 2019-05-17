@@ -22,7 +22,7 @@ export class UserModalPage implements OnInit {
   ngOnInit() {
     this.userId = this.navParams.get('userId');
     this.AuthService.getUserById(this.userId)
-    .then(apiResponse => this.userInformations = apiResponse.data )
+    .then(apiResponse => { this.userInformations = apiResponse.data; console.log(this.userInformations); } )
     .catch(apiResponse => console.error(apiResponse));
    }
 

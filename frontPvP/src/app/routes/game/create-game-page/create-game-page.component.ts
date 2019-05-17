@@ -22,6 +22,8 @@ export class CreateGamePageComponent implements OnInit {
   public form: FormGroup;
   public imageName: string;
   private imageBase64: string;
+  private bannerName: string;
+  private bannerBase64: string;
 
   constructor(
     private FormBuilder: FormBuilder,
@@ -64,13 +66,43 @@ export class CreateGamePageComponent implements OnInit {
     this.imageBase64 = reader.result;
   }
 
+  handleInputBannerChange(e) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    this.bannerName = file.name;
+    console.log("2" + file);
+    btoa(file);
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      this.UtilsService.flashMessage('error', 'Le format du fichier ne correspond pas. Veuillez sélectionner une image.');
+      // this.myFile.nativeElement.value = '';
+
+      return false;
+    } else {
+      if (file.size > 200000) {
+        this.UtilsService.flashMessage('error', 'L\'image sélectionnée est trop lourde.');
+        // this.myFile.nativeElement.value = '';
+
+        return false;
+      }
+    }
+    reader.onload = this._handleReaderBannerLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+
+  _handleReaderBannerLoaded(e) {
+    let reader = e.target;
+    this.bannerBase64 = reader.result;
+  }
+
   private initForm = () => {
     this.form = this.FormBuilder.group({
       name: [ undefined, Validators.required ],
       platforms: this.FormBuilder.array([this.createPlatform()]),
       modes: this.FormBuilder.array([this.createMode()]),
       rules: this.FormBuilder.array([this.createRule()]),
-      image: this.imageBase64
+      image: this.imageBase64,
+      banner: this.bannerBase64
     });
   }
 
@@ -119,7 +151,7 @@ export class CreateGamePageComponent implements OnInit {
   }
 
   public createGame = () => {
-    this.GameService.newGame( this.form.value.name, this.form.value.platforms, this.form.value.modes, this.form.value.rules, this.imageBase64 )
+    this.GameService.newGame( this.form.value.name, this.form.value.platforms, this.form.value.modes, this.form.value.rules, this.imageBase64, this.bannerBase64 )
     .then( apiResponse => {
       console.log(apiResponse);
       this.Router.navigate([ '/game/fiche/', apiResponse.data._id ]);

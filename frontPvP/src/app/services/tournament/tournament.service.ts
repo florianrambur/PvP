@@ -1,6 +1,7 @@
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class TournamentService {
 
   private apiUrl = `${environment.apiUrl}/tournament`;
+  private token: String;
 
   constructor(
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private Storage: Storage
   ) { }
 
   public newTournament = (game: String,
@@ -33,10 +36,20 @@ export class TournamentService {
     startDate: Date,
     place: String): Promise<any> => {
 
-      return this.HttpClient.post( this.apiUrl, { game, name, description, mode, rules, platforms, online, isPrivate, nbPlayers, startDate, place} )
-      .toPromise()
-      .then( apiResponse => Promise.resolve(apiResponse) )
-      .catch( apiResponse => Promise.reject(apiResponse) );
+      let store = this.Storage.get('access_token');
+
+      return store.then(data => {
+        this.token = data;
+        let myHeader = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        })
+
+        return this.HttpClient.post( this.apiUrl, { game, name, description, mode, rules, platforms, online, isPrivate, nbPlayers, startDate, place }, { headers: myHeader } )
+        .toPromise()
+        .then( apiResponse => Promise.resolve(apiResponse) )
+        .catch( apiResponse => Promise.reject(apiResponse) );
+      });
   }
 
   getAllTournaments = (): Promise<any> => {
@@ -54,12 +67,20 @@ export class TournamentService {
   }
 
   registerOrUnsubscribeToTheTournament = (itemId: String): Promise<any> => {
-    let myHeader = new HttpHeaders();
-    myHeader.append('Content-Type', 'application/json');
+    let store = this.Storage.get('access_token');
 
-    return this.HttpClient.put( this.apiUrl + '/subscribe/' + itemId, { headers: myHeader } )
-    .toPromise()
-    .then( apiResponse => Promise.resolve(apiResponse) )
-    .catch( apiResponse => Promise.reject(apiResponse) );
-  } 
+    return store.then(data => {
+      this.token = data;
+      let myHeader = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
+      })
+        
+
+      return this.HttpClient.put( this.apiUrl + '/subscribe/' + itemId, null, { headers: myHeader } )
+      .toPromise()
+      .then( apiResponse => Promise.resolve(apiResponse) )
+      .catch( apiResponse => Promise.reject(apiResponse) );
+    });
+  }
 }

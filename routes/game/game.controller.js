@@ -20,6 +20,7 @@ Methods
                 rules: body.rules,
                 isValidate: false,
                 image: body.image,
+                banner: body.banner,
                 author: userId,
                 date: new Date()
             }

@@ -1,24 +1,111 @@
 <ion-content>
-  <h1>Pocket Versus Planner</h1>
+  <header class="flexBox horizontalCenter flexDirectionColumn">
+    <h1 class="textCenter"><span class="redColor">P</span>ocket <span class="redColor">V</span>ersus <span class="redColor">P</span>lanner</h1>
+    <div class="textCenter">
+      <img id="homePageLogo" src="../../../assets/images/logo_pvp.png" />
+    </div>
+  </header>
 
-  <section *ngIf="gamesCollection">
-    <article *ngFor="let game of gamesCollection">
+  <div class="content">
+      <div class="seperateCategory"></div>
 
-      <!--<ion-item [routerLink]="'/game/fiche/' + game.game._id" routerDirection="forward">{{ game.game.name }} créé par {{ game.user.email }}</ion-item>-->
-      <ion-card>
-          <ion-card-header>
-            <ion-card-title>{{ game.game.name }}</ion-card-title>
-            <ion-card-content>
-              <ion-img [src]="game.game.image"></ion-img>
-            </ion-card-content>
-            <ion-card-subtitle>Added by {{ game.user.email }}</ion-card-subtitle>
+      <div *ngIf="isLogged == true; else noConnected">
+        <div class="padding15 welcomeHome">Content de vous revoir <span class="redColor">{{ userInformations.pseudo }}</span></div>
+    
+        <h2 class="padding15">Où suis-je inscrit ?</h2>
+
+        <div class="horizontalScroll">
+          <ion-card class="card" *ngFor="let championship of userInformations.championshipArray">
+            <ion-card-header style="padding: 10px;" [routerLink]="[ '/championship/fiche/', championship.championship._id ]">
+              <ion-row justify-content-between>
+                <ion-col size="3">
+                  <img style="height: 100%; object-fit: cover;" src="{{ championship.infos.image }}" item-left/>
+                </ion-col>
+                <ion-col size="9">
+                  <ion-row class="whiteColor">
+                      <ion-text class="cardTitle">{{ championship.championship.name }}</ion-text>
+                  </ion-row>
+                  <ion-row text-wrap class="whiteColor">
+                    <ion-text class="smallCardText">{{ championship.infos.game }}</ion-text>
+                  </ion-row>
+                  <div class="lineBreak"></div>
+                  <ion-row class="whiteColor" style="font-size: 3.8vw">
+                    {{ championship.championship.startDate | date:'EEEE dd LLLL yyyy' }}
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+          </ion-card>
+        </div>
+
+      </div>
+
+      <ng-template #noConnected>
+        <div class="padding15 welcomeHome"><a [routerLink]="['/login']">Se connecter</a> ou <a [routerLink]="['/signup']">créer un compte</a></div>
+      </ng-template>
+
+      <h2 class="padding15">Derniers championnats ajoutés</h2>
+
+      <div class="horizontalScroll">
+        <ion-card class="card" *ngFor="let championship of championshipsCollection">
+          <ion-card-header style="padding: 10px;" [routerLink]="[ '/championship/fiche/', championship.championship._id ]">
+            <ion-row justify-content-between>
+              <ion-col size="3">
+                <img style="height: 100%; object-fit: cover;" src="{{ championship.infos.image }}" item-left/>
+              </ion-col>
+              <ion-col size="9">
+                <ion-row class="whiteColor">
+                    <ion-text class="cardTitle">{{ championship.championship.name }}</ion-text>
+                </ion-row>
+                <ion-row text-wrap class="whiteColor">
+                  <ion-text class="smallCardText">{{ championship.infos.game }}</ion-text>
+                </ion-row>
+                <div class="lineBreak"></div>
+                <ion-row class="whiteColor" style="font-size: 3.8vw">
+                  {{ championship.championship.startDate | date:'EEEE dd LLLL yyyy' }}
+                </ion-row>
+              </ion-col>
+            </ion-row>
           </ion-card-header>
-        
-          <ion-card-content>
-            Do you want to see <a [routerLink]="[ '/game/fiche/', game.game._id ]">{{ game.game.name }}</a> ?
-          </ion-card-content>
         </ion-card>
-    </article>
+      </div>
+      <div class="add" [routerLink]="[ '/championship/new' ]">Créer un nouveau championnat</div>
 
-  </section>
+      <div class="seperateCategory"></div>
+  
+      <section *ngIf="gamesCollection" style="margin-top: 10px;">
+          <ion-slides class="gamesSlide" pager="true" [options]="slideOpts">
+            <ion-slide [routerLink]="[ '/game/fiche/', game.game._id ]" class="whiteColor" *ngFor="let game of gamesCollection">
+              <ion-card style="background-color: var(--ion-background-card-color)">
+                <ion-card-header>
+                  <ion-card-content>
+                    <ion-img class="bannerGame" [src]="game.game.banner"></ion-img>
+                  </ion-card-content>
+                  <ion-card-title>{{ game.game.name }}</ion-card-title>
+                  <ion-card-subtitle>Ajouté par {{ game.user.pseudo }}</ion-card-subtitle>
+                </ion-card-header>
+              </ion-card>
+            </ion-slide>
+          </ion-slides>
+      </section>
+  </div>
+
 </ion-content>
+
+
+        <!-- <article *ngFor="let game of gamesCollection">
+    
+          <ion-item [routerLink]="'/game/fiche/' + game.game._id" routerDirection="forward">{{ game.game.name }} créé par {{ game.user.email }}</ion-item>
+          <ion-card style="background-color: var(--ion-background-card-color)">
+            <ion-card-header>
+              <ion-card-title>{{ game.game.name }}</ion-card-title>
+              <ion-card-content>
+                <ion-img [src]="game.game.image"></ion-img>
+              </ion-card-content>
+              <ion-card-subtitle>Added by {{ game.user.email }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              Do you want to see <a [routerLink]="[ '/game/fiche/', game.game._id ]">{{ game.game.name }}</a> ?
+            </ion-card-content>
+          </ion-card>
+        </article> -->

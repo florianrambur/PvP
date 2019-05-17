@@ -66,6 +66,18 @@
             </label>
             <input hidden id="file" type="file" name="image" formControlName="image" accept="image/*"  (change)="handleInputChange($event)" /> 
         </div>
+
+        <div class="seperateCategory"></div>
+        
+        <div>
+            <label for="fileBanner">
+                <p class="subtitle">Bannière du jeu</p>
+                <div class="inputImage" style="margin-top: 10px;">
+                    <span>{{ bannerName }}</span>
+                </div>
+            </label>
+            <input hidden id="fileBanner" type="file" name="banner" formControlName="banner" accept="image/*"  (change)="handleInputBannerChange($event)" /> 
+        </div>
     
       
         <ion-button type="submit" [disabled]="!form.valid">J'ajoute !</ion-button>

@@ -57,7 +57,7 @@ Routes definition
                 // Error: no body present
                 if (typeof req.body === 'undefined' || req.body === null) { sendBodyError(res, 'No body data provided') }
                 // Check fields in the body
-                const { miss, extra, ok } = checkFields(['name', 'platforms', 'modes', 'rules', 'image'], req.body);
+                const { miss, extra, ok } = checkFields(['name', 'platforms', 'modes', 'rules', 'image', 'banner'], req.body);
                 //=> Error: bad fields provided
                 if (!ok) { sendFieldsError(res, 'Bad fields provided', miss, extra) }
                 //=> Request is valid: use controller

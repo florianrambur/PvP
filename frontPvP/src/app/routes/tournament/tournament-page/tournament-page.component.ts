@@ -44,9 +44,8 @@ export class TournamentPageComponent implements OnInit {
     // this.tournamentId = this.route.snapshot.paramMap.get('id');
     return this.TournamentService.registerOrUnsubscribeToTheTournament(pTournamentId)
     .then( apiResponse => {
-      console.log(apiResponse);
-      this.Router.navigate([ '/' ]);
-      this.UtilsService.flashMessage('success', 'Vous vous êtes inscrits avec succès !');
+      this.getTournamentInformation();
+      this.UtilsService.flashMessage('success', 'Vous vous êtes désinscrits/inscrits avec succès !');
     })
     .catch( apiResponse => {
       console.error(apiResponse);

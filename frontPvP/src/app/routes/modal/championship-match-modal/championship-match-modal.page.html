@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar class="modalHeader">
-    <ion-title>Match</ion-title>
+    <ion-title>Feuille de match</ion-title>
     <ion-buttons slot="end">
         <ion-icon size="large" name="close" (click)="closeModal()"></ion-icon>
       </ion-buttons>
@@ -41,8 +41,8 @@
       <div id="tableContainer">
         <div class="flexBox spaceBetween alignItemsCenter eachLine">
           <div>Nombre de participation</div>
-          <div [ngClass]="{ 'greenColor': playerAInfo.championships.length > playerBInfo.championships.length }">{{ playerAInfo.championships.length }}</div>
-          <div [ngClass]="{ 'greenColor': playerBInfo.championships.length > playerAInfo.championships.length }">{{ playerBInfo.championships.length }}</div>
+          <div [ngClass]="{ 'greenColor': playerAInfo.championshipArray.length > playerBInfo.championshipArray.length }">{{ playerAInfo.championshipArray.length }}</div>
+          <div [ngClass]="{ 'greenColor': playerBInfo.championshipArray.length > playerAInfo.championshipArray.length }">{{ playerBInfo.championshipArray.length }}</div>
         </div>
         <div class="flexBox spaceBetween alignItemsCenter eachLine">
           <div>Compétitions gagnées</div>
@@ -51,11 +51,11 @@
         </div>
         <div class="flexBox spaceBetween alignItemsCenter eachLine">
           <div>Taux de victoire</div>
-          <div [ngClass]="{ 'greenColor': (playerAInfo.countWin / playerAInfo.championships.length * 100) > (playerBInfo.countWin / playerBInfo.championships.length * 100) }">
-            {{ (playerAInfo.countWin / playerAInfo.championships.length * 100) | number }}%
+          <div [ngClass]="{ 'greenColor': (playerAInfo.countWin / playerAInfo.championshipArray.length * 100) > (playerBInfo.countWin / playerBInfo.championshipArray.length * 100) }">
+            {{ (playerAInfo.countWin / playerAInfo.championshipArray.length * 100) | number }}%
           </div>
-          <div [ngClass]="{ 'greenColor': (playerBInfo.countWin / playerBInfo.championships.length * 100) > (playerAInfo.countWin / playerAInfo.championships.length * 100) }">
-            {{ playerBInfo.countWin / playerBInfo.championships.length * 100 | number }}%
+          <div [ngClass]="{ 'greenColor': (playerBInfo.countWin / playerBInfo.championshipArray.length * 100) > (playerAInfo.countWin / playerAInfo.championshipArray.length * 100) }">
+            {{ playerBInfo.countWin / playerBInfo.championshipArray.length * 100 | number }}%
           </div>
         </div>
       </div>

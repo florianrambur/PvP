@@ -3,11 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { GameService } from '../../../services/game/game.service';
 import { UtilsService } from '../../../services/utils/utils.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-game-page',
   templateUrl: './game-page.component.html',
-  providers: [ GameService, UtilsService ]
+  providers: [ GameService, UtilsService ],
+  styleUrls: [ './game-page.component.scss' ]
 })
 export class GamePageComponent implements OnInit {
 
@@ -15,8 +17,13 @@ export class GamePageComponent implements OnInit {
     private GameService: GameService,
     public UtilsService: UtilsService, 
     private route: ActivatedRoute, 
-    private Router: Router
+    private Router: Router,
+    private _location: Location
     ) { }
+
+  backClicked() {
+    this._location.back();
+  }
 
   private parameter: String;
   public gameInformation;

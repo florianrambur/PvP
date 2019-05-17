@@ -27,7 +27,7 @@ export class GameService {
         name: String,
         description: String
     }],
-    image: String): Promise<any> => {
+    image: String, banner: String): Promise<any> => {
     
     let store = this.Storage.get('access_token');
 
@@ -38,7 +38,7 @@ export class GameService {
         'Authorization': `Bearer ${this.token}`
       })
 
-      return this.HttpClient.post( this.apiUrl, { name, platforms, modes, rules, image }, { headers: myHeader } )
+      return this.HttpClient.post( this.apiUrl, { name, platforms, modes, rules, image, banner }, { headers: myHeader } )
       .toPromise()
       .then( apiResponse => Promise.resolve(apiResponse) )
       .catch( apiResponse => Promise.reject(apiResponse) );

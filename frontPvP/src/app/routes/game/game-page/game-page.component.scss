@@ -1,0 +1,139 @@
+.banner {
+    height: 250px;
+    max-height: 50%;
+    // background: url('https://labo.fnac.com/wp-content/uploads/2018/08/League-of-Legends.jpg') no-repeat;
+    background-position: center center;
+    background-size: cover !important;
+}
+
+.infos {
+    background-color: var(--ion-background-card-color);
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: -20px;
+}
+
+.rulesAndModes, .ranking, .matches {
+    background-color: var(--ion-background-card-color);
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.infos .content {
+    position: relative;
+    margin-top: -60px;
+}
+
+.infos .content .imgContainer {
+    background-color: #FFFFFF;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 3px solid #919191;
+    margin-bottom: 10px;
+}
+
+.infos .content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.infos ion-icon, .rulesAndModes ion-icon {
+    position: relative;
+    top: 10px;
+}
+
+.rulesAndModes ion-icon {
+    margin-right: 10px;
+}
+
+.progressBar {
+    width: 100%;
+    background-color: #424141;
+    height: 10px;
+}
+
+.progressBar .progressBarContent {
+    background-color: #CD2235;
+    height: 100%;
+}
+
+.infos button, .matches button {
+    background-color: #CD2235;
+    color: #FFFFFF;
+    font-size: 18px;
+    width: 100%;
+    height: 50px;
+    margin-top: 34px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+
+.title {
+    background-color: #424141;
+    font-size: 18px;
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+
+.titleRule {
+    color: #CD2235;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+h1 {
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+h2 {
+    font-size: 12px;
+}
+
+.blackButton {
+    position: relative;
+    top: 10px;
+}
+
+.rankingPseudo {
+    width: 200px;
+    max-width: 33%;
+}
+
+.table .rankingHeader {
+    color: #CD2235;
+}
+
+.table .eachPlayer, .table .rankingHeader {
+    padding: 3px 8px;
+}
+
+.eachMatch {
+    padding: 3px 8px;
+}
+
+.eachPlayer:nth-child(even), .eachMatch:nth-child(even) {
+    background-color: #484848;
+}
+
+.matches span {
+    font-size: 12px;
+    font-style: italic;
+}
