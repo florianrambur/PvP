@@ -1,22 +1,49 @@
-<ion-icon ios="ios-arrow-back" md="md-arrow-back" (click)="UtilsService.backClicked()" nav-direction="swap"></ion-icon>
+<ion-content>
+  <div *ngIf="gameInformation">
+    <div class="banner" [ngStyle]="{ 'background': 'url(' + gameInformation.game.banner +') no-repeat' }">
+      <ion-icon class="blackButton" size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
+    </div>
+    
+    
+    <div class="infos">
+      <div class="content">
+        <div class="textCenter">
+          <div class="imgContainer">
+            <img src="{{ gameInformation.game.image }}" />
+          </div>
+          <h1>{{ gameInformation.game.name }}</h1>
+        </div>
+      </div>
+    </div>
 
-<div *ngIf="gameInformation">
-  <h1>{{ gameInformation.game.name }}</h1>
-  <h5>
-    <span *ngFor="let platform of gameInformation.game.platforms">
-      {{ platform.name }} 
-    </span>
-  </h5>
+    <div class="rulesAndModes whiteColor">
+      <div class="content">
+        <div class="title textCenter">
+          Règles & Modes de jeu
+        </div>
   
-  <h3>Modes de jeux</h3>
-  <div *ngFor="let mode of gameInformation.game.modes">
-    <ion-item>{{ mode.name }} - {{ mode.description }} </ion-item>
+        <div *ngFor="let mode of gameInformation.game.modes">
+          <div class="textCenter">
+            <span><ion-icon size="large" name="logo-game-controller-b"></ion-icon> {{ mode.name }}</span>
+          </div>
+    
+          <div class="ft-14 marginTB10" style="margin-top: 20px;">
+            <p>{{ mode.description }}</p>
+          </div>
+        </div>
+  
+        <div *ngFor="let rule of gameInformation.game.rules; let i = index;">
+          <div class="textCenter titleRule">
+            <span>Règle #{{ i+1 }}</span>
+          </div>
+    
+          <div class="ft-14 marginTB10">
+            <p>{{ rule.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <!-- <ion-icon name="trash" size="large" (click)="deleteGame(gameInformation.game._id)"></ion-icon> -->
   </div>
-
-  <h3>Règles du jeu</h3>
-  <div *ngFor="let rule of gameInformation.game.rules">
-    <ion-item>{{ rule.name }} - {{ rule.description }}</ion-item>
-  </div>
-</div>
-
-<ion-icon name="trash" size="large" (click)="deleteGame(gameInformation.game._id)"></ion-icon>
+</ion-content>

@@ -1,0 +1,43 @@
+.banner {
+    height: 120px;
+    max-height: 25%;
+    background: url('https://s17189.pcdn.co/blog/wp-content/uploads/2018/04/jeshoots-com-250229-unsplash-1060x540.jpg') no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.blackButton {
+    position: relative;
+    top: 10px;
+}
+
+.gamesSlide {
+    width: 90%;
+    margin: 20px auto;
+    margin-top: -25px;
+}
+
+.gamesSlide ion-card-header {
+    padding: 0;
+}
+
+.gamesSlide ion-card-content {
+    width: 100%;
+    height: 150px;
+    padding: 0;
+}
+
+.gamesSlide ion-card-title {
+    color: #FFFFFF;
+}
+
+.gamesSlide ion-card-subtitle {
+    margin-top: 0;
+    padding-bottom: 10px;
+}
+
+.bannerGame {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

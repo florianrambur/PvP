@@ -1,21 +1,26 @@
 <ion-content>
-  <section *ngIf="gamesCollection; else elseNoGame">
-    <article *ngFor="let game of gamesCollection">
 
-      <!--<ion-item [routerLink]="'/game/fiche/' + game.game._id" routerDirection="forward">{{ game.game.name }} créé par {{ game.user.email }}</ion-item>-->
-      <ion-card>
-          <ion-card-header>
-            <ion-card-title>{{ game.game.name }}</ion-card-title>
-            <ion-card-subtitle>Added by {{ game.user.email }}</ion-card-subtitle>
-          </ion-card-header>
-        
-          <ion-card-content>
-            Do you want to see <a [routerLink]="[ '/game/fiche/', game.game._id ]">{{ game.game.name }}</a> ?
-          </ion-card-content>
-        </ion-card>
-    </article>
-  </section>
-  <ng-template #elseNoGame>
-    There is no game for the moment.
-  </ng-template>
+    <div class="banner">
+        <ion-icon class="blackButton" size="large" color="black" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
+    </div>
+
+    <section *ngIf="gamesCollection; else elseNoGame" style="margin-top: 10px;">
+        <div class="gamesSlide textCenter">
+          <div [routerLink]="[ '/game/fiche/', game.game._id ]" class="whiteColor" *ngFor="let game of gamesCollection">
+            <ion-card style="background-color: var(--ion-background-card-color)">
+              <ion-card-header>
+                <ion-card-content>
+                  <ion-img class="bannerGame" [src]="game.game.banner"></ion-img>
+                </ion-card-content>
+                <ion-card-title class="textCenter">{{ game.game.name }}</ion-card-title>
+                <ion-card-subtitle class="textCenter">Ajouté par {{ game.user.pseudo }}</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+          </div>
+        </div>
+    </section>
+    
+    <ng-template #elseNoGame>
+      There is no game for the moment.
+    </ng-template>
 </ion-content>

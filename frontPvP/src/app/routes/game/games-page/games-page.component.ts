@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../../services/game/game.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-games-page',
@@ -9,9 +10,14 @@ import { GameService } from '../../../services/game/game.service';
 })
 export class GamesPageComponent implements OnInit {
 
-  constructor(private GameService: GameService) { }
+  constructor(private GameService: GameService, 
+    private _location: Location) { }
 
   public gamesCollection: any[];
+
+  backClicked() {
+    this._location.back();
+  }
 
   public displayGames = () => {
     this.GameService.getAllGames()

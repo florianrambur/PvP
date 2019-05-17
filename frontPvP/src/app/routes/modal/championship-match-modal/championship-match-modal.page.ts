@@ -35,7 +35,7 @@ export class ChampionshipMatchModalPage implements OnInit {
 
   private getPlayerAInfos = () => {
     this.AuthService.getUserById(this.playerA)
-    .then( apiResponse => this.playerAInfo = apiResponse.data)
+    .then( apiResponse => { this.playerAInfo = apiResponse.data; console.log(this.playerAInfo) } )
     .catch( apiResponse => console.error(apiResponse) );
   }
 
@@ -71,7 +71,7 @@ export class ChampionshipMatchModalPage implements OnInit {
     this.initForm();
     this.getPlayerAInfos();
     this.getPlayerBInfos();
-    this.getChampionshipinformation()
+    this.getChampionshipinformation();
   }
 
   closeModal() {

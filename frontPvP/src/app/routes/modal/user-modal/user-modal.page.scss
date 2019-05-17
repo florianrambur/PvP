@@ -27,3 +27,12 @@
 .modalContent .content span {
     margin-left: 10px;
 }
+
+.card {
+    background-color: var(--ion-background-card-color);
+    border-radius: 15px;
+}
+
+.card img {
+    border: 3px solid #919191;
+}

@@ -31,7 +31,8 @@ Definition
         isValidate: Boolean,
         author: String,
         date: Date,
-        image: String
+        image: String,
+        banner: String
     });
 //
 

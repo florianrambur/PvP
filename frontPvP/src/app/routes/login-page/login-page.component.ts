@@ -51,17 +51,19 @@ export class LoginPageComponent implements OnInit {
     this.AuthService.login( this.form.value.email, this.form.value.password )
     .then( apiResponse => {
         console.log(apiResponse);
-        if (apiResponse.data.countConnection == 0) {
-          this.Router.navigate(['/tutorial']);
-        } else {
-          this.Router.navigate(['/']);
-        }
 
         this.Storage.set('access_token', apiResponse.data.token);
         this.Storage.set('currentUserId', apiResponse.data.user._id);
 
         this.UtilsService.setIsLogged(true); 
         this.UtilsService.setCurrentUserId(apiResponse.data.user._id);
+        
+        if (apiResponse.data.countConnection == 0) {
+          this.Router.navigate(['/tutorial']);
+        } else {
+          this.Router.navigate(['/']);
+        }
+
         this.UtilsService.flashMessage('success', 'Vous vous êtes connecté avec succès !');
       })
     .catch( apiResponse => {

@@ -1,9 +1,9 @@
 .banner {
     height: 250px;
     max-height: 50%;
-    background: url('https://labo.fnac.com/wp-content/uploads/2018/08/League-of-Legends.jpg') no-repeat;
+    // background: url('https://labo.fnac.com/wp-content/uploads/2018/08/League-of-Legends.jpg') no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: cover !important;
 }
 
 .infos {
@@ -12,7 +12,7 @@
     margin-right: 20px;
     border-radius: 15px;
     padding: 15px;
-    margin-top: -6px;
+    margin-top: -20px;
 }
 
 .rulesAndModes, .ranking, .matches {
@@ -114,6 +114,10 @@ h2 {
 .rankingPseudo {
     width: 200px;
     max-width: 33%;
+}
+
+.table .rankingHeader {
+    color: #CD2235;
 }
 
 .table .eachPlayer, .table .rankingHeader {

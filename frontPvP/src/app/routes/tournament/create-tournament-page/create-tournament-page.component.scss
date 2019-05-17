@@ -1,0 +1,120 @@
+ion-label, ion-input, form {
+    color: #FFFFFF !important;
+}
+
+.banner {
+    height: 120px;
+    max-height: 25%;
+    background: url('https://s.hdnux.com/photos/64/10/55/13667150/3/920x920.jpg') no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+ion-button {
+    background-color: #CD2235;
+    color: #FFFFFF;
+    font-size: 18px;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+
+#addChampionshipContainer {
+    background-color: var(--ion-background-card-color);
+    color: #FFFFFF;
+    --color: #FFFFFF;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+
+#addChampionshipContainer .radioButtonGroup  {
+    font-size: 15px;
+    --min-height: 30px;
+    --border: none;
+    --inner-border-width: 0;
+}
+
+#addChampionshipContainer .subtitle {
+    color: #CD2235 !important;
+    font-weight: bold;
+}
+
+#addChampionshipContainer ion-list, #addChampionshipContainer ion-item {
+    --border: none;
+    --inner-border-width: 0;
+}
+
+#addChampionshipContainer .description {
+    font-size: 13px;
+    font-style: italic;
+    white-space: normal;
+}
+
+#addChampionshipContainer .radioButtonGroup ion-label {
+    padding-left: 10px;
+}
+
+#addChampionshipContainer ion-item, #addChampionshipContainer ion-item-divider {
+    --background: var(--ion-background-card-color);
+}
+
+#addChampionshipContainer ion-select {
+    --color: #FFFFFF;
+    color:  #FFFFFF;
+}
+
+#addChampionshipContainer input, #addChampionshipContainer ion-datetime {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    padding-left: 20px;
+    margin: 10px 0;
+    border: none;
+    background-color: inherit;
+    border: 2px solid #FFFFFF;
+}
+
+#addChampionshipContainer textarea {
+    display: inline-block;
+    width: 100%;
+    padding-left: 20px;
+    margin: 10px 0;
+    border: none;
+    background-color: inherit;
+    border: 2px solid #FFFFFF;
+    padding-top: 8px;
+}
+
+#addChampionshipContainer ion-datetime {
+    --padding-top: 8px;
+}
+
+.title {
+    background-color: #424141;
+    font-size: 18px;
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px #000000;
+    -moz-box-shadow: 5px 5px 5px #000000;
+    -webkit-box-shadow: 5px 5px 5px #000000;
+}
+
+.blackButton {
+    position: relative;
+    top: 10px;
+}
+
+.eachChoices {
+    margin: 7px 0;
+}

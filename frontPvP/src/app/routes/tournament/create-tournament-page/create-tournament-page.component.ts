@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from "@angular/router";
+import { Location } from '@angular/common';
 
 import { TournamentService } from '../../../services/tournament/tournament.service';
 import { GameService } from '../../../services/game/game.service';
@@ -25,8 +26,13 @@ export class CreateTournamentPageComponent implements OnInit {
     private TournamentService: TournamentService,
     private GameService: GameService,
     public UtilsService: UtilsService,
-    private Router: Router
+    private Router: Router,
+    private _location: Location
   ) { }
+
+  backClicked() {
+    this._location.back();
+  }
 
   public getGames = () => {
     this.GameService.getAllGames()

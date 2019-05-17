@@ -357,7 +357,7 @@ Methods
                 if (error) return reject(error)
                 else {
     
-                    GameModel.findById( gameId, { name: 1, platforms: 1, modes: 1, rules: 1, image: 1, _id: 0 }, (error, game) => {
+                    GameModel.findById( gameId, { name: 1, platforms: 1, modes: 1, rules: 1, image: 1, banner: 1,  _id: 0 }, (error, game) => {
                         if (error) return reject(error)
                         else {
                             let result = {};
@@ -365,6 +365,7 @@ Methods
                             UserModel.find( { _id: { $in: registerList }} , (error, registers) => {
                                 result.game = game.name;
                                 result.image = game.image;
+                                result.banner = game.banner;
                                 result.platform = game.platforms.id(platformId).name;
                                 result.mode = game.modes.id(modeId);
                                 result.rule = game.rules.id(ruleId);

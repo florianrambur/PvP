@@ -1,7 +1,6 @@
-<div class="banner">
+<div class="banner" [ngStyle]="{ 'background': 'url(' + championshipInformation.infos.banner +') no-repeat' }">
   <ion-icon class="blackButton" size="large" color="light" ios="ios-arrow-back" md="ios-arrow-back" (click)="backClicked()" nav-direction="swap"></ion-icon>
 </div>
-
 <div style="color: white;" *ngIf="championshipInformation">
 
   <div class="infos">
