@@ -22,7 +22,7 @@ export class CreateGamePageComponent implements OnInit {
   public form: FormGroup;
   public imageName: string;
   private imageBase64: string;
-  private bannerName: string;
+  public bannerName: string;
   private bannerBase64: string;
 
   constructor(
