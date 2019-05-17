@@ -57,8 +57,8 @@ export class LoginPageComponent implements OnInit {
 
         this.UtilsService.setIsLogged(true); 
         this.UtilsService.setCurrentUserId(apiResponse.data.user._id);
-        
-        if (apiResponse.data.countConnection == 0) {
+
+        if (apiResponse.data.user.countConnection == 0) {
           this.Router.navigate(['/tutorial']);
         } else {
           this.Router.navigate(['/']);
