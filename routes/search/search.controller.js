@@ -3,6 +3,8 @@ Imports
 */
 const ChampionshipModel = require('../../models/championship.model');
 const TournamentModel = require('../../models/tournament.model');
+const UserModel = require('../../models/user.model');
+const GameModel = require('../../models/game.model');
 //
 
 /*
@@ -37,7 +39,15 @@ Methods
                     (error, championships) => {
                     if (error) return reject(error)
                     else {
-                        resolve(championships);
+                        let championshipArray = [];
+                        ((async function loop() {
+                            for (let i = 0; i < championships.length; i++) {
+                                const infos = await getChampionshipInfos(championships[i].author, championships[i].game);
+                                championshipArray.push({ infos: infos, championship: championships[i]})
+                            }
+        
+                            resolve(championshipArray);
+                        })());
                     }
                 });
             } else if (body.competition == 'tournament') {
@@ -51,6 +61,31 @@ Methods
                 });
             }
 
+        });
+    }
+
+    const getChampionshipInfos = (userId, gameId) => {
+        return new Promise( (resolve, reject) => {
+    
+            UserModel.findById( userId, { _id: 0, pseudo: 1, email: 1, _id: 0 }, (error, user) => {
+                if (error) return reject(error)
+                else {
+    
+                    GameModel.findById( gameId, { name: 1, image: 1, _id: 0 }, (error, game) => {
+                        if (error) return reject(error)
+                        else {
+                            let result = {};
+    
+                            result.game = game.name;
+                            result.image = game.image;
+                            result.author = user;
+                            
+                            resolve(result);
+                            
+                        }
+                    });
+                }
+            });
         });
     }
 //

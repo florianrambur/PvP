@@ -78,7 +78,29 @@
     <section *ngIf="resultsCollection; else noStartedSearch">
         <p *ngIf="resultsCollection.length == 0">Aucun résultat</p>
       <article *ngFor="let result of resultsCollection">
-        <a *ngIf="searchFields.searchFields.competition == 'championship'" [routerLink]="[ '/championship/fiche/', result._id ]">{{ result.name }}</a>
+        <ion-card *ngIf="searchFields.searchFields.competition == 'championship'" class="card">
+          <ion-card-header style="padding: 10px;" [routerLink]="[ '/championship/fiche/', result.championship._id ]">
+            <ion-row justify-content-between>
+              <ion-col size="3">
+                <img style="height: 100%; object-fit: cover;" src="{{ result.infos.image }}" item-left/>
+              </ion-col>
+              <ion-col size="9">
+                <ion-row class="whiteColor">
+                    <ion-text class="cardTitle">{{ result.championship.name }}</ion-text>
+                </ion-row>
+                <ion-row text-wrap class="whiteColor">
+                  <ion-text class="smallCardText">{{ result.infos.game }}</ion-text>
+                </ion-row>
+                <div class="lineBreak"></div>
+                <ion-row class="whiteColor" style="font-size: 3.8vw">
+                  {{ result.championship.startDate | date:'EEEE dd LLLL yyyy' }}
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+        </ion-card>
+
+        <!-- <a *ngIf="searchFields.searchFields.competition == 'championship'" [routerLink]="[ '/championship/fiche/', result.championship._id ]">{{ result.championship.name }}</a> -->
         <a *ngIf="searchFields.searchFields.competition == 'tournament'" [routerLink]="[ '/tournament/fiche/', result._id ]">{{ result.name }}</a>
       </article>
     </section>
